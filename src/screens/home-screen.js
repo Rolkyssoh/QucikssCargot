@@ -7,11 +7,11 @@ import { Button } from 'react-native-elements';
 const HomeScreen = ({ navigation }) => {
     return(
         <View style={styles.home_container}>
-            <Text>Home Screen</Text>
+            <Text>Ici on affiche le choix entre camion et tricycle</Text>
             <Button 
-                title="Go to" 
+                title="Go to Map" 
                 type="outline"
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('Map')}
             />
         </View>
     )

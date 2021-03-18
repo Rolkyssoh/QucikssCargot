@@ -18,14 +18,18 @@ const App = () => {
         <Stack.Screen 
             name="Welcome" 
             component={WelcomeScreen} 
-			options={{ headerShown:false }}
+			      options={{ headerShown:false }}
         />
           <Stack.Screen 
 		  	name="Login" 
 			component={LoginScreen}
-			options={{ headerShown: false }}
+			options={{ title:'' }}
 		  />
-		<Stack.Screen name="Home" component={HomeScreen} />
+		<Stack.Screen 
+      name="Home"
+      component={HomeScreen}
+      options={{ title:'' }}
+    />
 		<Stack.Screen name="Map" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>

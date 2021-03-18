@@ -37,7 +37,7 @@ const LoginScreen = ({navigation}) => {
                     // buttonStyle={{width:370 }}
                     title="To Home"
                     type="outline"
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('NavTab')}
                 />
             </View>
         </View>

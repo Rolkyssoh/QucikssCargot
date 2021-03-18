@@ -20,7 +20,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     home_container: {
-        backgroundColor: "white",
+        backgroundColor: "#dee1e3",
         flex:1,
         justifyContent: 'center',
         alignItems:'center'

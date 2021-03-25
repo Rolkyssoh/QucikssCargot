@@ -1,9 +1,8 @@
 import React, {useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Text } from 'react-native-elements';
 import Tab from './tab.component';
 
-const {width} = Dimensions.get('screen')
+// const {width} = Dimensions.get('screen')
 
 const TabBar = ({state, navigation}) => {
     const [selected, setSelected] = useState('Home');
@@ -40,16 +39,16 @@ const styles=StyleSheet.create({
     wrapper:{
         position:'absolute',
         bottom: 20,
-        width,
+        width:'100%',
         // backgroundColor:'red',
         alignItems:'center',
-        justifyContent:'center'
+        // justifyContent:'center'
     },
     container:{
         flexDirection:'row',
         justifyContent:'space-between',
-        width:300,
-        backgroundColor:'white',
+        width:'70%',
+        backgroundColor:'#fff',
         borderRadius:50
     }
 })

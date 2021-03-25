@@ -1,5 +1,8 @@
 package com.quicksscargot;
 
+// import com.facebook.react.bridge.JSIModulePackage; // <- add
+// import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
+
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -13,8 +16,7 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  private final ReactNativeHost mReactNativeHost =
-      new ReactNativeHost(this) {
+  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
@@ -28,16 +30,21 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           return packages;
         }
-
+ 
         @Override
         protected String getJSMainModuleName() {
           return "index";
         }
+
+        // @Override
+        // protected JSIModulePackage getJSIModulePackage() {
+        //   return new ReanimatedJSIModulePackage(); // <- add
+        // }
       };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
+    return mReactNativeHost; 
   }
 
   @Override

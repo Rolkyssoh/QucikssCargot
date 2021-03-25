@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home-screen';
 import ProfileScreen from '../screens/profile-screen';
 import TabBar from '../components/tab-bar.component';
-
+ 
 const Tab = createBottomTabNavigator()
 
-const NavigationHome = () => {
+const NavigationHome = () => { 
     return(
         <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
             <Tab.Screen 

@@ -3,9 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/screens/auth/login-screen';
 import WelcomeScreen from './src/screens/welcom-screen';
-import NavigationHome from './src/navigation-tab/navigation-home';
-import NavigationDrawerMap from './src/components/drawer-navigation/navigation-map';
+import NavigationHome from './src/components/navigations/navigation-tab/navigation-home';
 import SettingScreen from './src/screens/setting-screen';
+import CarrierSignupScreen from './src/screens/auth/signup-carrier';
+import NavigationDrawerMap from './src/components/navigations/drawer-navigation/navigation-map';
 
 const Stack = createStackNavigator()
 
@@ -31,6 +32,10 @@ const App1 = () => {
             <Stack.Screen 
               name="Setting"
               component={SettingScreen}
+            />
+            <Stack.Screen 
+              name="CarrierSignup"
+              component={CarrierSignupScreen}
             />
             <Stack.Screen 
               name="Drawer" 

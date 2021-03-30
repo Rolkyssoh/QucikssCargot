@@ -24,7 +24,16 @@ const LoginScreen = ({navigation}) => {
                 />
             </View>
             <View style={styles.view_text}>
-                <Text>Ou connectez-vous à l'aide d'un réseau social</Text>
+                {/* <Text>Ou connectez-vous à l'aide d'un réseau social</Text> */}
+                {/* <View>
+                    <Text>Devenir transporteur</Text>
+                </View> */}
+                <Button 
+                    title="Devenir transporteur"
+                    type="clear"
+                    onPress={() => navigation.navigate('CarrierSignup')}
+                    containerStyle={{ top:20}}
+                />
             </View>
 
             <View style={styles.button_view}>

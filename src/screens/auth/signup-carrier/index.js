@@ -19,7 +19,7 @@ const CarrierSignupScreen = () => {
             <ShareTab.Screen 
                 name="CarInfos" 
                 component={CarInfosScreen} 
-            />
+            /> 
         </ShareTab.Navigator>
     )
 }

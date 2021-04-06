@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Text, Button } from 'react-native-elements';
 import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -26,7 +26,7 @@ const MapScreen = ({navigation}) => {
                     <AntDesign name="close" size={30}/>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={{backgroundColor:'white', 
+                    style={{backgroundColor:'white',  
                     borderRadius:25}}
                     onPress={() => navigation.openDrawer()}
                 >
@@ -36,6 +36,11 @@ const MapScreen = ({navigation}) => {
             </View>
             <View style={styles.item_select}>
                 <Text>Element du bas</Text>
+                <Button 
+                    title="Créer mission" 
+                    type="clear"
+                    onPress={() => navigation.navigate('Mission')}
+                />
             </View>
         </View>
     )

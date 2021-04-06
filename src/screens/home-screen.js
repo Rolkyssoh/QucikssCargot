@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import Medium from '../components/medium.component';
 
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => { 
     return(
         <View style={styles.home_container}>
             <View style={styles.view_title}>

@@ -44,6 +44,13 @@ const LoginScreen = ({navigation}) => {
                 <Button
                     containerStyle={{width:370, paddingVertical:15,}}
                     // buttonStyle={{width:370 }}
+                    title="To Admin"
+                    type="clear"
+                    onPress={() => navigation.navigate('AdminNav')}
+                />
+                <Button
+                    containerStyle={{width:370, paddingVertical:15,}}
+                    // buttonStyle={{width:370 }}
                     title="To Home"
                     type="outline"
                     onPress={() => navigation.navigate('NavTab')}

@@ -7,10 +7,12 @@ import NavigationHome from './src/components/navigations/navigation-tab/navigati
 import SettingScreen from './src/screens/setting-screen';
 import CarrierSignupScreen from './src/screens/auth/signup-carrier';
 import NavigationDrawerMap from './src/components/navigations/drawer-navigation/navigation-map';
+import NewMission from './src/screens/mission/new-mission';
+import AdminNavigation from './src/components/navigations/navigation-tab/admin-tab-navigation';
 
 const Stack = createStackNavigator()
 
-const App1 = () => {
+const App1 = () => { 
   return (
     <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome">
@@ -41,6 +43,14 @@ const App1 = () => {
               name="Drawer" 
               component={NavigationDrawerMap}
               options={{ headerShown:false }}
+            />
+            <Stack.Screen 
+              name="Mission"
+              component={NewMission}
+            />
+            <Stack.Screen 
+              name="AdminNav"
+              component={AdminNavigation}
             />
         </Stack.Navigator>
     </NavigationContainer>

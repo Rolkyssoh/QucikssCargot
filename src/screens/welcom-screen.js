@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text,Button } from 'react-native-elements';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 const WelcomeScreen = ({navigation}) => {
     return(
@@ -11,11 +12,16 @@ const WelcomeScreen = ({navigation}) => {
                 <Text style={styles.text_style}>Se déplacer en sécurité avec ses bagages</Text>
             </View>
             <Button 
+                titleStyle={{ paddingHorizontal:10}}
                 title="Commencer" 
                 type="outline"
                 onPress={() => navigation.navigate('Login')}
+                icon={
+                    <FontAwesome5 name="arrow-right" size={20} />
+                }
+                iconRight
              />
-        </View>
+        </View> 
     )
 }
 

@@ -9,12 +9,15 @@ import CarrierSignupScreen from './src/screens/auth/signup-carrier';
 import NavigationDrawerMap from './src/components/navigations/drawer-navigation/navigation-map';
 import NewMission from './src/screens/mission/new-mission';
 import AdminNavigation from './src/components/navigations/navigation-tab/admin-tab-navigation';
+import MissionDetails from './src/screens/mission/mission-details';
+import { navigationRef } from './src/components/navigations/CustomNavigation';
+import RejectionReason from './src/screens/mission/rejection-reason';
 
 const Stack = createStackNavigator()
 
 const App1 = () => { 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef} >
         <Stack.Navigator initialRouteName="Welcome">
             <Stack.Screen 
                 name="Welcome" 
@@ -47,10 +50,21 @@ const App1 = () => {
             <Stack.Screen 
               name="Mission"
               component={NewMission}
+              options={{ headerShown:false }}
             />
             <Stack.Screen 
               name="AdminNav"
               component={AdminNavigation}
+            />
+            <Stack.Screen 
+              name="Details"
+              component={MissionDetails}
+              options={{ headerShown:false }}
+            />
+            <Stack.Screen 
+              name="Rejection"
+              component={RejectionReason}
+              options={{ headerShown:false}}
             />
         </Stack.Navigator>
     </NavigationContainer>

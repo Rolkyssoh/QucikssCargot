@@ -5,13 +5,13 @@ import CustomButton from './custom-button';
 import * as CustomNavigation from './navigations/CustomNavigation';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const NewMissionHeader = ({ title }) => { 
+const NewMissionHeader = ({ title, doNav }) => { 
     return(
         <View style={styles.header_container}> 
             <View style={styles.buttons_view}>
                 <CustomButton 
                     customTitle="Annuler"
-                    customPress={() => CustomNavigation.customNavigate("Drawer")}
+                    customPress={doNav}
                 />
                 <View style={styles.userinfos_view}> 
                     <View style={styles.avatar_view}>

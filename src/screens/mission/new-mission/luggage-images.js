@@ -4,16 +4,16 @@ import { Text } from 'react-native-elements';
 import DisplayImage from '../../../components/display-image';
 import NewMissionHeader from '../../../components/new-mission-header';
 // import Ionicons from 'react-native-vector-icons/Ionicons'
-
-const LuggageImages = () => {
+ 
+const LuggageImages = ({navigation}) => {
     return(
         <View style={styles.luggage_image_contaier}>
-            <NewMissionHeader title="Images du Bagage" />
+            <NewMissionHeader title="Images du Bagage" doNav={()=>navigation.navigate('Bagage') } />
             <View style={styles.view_content}>
                 <View style={styles.icon_view}>
                     <Text>Vous pouvez ajouter jusqu'à 4 images</Text>
                 </View>
-                <View style={styles.dislay_image_view} >
+                <View style={styles.dislay_image_view} > 
                     <View style={styles.image_view}>
                         <DisplayImage />
                         <DisplayImage />

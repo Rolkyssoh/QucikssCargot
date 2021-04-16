@@ -3,10 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import NewMissionHeader from '../../../components/new-mission-header';
 
-const MissionInfos = () => {
+const MissionInfos = ({navigation}) => {
     return(
         <View style={styles.mission_infos_container}>
-            <NewMissionHeader title="Infos nouvelle mission" />
+            <NewMissionHeader title="Infos nouvelle mission" doNav={()=>navigation.navigate('Drawer')}  />
             <View style={styles.content_style}>
                 <View style={styles.input_view}>
                     <Input 

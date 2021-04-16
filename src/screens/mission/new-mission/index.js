@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { StyleSheet } from 'react-native';
 import MissionInfos from './mission-infos';
 import LuggageInfos from './luggage-infos';
-import LuggageImages from './luggage-images';
+// import LuggageImages from './luggage-images';
 
 const MissionTab =createMaterialTopTabNavigator()
 
@@ -20,10 +20,10 @@ const NewMission = () => {
                 name="Bagage"
                 component={LuggageInfos}
             />
-            <MissionTab.Screen 
+            {/* <MissionTab.Screen 
                 name="Images"
                 component={LuggageImages}
-            />
+            /> */}
         </MissionTab.Navigator>
     )
 }

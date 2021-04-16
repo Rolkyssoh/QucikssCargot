@@ -12,6 +12,7 @@ import AdminNavigation from './src/components/navigations/navigation-tab/admin-t
 import MissionDetails from './src/screens/mission/mission-details';
 import { navigationRef } from './src/components/navigations/CustomNavigation';
 import RejectionReason from './src/screens/mission/rejection-reason';
+import LuggageImages from './src/screens/mission/new-mission/luggage-images'
 
 const Stack = createStackNavigator()
 
@@ -51,6 +52,10 @@ const App1 = () => {
               name="Mission"
               component={NewMission}
               options={{ headerShown:false }}
+            />
+            <Stack.Screen 
+              name="ImgLuggage"
+              component={LuggageImages}
             />
             <Stack.Screen 
               name="AdminNav"

@@ -7,7 +7,7 @@ import NewMissionHeader from '../../../components/new-mission-header';
 const LuggageInfos = ({ navigation }) => {
     return(
         <View style={styles.luggage_infos_container}>
-            <NewMissionHeader title="Détails du Bagage" />
+            <NewMissionHeader title="Détails du Bagage" doNav={()=>navigation.navigate('Drawer')} />
             <View style={styles.content_view}>
                 <View style={styles.input_view}>
                     <Input 
@@ -21,14 +21,14 @@ const LuggageInfos = ({ navigation }) => {
                     /> */}
                     <CustomButton 
                         customTitle="Ajouter images"
-                        customPress={() => navigation.navigate("Images") }
+                        customPress={() => navigation.navigate("ImgLuggage") }
                     />
                 </View>
                 <View style={styles.text_view}>
                     <Text>
                         Conseil: Les missions avec images sont le plus vue
                     </Text>
-                </View>
+                </View> 
             </View>
         </View>
     )
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
     content_view:{
         flex:5,
-        backgroundColor:'gray',
+        // backgroundColor:'gray',
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center'

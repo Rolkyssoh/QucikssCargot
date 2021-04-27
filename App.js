@@ -1,4 +1,9 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import reducers from './src/reducers';
+import ReduxThunk from 'redux-thunk';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/screens/auth/login-screen';
@@ -16,7 +21,7 @@ import LuggageImages from './src/screens/mission/new-mission/luggage-images'
 
 const Stack = createStackNavigator()
 
-const App1 = () => { 
+const App = () => { 
   return (
     <NavigationContainer ref={navigationRef} >
         <Stack.Navigator initialRouteName="Welcome">
@@ -76,5 +81,12 @@ const App1 = () => {
   );
 };
 
-export default App1;
+export default () => {
+  const store = createStore(reducers, {}, applyMiddleware(ReduxThunk))
+  return(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  )
+} ;
 

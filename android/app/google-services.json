@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "408935171724",
+    "project_id": "minicargot-44fb3",
+    "storage_bucket": "minicargot-44fb3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408935171724:android:e9555379cadcdc1f7bdda9",
+        "android_client_info": {
+          "package_name": "com.quicksscargot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408935171724-5617al37j7b9p0uqtpet2ds57fpf7kfd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quicksscargot",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "408935171724-ocgje7jqa1h5dvfjjvgfmtq3nus5n4rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjkZRbiNLF0ihlU9W28SuBo-Ms6LsrcP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408935171724-ocgje7jqa1h5dvfjjvgfmtq3nus5n4rf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

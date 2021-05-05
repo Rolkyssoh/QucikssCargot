@@ -18,6 +18,7 @@ import MissionDetails from './src/screens/mission/mission-details';
 import { navigationRef } from './src/components/navigations/CustomNavigation';
 import RejectionReason from './src/screens/mission/rejection-reason';
 import LuggageImages from './src/screens/mission/new-mission/luggage-images'
+import ConfirmationCode from './src/screens/auth/confirmation-code-screen';
 
 const Stack = createStackNavigator()
 
@@ -75,6 +76,10 @@ const App = () => {
               name="Rejection"
               component={RejectionReason}
               options={{ headerShown:false}}
+            />
+            <Stack.Screen 
+              name="ConfirmCode"
+              component={ConfirmationCode}
             />
         </Stack.Navigator>
     </NavigationContainer>

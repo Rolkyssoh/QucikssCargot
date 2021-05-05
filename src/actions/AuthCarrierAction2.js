@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import firestore from '@react-native-firebase/firestore';
+import database from '@react-native-firebase/database';
 import { 
     USER_NAME_CHANGED,
     USER_EMAIL_CHANGED,
@@ -98,11 +98,26 @@ export const createNewCarrier = ({ name, email, phone, city, matricule, mark, ty
     return async (dispatch) => {
         dispatch({ type: CREATE_NEW_CARRIER });
         console.log('Creation du nouveau transporteur')
-        firestore()
-            .collection('Users')
-            .doc()
-            .set({
-                activated: false, 
+        const userData = database().ref('/users').push();
+        // await database().ref('/users').push({
+        //     activated: false,
+        //     isAdmin: false,
+        //     isCarrier: true,
+        //     username:name,
+        //     useremail:email,
+        //     userPhoneNumber:phone,
+        //     userCity:city,
+        //     drivingLicencsePicture:'picture',
+        //     vehicleMatricul:matricule,
+        //     vehicleMark:mark,
+        //     vehicleType:type,
+        //     vehicleCapacity:capacity,
+        //     // Jamais rien ne se refuse à celui qui ne se cherche pas d'excuse
+        // }).then((data)=>console.log('response : ', data))
+        // .catch((error) => console.log('error: ', error))
+        // console.log('Auto generated key: ', userData.key);
+        const dataToSava = ({
+                activated: false,
                 isAdmin: false,
                 isCarrier: true,
                 username:name,
@@ -114,12 +129,13 @@ export const createNewCarrier = ({ name, email, phone, city, matricule, mark, ty
                 vehicleMark:mark,
                 vehicleType:type,
                 vehicleCapacity:capacity,
-            })
-            .then(()=>{
-                console.log('user added!!')
-            })
-            .catch((error)=> {
-                console.log('erreor while add user : ', error)
-            })
+                // Jamais rien ne se refuse à celui qui ne se cherche pas d'excuse
+            });
+
+        database()
+        .ref('users/' + userData.key)
+        .push(dataToSava)
+        .then(snapshot=>resolve(snapshot))
+        .catch((error)=>rejet(error))
     }
 }

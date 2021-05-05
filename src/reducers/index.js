@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
-import AuthCarrierReuder from './AuthCarrierReducer';
+import AuthCarrierRecuder from './AuthCarrierReducer';
+import CodeConfirmReducer from './CodeConfirmReducer';
+import LoginUsersReducer from './LoginUsersReducer';
 
 export default combineReducers({
-    authCarrier: AuthCarrierReuder
+    authCarrier: AuthCarrierRecuder, 
+    loginUsers: LoginUsersReducer,
+    confirmationCode: CodeConfirmReducer 
 })

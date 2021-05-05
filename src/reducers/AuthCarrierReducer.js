@@ -9,6 +9,7 @@ import {
     VEHICLE_TYPE_CHANGED,
     VEHICLE_CAPACITY_CHANGED,
     VEHICLE_PICTURE_CHANGED,
+    CREATE_NEW_CARRIER,
 } from '../actions/types';
 
 const INITIAL_STATE ={ 
@@ -34,7 +35,7 @@ export default (state=INITIAL_STATE, action) => {
             return { ...state, phone: action.payload };
         case USER_CITY_CHANGED:
             return { ...state, city: action.payload };
-
+ 
         //infos car
         case VEHICLE_MATRICULE_CHANGED:
             return { ...state, matricule: action.payload };
@@ -44,6 +45,9 @@ export default (state=INITIAL_STATE, action) => {
             return { ...state, type: action.payload };
         case VEHICLE_CAPACITY_CHANGED:
             return { ...state, capacity: action.payload };
+        case CREATE_NEW_CARRIER :
+            console.log('new carrier created!')
+            return { ...state }
         
         default:
             return state;

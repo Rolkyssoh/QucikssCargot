@@ -57,7 +57,7 @@ const CarInfosScreen = (props) => {
         </View>
     )
 };
-
+ 
 const styles = StyleSheet.create({
     car_container:{
         alignItems:'center'

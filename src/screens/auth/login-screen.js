@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
+import { phoneNumberChanged, handleSendCode } from '../../actions';
 
 
-const LoginScreen = ({navigation}) => {
-    const [phoneNumber, setPhoneNumber] = useState('')
+const LoginScreen = (props) => {
+
+    const onPhoneNumberChange = (phone) => {
+        console.log('appelé!', phone)
+        props.phoneNumberChanged(phone)
+    }
+
+    const doLogin = () => {
+        console.log('on est ici')
+        props.handleSendCode(props.phone)
+    }
+
     return(
         <View style={styles.login_container}>
             <Text h4>
@@ -16,8 +28,9 @@ const LoginScreen = ({navigation}) => {
                     placeholder="0643826612"
                     keyboardType="phone-pad"
                     dataDetectorTypes="phoneNumber"
-                    value={phoneNumber}
-                    onChangeText={val => setPhoneNumber(val)}
+                    value={props.phone}
+                    // maxLength={10}
+                    onChangeText={(e)=> onPhoneNumberChange(e)}
                     // containerStyle={{backgroundColor:'red',flex:1}}
                     inputContainerStyle={{ marginHorizontal:35,}}
                     // inputStyle={{backgroundColor:'black'}}
@@ -31,7 +44,7 @@ const LoginScreen = ({navigation}) => {
                 <Button 
                     title="Devenir transporteur"
                     type="clear"
-                    onPress={() => navigation.navigate('CarrierSignup')}
+                    onPress={() => props.navigation.navigate('CarrierSignup')}
                     containerStyle={{ top:20}}
                 />
             </View>
@@ -46,14 +59,21 @@ const LoginScreen = ({navigation}) => {
                     // buttonStyle={{width:370 }}
                     title="To Admin"
                     type="clear"
-                    onPress={() => navigation.navigate('AdminNav')}
+                    onPress={() => props.navigation.navigate('AdminNav')}
+                />
+                <Button
+                    containerStyle={{width:370, paddingVertical:15,}}
+                    // buttonStyle={{width:370 }}
+                    title="Login"
+                    type="outline"
+                    onPress={doLogin}
                 />
                 <Button
                     containerStyle={{width:370, paddingVertical:15,}}
                     // buttonStyle={{width:370 }}
                     title="To Home"
                     type="outline"
-                    onPress={() => navigation.navigate('NavTab')}
+                    onPress={() => props.navigation.navigate('NavTab')}
                 />
             </View>
         </View>
@@ -90,4 +110,11 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginScreen
+const mapStateToProps = (state) => {
+    return{
+        phone: state.loginUsers.phone
+    }
+}
+
+
+export default connect(mapStateToProps, { phoneNumberChanged, handleSendCode})(LoginScreen)

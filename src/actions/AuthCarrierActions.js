@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import { 
     USER_NAME_CHANGED,
     USER_EMAIL_CHANGED,
@@ -10,10 +11,13 @@ import {
     VEHICLE_MARK_CHANGED,
     VEHICLE_CAPACITY_CHANGED,
     VEHICLE_TYPE_CHANGED,
+    SELECT_DRIVING_PICTURE,
     VEHICLE_PICTURE_CHANGED,
 
     CREATE_NEW_CARRIER,
+    DRIVER_LICENSE_UPLOADED_SUCCESS
 } from './types';
+import { customNavigate } from '../components/navigations/CustomNavigation';
 
 export const userNameChanged = (name) => {
     return{
@@ -69,6 +73,19 @@ export const vehicleCapacityChanged = (capacity) => {
         payload: capacity
     }
 };
+export const vehiclePictureChanged = (carPicture) => {
+    return {
+        type: VEHICLE_PICTURE_CHANGED,
+        payload: carPicture
+    }
+}
+
+export const drivingPictSelected = (drivingPicture) => {
+    return {
+        type: SELECT_DRIVING_PICTURE,
+        payload: drivingPicture
+    }
+}
 
 // export const createNewCarrier = ({ name, email, phone, city, matricule, mark, type, capacity }) =>{
 //     return async (dispatch) => {
@@ -94,14 +111,13 @@ export const vehicleCapacityChanged = (capacity) => {
 //             })
 //     } 
 // }
-export const createNewCarrier = ({ name, email, phone, city, matricule, mark, type, capacity }) => {
+export const createNewCarrier = ({ name, email, phone, city, matricule, mark, type, capacity, drivingPicture, carPicture }) => {
     return async (dispatch) => {
         dispatch({ type: CREATE_NEW_CARRIER });
-        console.log('Creation du nouveau transporteur')
+        console.log('Creation du nouveau transporteur', drivingPicture)
         firestore()
             .collection('Users')
-            .doc()
-            .set({
+            .add({
                 activated: false, 
                 isAdmin: false,
                 isCarrier: true,
@@ -109,17 +125,85 @@ export const createNewCarrier = ({ name, email, phone, city, matricule, mark, ty
                 useremail:email,
                 userPhoneNumber:phone,
                 userCity:city,
-                drivingLicencsePicture:'picture',
+                drivingLicencsePictureUrl:'',
                 vehicleMatricul:matricule,
                 vehicleMark:mark,
                 vehicleType:type,
-                vehicleCapacity:capacity,
+                vehicleCapacity:capacity, 
+                vehiclePicture:''
             })
-            .then(()=>{
-                console.log('user added!!')
+            .then((snapshot)=>{
+                console.log('user added!!', snapshot._documentPath._parts[1]);
+                uploadImage(drivingPicture, snapshot._documentPath._parts[1]);
+                uploadCarImage(carPicture, snapshot._documentPath._parts[1]);
+                dispatch({type: DRIVER_LICENSE_UPLOADED_SUCCESS})
+                customNavigate('Awaiting');
             })
             .catch((error)=> {
                 console.log('erreor while add user : ', error)
             })
     }
-}
+};
+
+const uploadImage = async (photo, userId) => {
+    console.log('dans le upload photo de profile!!!!', photo)
+    const uri = photo;
+    const filename = uri.substring(
+        uri.lastIndexOf('/') + 1
+    );
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    // create bucket storage reference to not yet existing image
+    // const reference = firebase.storage().ref('photo_profile');
+    const reference = `/driver_licencse_picture/${userId}/` + filename
+
+    const task = storage() 
+        // .ref(/filename)
+        .ref(reference)
+        .putFile(uploadUri)
+        .then((datas) => {
+            console.log('Photo uploadée', datas)
+            //Insertion de l'url dans firestore
+            if (photo != null) {
+                firestore()
+                    .collection('Users')
+                    .doc(`${userId}`)
+                    .update({
+                        drivingLicencsePictureUrl: reference,
+                    })
+            }
+        })
+        .catch((error) => {
+            console.log('erreur lors de l\'upload : ', error);
+        });
+};
+const uploadCarImage = async (photo, userId) => {
+    console.log('dans le upload photo de profile!!!!', photo)
+    const uri = photo;
+    const filename = uri.substring(
+        uri.lastIndexOf('/') + 1
+    );
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    // create bucket storage reference to not yet existing image
+    // const reference = firebase.storage().ref('photo_profile');
+    const reference = `/car_picture/${userId}/` + filename
+
+    const task = storage()
+        // .ref(/filename)
+        .ref(reference)
+        .putFile(uploadUri)
+        .then((datas) => {
+            console.log('Photo uploadée', datas)
+            //Insertion de l'url dans firestore
+            if (photo != null) {
+                firestore()
+                    .collection('Users')
+                    .doc(`${userId}`)
+                    .update({
+                        vehiclePicture: reference
+                    })
+            }
+        })
+        .catch((error) => {
+            console.log('erreur lors de l\'upload : ', error);
+        });
+};

@@ -1,36 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, ImageBackground } from 'react-native';
 import { Text } from 'react-native-elements';
-import Camera from 'react-native-vector-icons/MaterialCommunityIcons'
+import CameraIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ImagePicker from 'react-native-image-crop-picker';
+import CustomImagePicker from '../../../components/images-upload/custom-image-picker';
+import CustomHeader from '../../../components/custom-header';
+// import IconArrow from 'react-native-vector-icons/AntDesign'
 
 const DrivingLicenseScreen = () => {
+
+    const uploadImage = async () => {
+        console.log('dans le upload photo de profile!!!!', this.state.photo)
+        const uri = this.state.photo;
+        const filename = uri.substring(
+            uri.lastIndexOf('/') + 1
+        );
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+
+        // create bucket storage reference to not yet existing image
+        // const reference = firebase.storage().ref('photo_profile');
+        const reference = `/photo_profile/${this.props.navigation.getParam('userId')}/` + filename
+
+        const task = storage()
+            .ref(reference)
+            .putFile(uploadUri)
+            .then((datas) => {
+                console.log('Photo uploadée', datas)
+                //Insertion de l'url dans firestore
+                if (this.state.photo != null) {
+                    firestore()
+                        .collection('Users')
+                        .doc(this.props.navigation.getParam('userId'))
+                        .update({
+                            photoURL: reference,
+                        })
+                }
+            })
+            .catch((error) => {
+                console.log('erreur lors de l\'upload : ', error);
+            });
+    };
+
     return(
-        <View style={styles.container_view}>
-            <Text>Prenez une image de votre permis de conduire</Text>
-            <ImageBackground style={styles.view_content_style}>
-                <TouchableOpacity>
-                    <Camera name='camera-plus' size={30} color='#fff' />
-                </TouchableOpacity>
-            </ImageBackground>
-            {/* <Text>DrivingLicenseScreen</Text> */}
-        </View>
+        <>
+            <CustomHeader customTitle="Devenir transporteur" />
+            <CustomImagePicker drivingLicense screenTitle="Image de votre permis de conduire" />
+        </>
     )
 }
 
-const styles = StyleSheet.create({
-    container_view:{
-        flex:1,
-        backgroundColor:'#fff',
-        // justifyContent:'center',
-        padding:20
-    },
-    view_content_style:{
-        backgroundColor:'grey',
-        height:'70%',
-        borderRadius:30,
-        justifyContent:'center',
-        alignItems:'center'
-    }
+const styles = StyleSheet.create({ 
 })
 
 export default DrivingLicenseScreen

@@ -8,8 +8,10 @@ import {
     VEHICLE_MARK_CHANGED,
     VEHICLE_TYPE_CHANGED,
     VEHICLE_CAPACITY_CHANGED,
+    SELECT_DRIVING_PICTURE,
     VEHICLE_PICTURE_CHANGED,
     CREATE_NEW_CARRIER,
+    DRIVER_LICENSE_UPLOADED_SUCCESS,
 } from '../actions/types';
 
 const INITIAL_STATE ={ 
@@ -21,7 +23,9 @@ const INITIAL_STATE ={
     mark:'',
     type:'',
     capacity:'',
-    picture:'',
+    drivingPicture:'',
+    carPicture:'',
+    loading:false
 }
 
 export default (state=INITIAL_STATE, action) => {
@@ -35,6 +39,8 @@ export default (state=INITIAL_STATE, action) => {
             return { ...state, phone: action.payload };
         case USER_CITY_CHANGED:
             return { ...state, city: action.payload };
+        case SELECT_DRIVING_PICTURE:
+            return { ...state, drivingPicture: action.payload };
  
         //infos car
         case VEHICLE_MATRICULE_CHANGED:
@@ -45,9 +51,13 @@ export default (state=INITIAL_STATE, action) => {
             return { ...state, type: action.payload };
         case VEHICLE_CAPACITY_CHANGED:
             return { ...state, capacity: action.payload };
+        case VEHICLE_PICTURE_CHANGED:
+            return { ...state, carPicture: action.payload };
         case CREATE_NEW_CARRIER :
             console.log('new carrier created!')
-            return { ...state }
+            return { ...state, loading:true }
+        case DRIVER_LICENSE_UPLOADED_SUCCESS:
+            return { ...state, loading:false }
         
         default:
             return state;

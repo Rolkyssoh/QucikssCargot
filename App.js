@@ -19,6 +19,7 @@ import { navigationRef } from './src/components/navigations/CustomNavigation';
 import RejectionReason from './src/screens/mission/rejection-reason';
 import LuggageImages from './src/screens/mission/new-mission/luggage-images'
 import ConfirmationCode from './src/screens/auth/confirmation-code-screen';
+import AwaitingScreen from './src/screens/awaiting-screen';
 
 const Stack = createStackNavigator()
 
@@ -43,11 +44,12 @@ const App = () => {
             />
             <Stack.Screen 
               name="Setting"
-              component={SettingScreen}
+              component={SettingScreen} 
             />
             <Stack.Screen 
               name="CarrierSignup"
               component={CarrierSignupScreen}
+              options={{ headerShown:false }}
             />
             <Stack.Screen 
               name="Drawer" 
@@ -80,6 +82,10 @@ const App = () => {
             <Stack.Screen 
               name="ConfirmCode"
               component={ConfirmationCode}
+            />
+            <Stack.Screen 
+              name="Awaiting"
+              component={AwaitingScreen}
             />
         </Stack.Navigator>
     </NavigationContainer>

@@ -122,10 +122,10 @@ const isAccountActivated = (userId) => {
                         //si c'est un transporteur on le redirige vers son compte
                         customNavigate('')
                    //sinon redirige vers le client
-                  : customNavigate('NavTab')
+                  : customNavigate('NavTab')  
                     
             //compte pas encore activé
-            : customNavigate('')
+            : customNavigate('Awaiting') 
         })
         .catch((error)=>{ console.log('error while check activation:',error)})
 }

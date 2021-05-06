@@ -6,7 +6,7 @@ import CustomHeader from '../../components/custom-header';
 
 const MissionDetails = ({navigation}) => {
     return(
-        <View style={styles.container_details}>
+        <View style={styles.container_details}> 
             <CustomHeader customTitle="Details" />
             <View style={styles.slider_view}>
                 <Text>Slider ici</Text>

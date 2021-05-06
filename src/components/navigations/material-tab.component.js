@@ -19,7 +19,7 @@ const MaterialTabBar = ({state, navigation}) => {
     return(
         <View style={styles.wrapper_view}>
             <View style={styles.container_view}>
-                {
+                {/* {
                     routes && routes.map((route, index) => (
                         <SwitchTab 
                             tabSlip={route}
@@ -28,7 +28,7 @@ const MaterialTabBar = ({state, navigation}) => {
                             key={route.key}
                         />
                     ))
-                }
+                } */}
             </View>
         </View>
     )

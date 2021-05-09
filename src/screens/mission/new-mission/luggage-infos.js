@@ -1,27 +1,41 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import CustomButton from '../../../components/custom-button';
 import NewMissionHeader from '../../../components/new-mission-header';
+import { volumeChanged, baggageTypeChanged} from '../../../actions';
 
-const LuggageInfos = ({ navigation }) => {
+const LuggageInfos = (props) => {
+
+    const onVolumeChange = (luggageVolume) => {
+        props.volumeChanged(luggageVolume) 
+    }
+    const onBaggageTypeChange = (baggageType) => {
+        props.baggageTypeChanged(baggageType)
+    }
+
     return(
         <View style={styles.luggage_infos_container}>
-            <NewMissionHeader title="Détails du Bagage" doNav={()=>navigation.navigate('Drawer')} />
+            <NewMissionHeader title="Détails du Bagage" doNav={()=>props.navigation.navigate('Drawer')} />
             <View style={styles.content_view}>
                 <View style={styles.input_view}>
                     <Input 
                         placeholder="Volume approximatif"
+                        value={props.luggageVolume}
+                        onChangeText={onVolumeChange}
                     />
-                    <Input 
+                    <Input  
                         placeholder="Nature Bagage"
+                        value={props.baggageType}
+                        onChangeText={onBaggageTypeChange}
                     />
                     {/* <Input 
                         placeholder="Ajouter images"
                     /> */}
                     <CustomButton 
                         customTitle="Ajouter images"
-                        customPress={() => navigation.navigate("ImgLuggage") }
+                        customPress={() => props.navigation.navigate("ImgLuggage") }
                     />
                 </View>
                 <View style={styles.text_view}>
@@ -54,4 +68,11 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LuggageInfos
+const mapStateToProps = (state) => {
+    return {
+        luggageVolume: state.NewMission.luggageVolume,
+        baggageType: state.NewMission.baggageType
+    }
+}
+
+export default connect(mapStateToProps,{volumeChanged, baggageTypeChanged})(LuggageInfos)

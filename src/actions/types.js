@@ -30,3 +30,18 @@ export const DIGIT6_CHANGED = 'digit6_changed';
 export const CONFIRM_CODE = 'confrim_code';
 export const SUCCESS_CONFIRMATION = 'success_confirmation';
 export const FAIL_CONFIRMATION = 'fail_confirmation';
+
+//For new mission
+export const DESTINATION_CHANGED = 'destination_changed'; 
+export const DEPATURE_CHANGED = 'depature_changed';
+export const START_TIME_CHANGED = 'start_time_changed';
+export const DESCRIPTION_CHANGED = 'description_changed';
+
+export const VOLUME_BAGGAGE_CHANGED = 'volume_baggage_changed';
+export const BAGGAGE_TYPE_CHANGED = 'baggage_type_changed';
+export const CREATE_NEW_MISSION = 'create_new_mission';
+
+export const BAGGAGE_IMAGE1_CHANGED = 'baggage_image1_changed';
+export const BAGGAGE_IMAGE2_CHANGED = 'baggage_image2_changed';
+export const BAGGAGE_IMAGE3_CHANGED = 'baggage_image3_changed';
+export const BAGGAGE_IMAGE4_CHANGED = 'baggage_image4_changed';

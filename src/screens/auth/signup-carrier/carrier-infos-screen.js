@@ -82,7 +82,7 @@ const CarrierInfosScreen = (props) => {
                     type="outline"
                     // onPress={doSignup}
                 /> */}
-                <IconArrow name="arrowright" size={30} />
+                <IconArrow name="arrowright" size={30} /> 
             </View>
         </>
     )

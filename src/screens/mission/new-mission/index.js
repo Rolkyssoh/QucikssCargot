@@ -10,7 +10,7 @@ const MissionTab =createMaterialTopTabNavigator()
 const NewMission = () => {
     return(
         <MissionTab.Navigator
-            tabBarPosition='bottom'
+            tabBarPosition='bottom' 
         >
             <MissionTab.Screen 
                 name="Mission"

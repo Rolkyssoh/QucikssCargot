@@ -64,6 +64,7 @@ const App = () => {
             <Stack.Screen 
               name="ImgLuggage"
               component={LuggageImages}
+              options={{ headerShown:false }}
             />
             <Stack.Screen 
               name="AdminNav"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View,TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Text, Button } from 'react-native-elements';
 import DisplayImage from '../../../components/display-image';
 import NewMissionHeader from '../../../components/new-mission-header';
 // import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -12,18 +12,25 @@ const LuggageImages = ({navigation}) => {
             <View style={styles.view_content}>
                 <View style={styles.icon_view}>
                     <Text>Vous pouvez ajouter jusqu'à 4 images</Text>
-                </View>
-                <View style={styles.dislay_image_view} > 
+                </View> 
+                <View style={styles.dislay_image_view} >  
                     <View style={styles.image_view}>
-                        <DisplayImage />
-                        <DisplayImage />
+                        <DisplayImage imgOne />
+                        <DisplayImage img2 />
                     </View>
                     <View style={styles.image_view}>
-                        <DisplayImage />
-                        <DisplayImage />
+                        <DisplayImage img3 />
+                        <DisplayImage img4 />
                     </View>
                 </View>
-                <View style={{ flex:2 }} />
+                {/* <View style={{ flex:2 }} /> */}
+            </View>
+            <View style={{ flex:2, justifyContent:'center', alignItems:'center' }}>
+                <Button 
+                    title="Valider"
+                    type='outline'
+                    onPress={()=>navigation.navigate('Bagage') }
+                />
             </View>
         </View>
     )

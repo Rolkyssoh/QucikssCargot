@@ -30,7 +30,7 @@ const CarInfosScreen = (props) => {
         <>
             <CustomHeader customTitle="Devenir transporteur" />
             <View style={styles.view_title_style}>
-                <Text h4>Car Informations</Text> 
+                <Text h4>Car Informations</Text>  
             </View>
             <View style={styles.car_container}>
                 <View style={styles.view_input}>

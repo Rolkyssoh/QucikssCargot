@@ -20,7 +20,7 @@ const NewMissionHeader = ({ title, doNav }) => {
                     <Text>username</Text>
                 </View>
                 <CustomButton 
-                    customTitle="Modifier mission"
+                    customTitle="Modifier"
                 />
             </View>
             <View>

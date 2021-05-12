@@ -7,7 +7,9 @@ import {
     DIGIT6_CHANGED,
     CONFIRM_CODE,
     SUCCESS_CONFIRMATION,
-    FAIL_CONFIRMATION
+    FAIL_CONFIRMATION,
+    USER_IS_CONNECTED,
+    USER_LOGGED_OUT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -18,7 +20,8 @@ const INITIAL_STATE = {
     digit5: '',
     digit6: '',
     userDatas: null,
-    loading: false
+    loading: false,
+    currentUser:null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -38,10 +41,14 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, digit6: action.payload };
         case CONFIRM_CODE:
             return { ...state, loading: true };
-        // case SUCCESS_CONFIRMATION:
-        //     return { ...state, userDatas: action.payload, loading: false };
-        // case FAIL_CONFIRMATION:
-        //     return { ...state, loading: false }
+        case SUCCESS_CONFIRMATION:
+            return { ...state, userDatas: action.payload, loading: false };
+        case FAIL_CONFIRMATION:
+            return { ...state, loading: false }
+        case USER_IS_CONNECTED:
+            return { ...state, currentUser: action.payload };
+        case USER_LOGGED_OUT:
+            return { ...state, currentUser: null }
         default:
             return state;
     }

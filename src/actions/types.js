@@ -1,8 +1,8 @@
 //for add carrier
-export const USER_NAME_CHANGED = 'user_name_changed';
-export const USER_EMAIL_CHANGED = 'user_email_changed';
-export const USER_NUMBER_CHANGED = 'user_number_changed';
-export const USER_CITY_CHANGED = 'user_city_changed';
+export const CARRIER_NAME_CHANGED = 'carrier_name_changed';
+export const CARRIER_EMAIL_CHANGED = 'carrier_email_changed';
+export const CARRIER_NUMBER_CHANGED = 'carrier_number_changed';
+export const CARRIER_CITY_CHANGED = 'carrier_city_changed';
 export const SELECT_DRIVING_PICTURE = 'select_driving_picture';
 
 export const VEHICLE_MATRICULE_CHANGED = 'vehicle_maticule_changed';
@@ -19,6 +19,7 @@ export const PHONE_NUMBER_CHANGED = 'phone_number_changed';
 export const SIGN_IN_USER = 'sign_in_user';
 export const SUCCESS_SEND_CODE = 'success_send_code';
 export const FAIL_SEND_CODE = 'fail_send_code';
+export const USER_LOGGED_OUT = 'user_logged_out';
 
 //For code confirm
 export const DIGIT1_CHANGED = 'digit1_changed';
@@ -29,6 +30,7 @@ export const DIGIT5_CHANGED = 'digit5_changed';
 export const DIGIT6_CHANGED = 'digit6_changed';
 export const CONFIRM_CODE = 'confrim_code';
 export const SUCCESS_CONFIRMATION = 'success_confirmation';
+export const USER_IS_CONNECTED = 'user_is_connected';
 export const FAIL_CONFIRMATION = 'fail_confirmation';
 
 //For new mission
@@ -45,3 +47,11 @@ export const BAGGAGE_IMAGE1_CHANGED = 'baggage_image1_changed';
 export const BAGGAGE_IMAGE2_CHANGED = 'baggage_image2_changed';
 export const BAGGAGE_IMAGE3_CHANGED = 'baggage_image3_changed';
 export const BAGGAGE_IMAGE4_CHANGED = 'baggage_image4_changed';
+
+//For update user(client/admin)
+export const USER_ID_CHANGED = 'user_id_changed';
+export const USER_NAME_UPDATED = 'user_name_updated';
+export const USER_EMAIL_UPDATED = 'user_email_updated';
+export const USER_CITY_UPDATED = 'user_city_updated';
+export const UPDATING_USER_INFOS = 'updating_user_infos';
+// export const USER_PHONE_NUMBER_UPDATED = 'user_name_updated';

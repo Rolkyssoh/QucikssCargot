@@ -1,8 +1,8 @@
 import { 
-    USER_NAME_CHANGED,
-    USER_EMAIL_CHANGED,
-    USER_NUMBER_CHANGED,
-    USER_CITY_CHANGED,
+    CARRIER_NAME_CHANGED,
+    CARRIER_EMAIL_CHANGED,
+    CARRIER_NUMBER_CHANGED,
+    CARRIER_CITY_CHANGED,
 
     VEHICLE_MATRICULE_CHANGED,
     VEHICLE_MARK_CHANGED,
@@ -31,13 +31,13 @@ const INITIAL_STATE ={
 export default (state=INITIAL_STATE, action) => {
     switch(action.type){
         //infos carrier
-        case USER_NAME_CHANGED:
+        case CARRIER_NAME_CHANGED:
             return { ...state, name: action.payload };
-        case USER_EMAIL_CHANGED:
+        case CARRIER_EMAIL_CHANGED:
             return { ...state, email: action.payload };
-        case USER_NUMBER_CHANGED:
+        case CARRIER_NUMBER_CHANGED:
             return { ...state, phone: action.payload };
-        case USER_CITY_CHANGED:
+        case CARRIER_CITY_CHANGED:
             return { ...state, city: action.payload };
         case SELECT_DRIVING_PICTURE:
             return { ...state, drivingPicture: action.payload };

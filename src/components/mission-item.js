@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View,TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
 import * as CustomNavigation from './navigations/CustomNavigation';
 
-const MissionItem = () => { 
+const MissionItem = (props) => { 
+
+    const [missionItem, setMissionItem] = useState(null)
+
+    useEffect(() => {
+        console.log('dans mission item: ', props.item._data)
+        if(props.item){
+            setMissionItem(props.item._data)
+        }
+    },[])
 
     return(
         <TouchableOpacity 
@@ -14,9 +23,9 @@ const MissionItem = () => {
                 <Text>Image Item</Text>
             </View>
             <View style={styles.item_text}>
-                <Text>destination : A vers B</Text>
+                { missionItem && <Text>destination : {missionItem.depature_place} vers {missionItem.mission_destination}</Text>}
                 <Text>Heure départ : heure</Text>
-                <Text>Type mission : type</Text>
+                { missionItem && <Text>Type mission : {missionItem.miision_type}</Text>}
             </View>
         </TouchableOpacity>
     )
@@ -24,21 +33,21 @@ const MissionItem = () => {
 
 const styles = StyleSheet.create({
     item_container:{
-        // backgroundColor:'yellow',
+        backgroundColor:'#fff',
         flexDirection:'row',
         width:'100%',
         justifyContent:'flex-start',
         marginVertical:10,
         borderColor:'black',
-        borderWidth:0.3,
-        shadowColor:'blue',
+        // borderWidth:0.3,
+        shadowColor:'black',
         // shadowOffset:{
         //     width:-10,
         //     height:10
         // },
         // shadowOpacity:0.6,
         // shadowRadius:8.68,
-        elevation:8
+        elevation:6
     },
     item_image:{
         width:90,
@@ -50,9 +59,9 @@ const styles = StyleSheet.create({
         // backgroundColor:'blue',
         // height:90,
         flex:1,
-        paddingHorizontal:15,
+        paddingHorizontal:10,
         // paddingVertical:10
-        justifyContent:'center'
+        justifyContent:'center',
     }
 })
 

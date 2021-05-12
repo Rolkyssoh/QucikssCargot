@@ -7,7 +7,7 @@ const SettingScreen = () => {
     return(
         <View style={styles.container_setting}>
             <View style={styles.title_view_style}>
-                <Text>Profile</Text>
+                <Text>Profile</Text> 
             </View>
             <View style={styles.profile_touchable_view_style}>
                 <CustomTouchable iconName="icon" libelle="Nom" inputValue="input" />

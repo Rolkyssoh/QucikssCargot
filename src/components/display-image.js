@@ -17,13 +17,29 @@ const DisplayImage = (props) => {
 
     const imageToDisplay = () => {
         if(props.imgOne){
-            return  {uri: props.baggageImage1} 
+            if(props.baggageImage1 == ''){
+                return  {uri: null } 
+            } else {
+                return  {uri: props.baggageImage1} 
+            }
         } else if(props.img2) {
-            return  {uri: props.baggageImage2}
+            if(props.baggageImage2 == ''){
+                return  {uri: null } 
+            } else {
+                return  {uri: props.baggageImage2}
+            }
         } else if(props.img3) {
-            return  {uri: props.baggageImage3}
+            if(props.baggageImage3 == ''){
+                return  {uri: null } 
+            } else {
+                return  {uri: props.baggageImage3}
+            }
         } else if(props.img4) {
-            return  {uri: props.baggageImage4}
+            if(props.baggageImage4 == ''){
+                return  {uri: null } 
+            } else {
+                return  {uri: props.baggageImage4}
+            }
         }
     }
 

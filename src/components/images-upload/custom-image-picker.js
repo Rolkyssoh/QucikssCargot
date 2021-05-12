@@ -10,7 +10,8 @@ import IconArrow from 'react-native-vector-icons/AntDesign'
 const CustomImagePicker = ({ drivingLicense, carImage, screenTitle, drivingPictSelected,vehiclePictureChanged, drivingPicture, carPicture }) => {
     // const [drivingPict, setDrivingPict] = useState('')
     // const [carPict, setCarPict] = useState('')
-    const getImage = drivingLicense ? { uri: drivingPicture } : { uri: carPicture}
+    const getImage = drivingLicense ? drivingPicture =='' ? { uri: null } : { uri: drivingPicture } 
+                    : carPicture =='' ? { uri: null} : { uri: carPicture}
 
     const doSelectDrivingPict = (picture) => {
         drivingPictSelected(picture)

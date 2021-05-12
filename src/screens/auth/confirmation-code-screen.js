@@ -5,9 +5,9 @@ import { Text, Button, Input } from 'react-native-elements';
 import { 
     digit1Changed,
     digit2Changed,
-    digit3Changed,
+    digit3Changed, 
     digit4Changed,
-    digit5Changed,
+    digit5Changed, 
     digit6Changed,
     confirmCode,
 } from '../../actions';
@@ -85,7 +85,7 @@ const ConfirmationCode = (props) => {
                     name='digit4'
                     placeholder='0'
                     keyboardType="phone-pad"
-                    value={props.digit4}
+                    value={props.digit4} 
                     onChangeText={(e4)=>onDigit4Change(e4)}
                     maxLength={1}
                     inputStyle={{ paddingHorizontal: 10, }}

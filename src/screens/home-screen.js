@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements'
-import { Button } from 'react-native-elements';
+import { Button } from 'react-native-elements'; 
 import Medium from '../components/medium.component';
+import { authStateChanged } from '../actions';
 
 
-const HomeScreen = ({ navigation }) => { 
+const HomeScreen = (props) => {
+    const [user, setUser]=useState();
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged((user)=>{
+            if(user){
+                console.log('Dans le home screen le user est:', user._user)
+                props.authStateChanged(user._user)
+                setUser(user)
+            }
+            if(!user){
+                props.navigation.navigate('Login')
+            }
+        });
+        return subscriber
+    },[])
+
     return(
         <View style={styles.home_container}>
             <View style={styles.view_title}>
@@ -13,14 +32,14 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <View style={styles.boxes_first_view}>
                 <View style={styles.boxes_second_view}>
-                    <Medium name="Petit Camion" press={() => navigation.navigate('Drawer')} />
-                    <Medium name="Tricycle" press={() => navigation.navigate('Drawer')}  />
+                    <Medium name="Petit Camion" press={() => props.navigation.navigate('Drawer')} />
+                    <Medium name="Tricycle" press={() => props.navigation.navigate('Drawer')}  />
                 </View>
             </View>
             {/* <Button 
                 title="Go to Map" 
                 type="outline"
-                onPress={() => navigation.navigate('Map')}
+                onPress={() => props.navigation.navigate('Map')}
             /> */}
         </View>
     )
@@ -53,4 +72,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeScreen
+export default connect(null,{authStateChanged})(HomeScreen)

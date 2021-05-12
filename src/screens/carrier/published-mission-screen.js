@@ -4,7 +4,7 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { Text } from 'react-native-elements';
 import MissionItem from '../../components/mission-item';
 
-const MissionValidate = ({ navigation }) => {
+const PublishedMissionScreen = () => {
     const [missionItems, setMissionItems] = useState(null)
 
     useEffect(() => {
@@ -19,32 +19,34 @@ const MissionValidate = ({ navigation }) => {
         .catch((error)=> { console.log('error while getting publish mission : ', error)})
     },[])
 
+
     return(
-        <View style={styles.validate_container}>
-            <Text h3>Valider mission</Text>
-            <View style={styles.items_list}>
-                <FlatList 
-                    data={missionItems}
-                    renderItem={({item})=> <MissionItem item={item} /> }
-                    keyExtractor={(item)=>item.id.toString()}
-                />
-            </View> 
+        <View style={styles.published_view_container}>
+            <View style={{ alignItems:'center'}}>
+                <Text h3>Missions Disponible</Text>
+            </View>
+            <FlatList 
+                data={missionItems}
+                renderItem={({item})=> <MissionItem item={item} /> }
+                keyExtractor={(item)=>item.id.toString()}
+            />
+            {/* <MissionItem /> 
+            <MissionItem />
+            <MissionItem />
+            <MissionItem /> */}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    validate_container:{
+    published_view_container:{
         flex:1,
-        alignItems:'center',
-        backgroundColor:'#d5dde0'
+        backgroundColor:'#d5dde0',
+        padding:15,
     },
-    items_list:{
-        // backgroundColor:'red',
-        paddingHorizontal:25,
-        paddingVertical:10,
-        width:'100%',
+    view_item_style:{
+
     }
 })
 
-export default MissionValidate
+export default PublishedMissionScreen

@@ -1,10 +1,10 @@
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import { 
-    USER_NAME_CHANGED,
-    USER_EMAIL_CHANGED,
-    USER_NUMBER_CHANGED,
-    USER_CITY_CHANGED,
+    CARRIER_NAME_CHANGED,
+    CARRIER_EMAIL_CHANGED,
+    CARRIER_NUMBER_CHANGED,
+    CARRIER_CITY_CHANGED,
 
     VEHICLE_MATRICULE_CHANGED,
     VEHICLE_MARK_CHANGED,
@@ -20,7 +20,7 @@ import { customNavigate } from '../components/navigations/CustomNavigation';
 
 export const userNameChanged = (name) => {
     return{
-        type:USER_NAME_CHANGED,
+        type:CARRIER_NAME_CHANGED,
         payload: name
     }
 };
@@ -28,21 +28,21 @@ export const userNameChanged = (name) => {
 //carrier infos
 export const userEmailChanged = (email) => {
     return{
-        type: USER_EMAIL_CHANGED,
+        type: CARRIER_EMAIL_CHANGED,
         payload: email
     }
 };
 
 export const userNumberChanged = (phone) => {
     return {
-        type: USER_NUMBER_CHANGED,
+        type: CARRIER_NUMBER_CHANGED,
         payload: phone
     }
 };
 
 export const userCityChanged = (city) => {
     return {
-        type: USER_CITY_CHANGED,
+        type: CARRIER_CITY_CHANGED,
         payload: city
     }
 };

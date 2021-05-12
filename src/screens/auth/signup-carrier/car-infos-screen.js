@@ -32,7 +32,7 @@ const CarInfosScreen = (props) => {
             <View style={styles.view_title_style}>
                 <Text h4>Car Informations</Text>  
             </View>
-            <View style={styles.car_container}>
+            <View style={styles.car_container}> 
                 <View style={styles.view_input}>
                     <Input 
                         placeholder="Matricule"

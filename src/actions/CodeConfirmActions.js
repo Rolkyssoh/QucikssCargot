@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import { customNavigate } from '../components/navigations/CustomNavigation';
 import {
     DIGIT1_CHANGED,
@@ -9,7 +10,9 @@ import {
     DIGIT6_CHANGED,
     CONFIRM_CODE,
     SUCCESS_CONFIRMATION,
+    USER_IS_CONNECTED,
     FAIL_CONFIRMATION,
+    USER_LOGGED_OUT
 } from './types';
 
 export const digit1Changed = (digit1) => {
@@ -49,6 +52,23 @@ export const digit6Changed = (digit6) => {
     };
 };
 
+export const authStateChanged = (user) => {
+    return {
+        type: USER_IS_CONNECTED,
+        payload: user
+    };
+};
+
+export const loggedOut = () => {
+    return(dispatch) => {
+        dispatch({ type: USER_LOGGED_OUT });
+        auth()
+        .signOut()
+        .then(() => console.log('user signed out!!!'))
+        .catch((error) => console.log('error while user sign out!', error))
+    }
+}
+
 export const confirmCode = ({ receivedCode, enteredCode}) => {
     return (dispatch) => {
         dispatch({ type: CONFIRM_CODE});
@@ -61,7 +81,7 @@ export const confirmCode = ({ receivedCode, enteredCode}) => {
                     //on vérifie si le user est déjà dans la base de données
                     firestore()
                         .collection('Users')
-                        .where("userPhoneNumber", "==", datas.user.phoneNumber)
+                        .where("userPhoneNumber", "==", datas.user.phoneNumber) 
                         .get()
                         .then((snapshatUser) => {
                             console.log('user exist ou pas: ', snapshatUser);
@@ -120,7 +140,7 @@ const isAccountActivated = (userId) => {
                 // sinon on vérifie si c'est un transporteur
                 : AccountSnapshot.data().isCarrier ?
                         //si c'est un transporteur on le redirige vers son compte
-                        customNavigate('')
+                        customNavigate('CarrierNav')
                    //sinon redirige vers le client
                   : customNavigate('NavTab')  
                     

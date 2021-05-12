@@ -47,7 +47,7 @@ const LoginScreen = (props) => {
                     onPress={() => props.navigation.navigate('CarrierSignup')}
                     containerStyle={{ top:20}}
                 />
-            </View>
+            </View> 
 
             <View style={styles.button_view}>
                 <Text>
@@ -73,6 +73,7 @@ const LoginScreen = (props) => {
                     // buttonStyle={{width:370 }}
                     title="To Home"
                     type="outline"
+                    // onPress={() => props.navigation.navigate('CarrierNav')}
                     onPress={() => props.navigation.navigate('NavTab')}
                 />
             </View>

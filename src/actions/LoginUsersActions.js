@@ -1,7 +1,7 @@
 import {
     PHONE_NUMBER_CHANGED,
     SIGN_IN_USER,
-    SUCCESS_SEND_CODE,
+    SUCCESS_SEND_CODE, 
     FAIL_SEND_CODE,
 } from './types';
 import auth from '@react-native-firebase/auth';
@@ -12,7 +12,7 @@ export const phoneNumberChanged = (phone) => {
         type: PHONE_NUMBER_CHANGED,
         payload: phone
     }
-}
+};
 
 export const handleSendCode = ( phone ) => {
     const phoneInternational = '+212'+`${phone}`;
@@ -25,7 +25,7 @@ export const handleSendCode = ( phone ) => {
                 console.log('confirmeResult : ', receivedCode);
                 dispatch({ type: SUCCESS_SEND_CODE, payload: receivedCode })
                 customNavigate('ConfirmCode')
-            })
+            }) 
             .catch((error) => {
                 console.log('Pas de code : ', error);
                 dispatch({ type: FAIL_SEND_CODE})

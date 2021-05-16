@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../../../screens/home-screen';
-import ProfileScreen from '../../../screens/profile-screen';
+import HomeScreen from '../../../screens/customer-user/home-screen';
+import ProfileScreen from '../../../screens/customer-user/profile-screen';
 import TabBarHome from './tab-bar.component';
  
 const Tab = createBottomTabNavigator()
@@ -15,7 +15,7 @@ const NavigationHome = () => {
                 initialParams={{ icon: 'home'}}
             />
             <Tab.Screen 
-                name="Profile"
+                name="Profile" 
                 component={ProfileScreen}
                 initialParams={{ icon: 'user'}}
             />

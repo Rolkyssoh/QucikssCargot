@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button } from 'react-native-elements';
-import CustomButton from '../../components/custom-button';
-import CustomHeader from '../../components/custom-header';
+import CustomButton from '../custom-button';
+import CustomHeader from '../custom-header';
 
-const MissionDetails = ({navigation}) => {
+const MissionDetailComponent = ({navigation}) => {
     return(
         <View style={styles.container_details}> 
             <CustomHeader customTitle="Details" />
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default MissionDetails
+export default MissionDetailComponent

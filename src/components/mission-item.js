@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View,TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
+import MissionDetailComponent from './mission/mission-detail.component';
 import * as CustomNavigation from './navigations/CustomNavigation';
 
 const MissionItem = (props) => { 
@@ -8,7 +9,7 @@ const MissionItem = (props) => {
     const [missionItem, setMissionItem] = useState(null)
 
     useEffect(() => {
-        console.log('dans mission item: ', props.item._data)
+        console.log('dans mission item: ', props.isCarrier)
         if(props.item){
             setMissionItem(props.item._data)
         }
@@ -17,7 +18,12 @@ const MissionItem = (props) => {
     return(
         <TouchableOpacity 
             style={styles.item_container}
-            onPress={()=> CustomNavigation.customNavigate('Details') }
+            onPress={()=> CustomNavigation.customNavigate(
+                    'Details',
+                    {isCarrier:props.isCarrier, isAdmin:props.isAdmin, infos:missionItem}
+                ) 
+            }
+            // onPress={ () => <MissionDetailComponent /> }
         >
             <View style={styles.item_image}>
                 <Text>Image Item</Text>

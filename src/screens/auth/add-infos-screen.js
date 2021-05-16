@@ -5,15 +5,15 @@ import firestore from '@react-native-firebase/firestore';
 import { StyleSheet, View } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import CustomHeader from '../../components/custom-header';
-import { userIdChanged, updatedName, updatedEmail, updatedCity, updateInfosUser } from '../../actions';
+import { updatedName, updatedEmail, updatedCity, updateInfosUser } from '../../actions';
 
-const AddInfosScreen = (props) => {
+const AddInfosScreen = (props) => { 
 
     useEffect(() => {
         console.log('current user dans add infos : ', auth().currentUser._user.uid)
-        if(auth().currentUser){
-            props.userIdChanged(auth().currentUser._user.uid)
-        }
+        // if(auth().currentUser){
+        //     props.userIdChanged(auth().currentUser._user.uid)
+        // }
         firestore()
             .collection('Users')
             .where("userPhoneNumber", "==", auth().currentUser._user.phoneNumber) 
@@ -23,7 +23,7 @@ const AddInfosScreen = (props) => {
         })
         .catch((error) =>{ console.log('erreur lors de recherche par numéro: ', error)})
     },[])
-
+ 
     const onUpdateName = (name) =>{
         props.updatedName(name)
     }
@@ -106,4 +106,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { userIdChanged, updatedName, updatedEmail, updatedCity, updateInfosUser})(AddInfosScreen)
+export default connect(mapStateToProps, { updatedName, updatedEmail, updatedCity, updateInfosUser})(AddInfosScreen)

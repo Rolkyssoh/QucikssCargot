@@ -15,7 +15,7 @@ import CarrierSignupScreen from './src/screens/auth/signup-carrier';
 import NavigationDrawerMap from './src/components/navigations/drawer-navigation/navigation-map';
 import NewMission from './src/screens/mission/new-mission';
 import AdminNavigation from './src/components/navigations/navigation-tab/admin-tab-navigation';
-import MissionDetails from './src/screens/mission/mission-details';
+import CarrierMissionDetailScreen from './src/screens/mission/carrier-mission-detail-screen';
 import { navigationRef } from './src/components/navigations/CustomNavigation';
 import RejectionReason from './src/screens/mission/rejection-reason';
 import LuggageImages from './src/screens/mission/new-mission/luggage-images'
@@ -24,6 +24,8 @@ import AwaitingScreen from './src/screens/awaiting-screen';
 import CarrierProfileNavigation from './src/components/navigations/navigation-tab/carrier-tab-navigation';
 import LoadingAuthScreen from './src/screens/loading-auth-screen';
 import AddInfosScreen from './src/screens/auth/add-infos-screen';
+import CustomerMissions from './src/screens/customer-user/customer-missions';
+
 
 const Stack = createStackNavigator()
 
@@ -75,7 +77,8 @@ const App = () => {
                 <Stack.Screen 
                     name="NavTab"
                     component={NavigationHome}
-                    options={{ title:'' }}
+                    // options={{ title:'' }}
+                    options={{ headerShown:false }}
                 />
                 <Stack.Screen 
                   name="Setting"
@@ -89,6 +92,11 @@ const App = () => {
                 <Stack.Screen 
                   name="Mission"
                   component={NewMission}
+                  options={{ headerShown:false }}
+                />
+                <Stack.Screen 
+                  name="Customer"
+                  component={CustomerMissions}
                   options={{ headerShown:false }}
                 />
                 <Stack.Screen 
@@ -106,7 +114,7 @@ const App = () => {
                 />
                 <Stack.Screen 
                   name="Details"
-                  component={MissionDetails}
+                  component={CarrierMissionDetailScreen}
                   options={{ headerShown:false }}
                 />
                 <Stack.Screen 

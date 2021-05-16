@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import { View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements'
-import { Button } from 'react-native-elements'; 
-import Medium from '../components/medium.component';
-import { authStateChanged } from '../actions';
+import { Text,Button } from 'react-native-elements'
+import Medium from '../../components/medium.component';
+import { authStateChanged } from '../../actions';
 
 
 const HomeScreen = (props) => {
@@ -35,14 +34,16 @@ const HomeScreen = (props) => {
                     <Medium name="Petit Camion" press={() => props.navigation.navigate('Drawer')} />
                     <Medium name="Tricycle" press={() => props.navigation.navigate('Drawer')}  />
                 </View>
+                <View style={styles.boxes_thirt_view}>
+                    <Button 
+                        title="Mes missions" 
+                        type="outline"
+                        onPress={() => props.navigation.navigate('Customer')}
+                    />
+                </View>
             </View>
-            {/* <Button 
-                title="Go to Map" 
-                type="outline"
-                onPress={() => props.navigation.navigate('Map')}
-            /> */}
         </View>
-    )
+    ) 
 }
 
 const styles = StyleSheet.create({
@@ -53,22 +54,33 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     view_title:{
-        top:10,
-        marginBottom:100
+        marginTop:30,
+        marginBottom:120
     },
     boxes_first_view:{
         // flex:1,
         justifyContent:'center',
+        alignItems:'center',
         // backgroundColor:'yellow',
-        width:'100%'
+        width:'100%',
     },
     boxes_second_view:{
         flexDirection:'row',
-        justifyContent:'space-around',
+        // justifyContent:'space-around',
         shadowRadius:1,
         shadowOpacity:1,
         shadowColor:'red',
-        shadowOffset:{height:10, width:10}
+        shadowOffset:{height:10, width:10},
+        // backgroundColor:'red'
+    },
+    boxes_thirt_view:{ 
+        padding:10, 
+        // marginHorizontal:40,
+        marginVertical:50,  
+        backgroundColor:'#fff', 
+        height:100, 
+        width:300,
+        justifyContent:'center' 
     }
 });
 

@@ -80,7 +80,7 @@ export const baggageImage4Changed = (baggageImage4) => {
 };
 
 export const createNewMission = ({destination, depature, startTime, description, luggageVolume, baggageType,
-    baggageImage1, baggageImage2, baggageImage3,baggageImage4} ) => {
+    baggageImage1, baggageImage2, baggageImage3,baggageImage4, userId} ) => {
     const date = new Date()
     const missionDate = date.getDate() + "/" + (date.getMonth() + 1)+"/"+date.getFullYear()
     const missionHour = date.getHours()+":"+date.getMinutes();
@@ -99,7 +99,8 @@ export const createNewMission = ({destination, depature, startTime, description,
             depature_time:startTime,
             started_at:'',
             ended_at:'',
-            mission_description:description
+            mission_description:description,
+            user_id: userId
         })
         .then((snapshot)=>{
             console.log('user added!!', snapshot);

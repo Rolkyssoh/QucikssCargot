@@ -27,7 +27,7 @@ const PublishedMissionScreen = () => {
             </View>
             <FlatList 
                 data={missionItems}
-                renderItem={({item})=> <MissionItem item={item} /> }
+                renderItem={({item})=> <MissionItem isCarrier item={item} /> }
                 keyExtractor={(item)=>item.id.toString()}
             />
             {/* <MissionItem /> 

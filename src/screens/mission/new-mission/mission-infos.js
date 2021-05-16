@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
@@ -6,6 +6,10 @@ import NewMissionHeader from '../../../components/new-mission-header';
 import { destinationChanged, depatureChanged, startTimeChanged, descriptionChanged, createNewMission } from '../../../actions';
 
 const MissionInfos = (props) => {
+
+    useEffect(() => {
+        console.log('id user dans mission infos: ', props.userId)
+    },[])
 
     const onDestinationChange = (destination) => {
         props.destinationChanged(destination)
@@ -25,9 +29,9 @@ const MissionInfos = (props) => {
 
     const doCreateNewMission = () => {
         const { destination,depature, startTime, description, luggageVolume, baggageType, baggageImage1,
-            baggageImage2, baggageImage3, baggageImage4} = props;
+            baggageImage2, baggageImage3, baggageImage4, userId} = props;
         props.createNewMission({destination, depature, startTime, description, luggageVolume, baggageType , baggageImage1,
-            baggageImage2, baggageImage3, baggageImage4})
+            baggageImage2, baggageImage3, baggageImage4, userId})
     }
 
 
@@ -92,10 +96,11 @@ const mapStateToProps = (state) => {
         luggageVolume: state.NewMission.luggageVolume,
         baggageType: state.NewMission.baggageType,
 
-        baggageImage1: state.NewMission.baggageImage1,
+        baggageImage1: state.NewMission.baggageImage1, 
         baggageImage2: state.NewMission.baggageImage2,
         baggageImage3: state.NewMission.baggageImage3,
         baggageImage4: state.NewMission.baggageImage4,
+        userId: state.UpdateUserInfos.userId,
     }
 }
 

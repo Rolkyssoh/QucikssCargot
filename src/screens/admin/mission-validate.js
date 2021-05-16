@@ -20,16 +20,16 @@ const MissionValidate = ({ navigation }) => {
     },[])
 
     return(
-        <View style={styles.validate_container}>
-            <Text h3>Valider mission</Text>
+        <View style={styles.validate_container}> 
+            <Text h3>Valider mission</Text> 
             <View style={styles.items_list}>
                 <FlatList 
                     data={missionItems}
-                    renderItem={({item})=> <MissionItem item={item} /> }
+                    renderItem={({item})=> <MissionItem item={item} isAmiiin /> }
                     keyExtractor={(item)=>item.id.toString()}
                 />
             </View> 
-        </View>
+        </View> 
     )
 }
 

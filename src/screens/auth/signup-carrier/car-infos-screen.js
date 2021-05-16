@@ -63,7 +63,7 @@ const CarInfosScreen = (props) => {
                         <Button 
                         title="Enregistrer"
                         type="outline"
-                        onPress={doSignup}
+                        onPress={doSignup} 
                     /> 
                     )
                 }

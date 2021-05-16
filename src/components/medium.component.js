@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
         justifyContent:'space-around',
         alignItems:'center',
+        margin:15
     }
 })
 

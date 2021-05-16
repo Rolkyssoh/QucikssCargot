@@ -11,11 +11,12 @@ const INITIAL_STATE = {
     name:'',
     email:'',
     city:'',
-}
+} 
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case USER_ID_CHANGED:
+            console.log('user de id current en action!!!')
             return { ...state, userId: action.payload };
         case USER_NAME_UPDATED:
             return { ...state, name: action.payload };

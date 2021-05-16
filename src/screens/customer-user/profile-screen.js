@@ -1,15 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native';
 import { Text,Button } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { loggedOut } from '../actions';
+import { loggedOut } from '../../actions';
 
 const ProfileScreen = (props) => {
+    const [infosCurrentUser, setInfosCurrentUser] = useState()
 
     useEffect(() =>{
-        console.log('Dans le profile screen : ', props.currentUser)
+        console.log('Dans le profile screen : ', props.currentUser.phoneNumber)
+        firestore()
+        .collection('Users')
+        .where("userPhoneNumber", "==", props.currentUser.phoneNumber)
+        .get()
+        .then((response) => {
+            console.log('infos du curren user: ', response._docs[0]._data)
+            setInfosCurrentUser(response._docs[0]._data)
+        })
+        .catch((error) => { console.log('error while getting infos current user: ', error)})
     })
 
     const doLogOut = () => {
@@ -27,7 +38,7 @@ const ProfileScreen = (props) => {
                 />
             </View>
             <View style={styles.username_view}>
-                <Text h3>Prénom</Text>
+                { infosCurrentUser && <Text h3>{infosCurrentUser.username}</Text> }
             </View>
             <View style={styles.divide_view} />
             <View style={styles.phone_view}>
@@ -41,7 +52,8 @@ const ProfileScreen = (props) => {
                 <Button 
                     title="Se déconnecter"
                     type="clear"
-                    onPress={doLogOut}
+                    // onPress={doLogOut}
+                    onPress={()=>props.navigation.navigate('Customer')}
                 />
             </View>
             <View style={styles.divide_view} />

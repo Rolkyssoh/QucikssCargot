@@ -32,6 +32,7 @@ const DisplayImage = (props) => {
             if(props.baggageImage3 == ''){
                 return  {uri: null } 
             } else {
+                console.log('baggaeImage3 : ', props.baggageImage3 )
                 return  {uri: props.baggageImage3}
             }
         } else if(props.img4) {

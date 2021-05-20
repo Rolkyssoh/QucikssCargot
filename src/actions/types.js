@@ -34,9 +34,12 @@ export const USER_IS_CONNECTED = 'user_is_connected';
 export const FAIL_CONFIRMATION = 'fail_confirmation';
 
 //For new mission
+export const TITLE_CHANGED = 'title_changed';
 export const DESTINATION_CHANGED = 'destination_changed'; 
 export const DEPATURE_CHANGED = 'depature_changed';
-export const START_TIME_CHANGED = 'start_time_changed';
+export const START_HOURS_CHANGED = 'start_hours_changed';
+export const DATE_TIME_CHANGED = 'date_time_changed';
+export const START_MINUTES_CHANGED = 'start_minutes_changed';
 export const DESCRIPTION_CHANGED = 'description_changed';
 
 export const VOLUME_BAGGAGE_CHANGED = 'volume_baggage_changed';

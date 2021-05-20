@@ -1,7 +1,10 @@
 import {
+    TITLE_CHANGED,
     DESTINATION_CHANGED,
     DEPATURE_CHANGED,
-    START_TIME_CHANGED,
+    START_HOURS_CHANGED,
+    DATE_TIME_CHANGED,
+    START_MINUTES_CHANGED,
     DESCRIPTION_CHANGED,
     VOLUME_BAGGAGE_CHANGED,
     BAGGAGE_TYPE_CHANGED,
@@ -13,9 +16,12 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
+    title:'',
     destination:'',
     depature:'',
-    startTime:'',
+    selectedHours:0,
+    dateTime: new Date(),
+    selectedMinutes:0,
     description:'',
     luggageVolume:'',
     baggageType:'',
@@ -27,12 +33,18 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case TITLE_CHANGED:
+            return { ...state, title: action.payload }
         case DESTINATION_CHANGED:
             return { ...state, destination: action.payload };
         case DEPATURE_CHANGED:
             return { ...state, depature: action.payload };
-        case START_TIME_CHANGED:
-            return { ...state, startTime: action.payload };
+        case START_HOURS_CHANGED:
+            return { ...state, selectedHours: action.payload };
+        case DATE_TIME_CHANGED:
+            return { ...state, dateTime: action.payload }; 
+        case START_MINUTES_CHANGED:
+            return { ...state, selectedMinutes: action.payload };
         case DESCRIPTION_CHANGED:
             return { ...state, description: action.payload };
         case VOLUME_BAGGAGE_CHANGED:
@@ -49,7 +61,7 @@ export default (state = INITIAL_STATE, action) => {
         case BAGGAGE_IMAGE4_CHANGED:
             return { ...state, baggageImage4: action.payload };
         case CREATE_NEW_MISSION:
-            return { ...state }
+            return { ...state } 
         default:
             return state;
     }

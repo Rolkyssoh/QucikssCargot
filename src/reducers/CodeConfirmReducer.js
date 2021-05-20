@@ -49,7 +49,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, currentUser: action.payload };
         case USER_LOGGED_OUT:
             return { ...state, currentUser: null }
-        default:
+        default: 
             return state;
     }
 }

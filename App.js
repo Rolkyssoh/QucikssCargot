@@ -52,6 +52,10 @@ const App = () => {
                     options={{ title:'' }} 
                 />
                 <Stack.Screen 
+                  name="ConfirmCode"
+                  component={ConfirmationCode}
+                />
+                <Stack.Screen 
                   name="CarrierSignup"
                   component={CarrierSignupScreen}
                   options={{ headerShown:false }}
@@ -121,10 +125,6 @@ const App = () => {
                   name="Rejection"
                   component={RejectionReason}
                   options={{ headerShown:false}}
-                />
-                <Stack.Screen 
-                  name="ConfirmCode"
-                  component={ConfirmationCode}
                 />
                 <Stack.Screen 
                   name="Awaiting"

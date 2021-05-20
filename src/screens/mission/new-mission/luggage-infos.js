@@ -28,7 +28,7 @@ const LuggageInfos = (props) => {
                     <Input  
                         placeholder="Nature Bagage"
                         value={props.baggageType}
-                        onChangeText={onBaggageTypeChange}
+                        onChangeText={onBaggageTypeChange} 
                     />
                     {/* <Input 
                         placeholder="Ajouter images"

@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Text, Image } from 'react-native-elements';
+import { customNavigate } from './navigations/CustomNavigation';
 
 const CustomerMissionComponent = (props) => {
     const [missionItem, setMissionItem] = useState()
 
     useEffect(() => {
         if(props.missions) {
-            console.log('contenu venant de pending : ', props.missions._data.mission_description)
+            console.log('contenu venant de pending : ', props.missions.id)
             setMissionItem(props.missions._data)
         }
         
     },[])
 
     return(
-        <View style={styles.view_content_style}>
+        <TouchableOpacity 
+            style={styles.view_content_style}
+            onPress={() => customNavigate('Details',{isCustomer: props.isCustomer, infos: missionItem, id:props.missions.id })} 
+        >
             <View style={styles.view_image_style} >
                 <Image style={styles.image_style} />    
             </View> 
             <View style={styles.view_title_style}>
                 {missionItem && <Text>{missionItem.mission_description}</Text>}
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

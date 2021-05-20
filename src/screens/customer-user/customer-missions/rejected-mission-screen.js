@@ -29,7 +29,7 @@ const RejectedMissionScreen = (props) => {
             <View style={styles.container_rejected}>
                 {
                     missionRejected && missionRejected.map((item) => {
-                        return <CustomerMissionComponent key={item.id.toString()} missions={item} />
+                        return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
                     })
                 }
             </View>

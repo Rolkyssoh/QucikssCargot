@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Text } from 'react-native-elements';
-import { userIdChanged } from '../actions';
+import { userIdChanged,authStateChanged } from '../actions';
 
 const LoadingAuthScreen = (props) => {
     const [loading, setLoading] = useState(true)
@@ -13,6 +13,7 @@ const LoadingAuthScreen = (props) => {
         const subscriber = auth().onAuthStateChanged((user)=>{
             if(user){
                 props.userIdChanged(user._user.uid)
+                props.authStateChanged(user._user)
                 console.log('Dans le loading auth screen le user est:', user._user.uid)
                 firestore()
                     .collection('Users')
@@ -28,7 +29,7 @@ const LoadingAuthScreen = (props) => {
                                     props.navigation.navigate('CarrierNav')
                                     : response.docs[0]._data.username =='' ?
                                         props.navigation.navigate('AddInfos')
-                                        :props.navigation.navigate('NavTab')
+                                        :props.navigation.navigate('NavTab') 
                         : props.navigation.navigate('Awaiting')
                     })
             }
@@ -55,4 +56,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(null, { userIdChanged })(LoadingAuthScreen)
+export default connect(null, { userIdChanged,authStateChanged })(LoadingAuthScreen)

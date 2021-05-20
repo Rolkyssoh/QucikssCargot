@@ -34,8 +34,8 @@ const PendingMissionScreen = (props) => {
         <ScrollView >
             <View style={styles.container_pending}>
                 {
-                    missionPending && missionPending.map((item) => {
-                        return <CustomerMissionComponent key={item.id.toString()} missions={item} />
+                    missionPending && missionPending.map((item) => { 
+                        return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
                     })
                 }
             </View>

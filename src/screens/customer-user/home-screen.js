@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import { View, StyleSheet } from 'react-native';
 import { Text,Button } from 'react-native-elements'
 import Medium from '../../components/medium.component';
-import { authStateChanged } from '../../actions';
 
 
 const HomeScreen = (props) => {
-    const [user, setUser]=useState();
+    // const [user, setUser]=useState();
 
-    useEffect(() => {
-        const subscriber = auth().onAuthStateChanged((user)=>{
-            if(user){
-                console.log('Dans le home screen le user est:', user._user)
-                props.authStateChanged(user._user)
-                setUser(user)
-            }
-            if(!user){
-                props.navigation.navigate('Login')
-            }
-        });
-        return subscriber
-    },[])
+    // useEffect(() => {
+    //     const subscriber = auth().onAuthStateChanged((user)=>{
+    //         if(user){
+    //             console.log('Dans le home screen le user est:', user._user)
+    //             // props.authStateChanged(user._user)
+    //             setUser(user)
+    //         }
+    //         if(!user){
+    //             props.navigation.navigate('Login')
+    //         }
+    //     });
+    //     return subscriber
+    // },[])
 
     return(
         <View style={styles.home_container}>
@@ -84,4 +82,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(null,{authStateChanged})(HomeScreen)
+export default HomeScreen

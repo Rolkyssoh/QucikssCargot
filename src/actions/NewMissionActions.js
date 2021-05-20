@@ -1,9 +1,12 @@
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {
+    TITLE_CHANGED,
     DESTINATION_CHANGED,
     DEPATURE_CHANGED,
-    START_TIME_CHANGED,
+    START_HOURS_CHANGED,
+    DATE_TIME_CHANGED,
+    START_MINUTES_CHANGED,
     DESCRIPTION_CHANGED,
     VOLUME_BAGGAGE_CHANGED,
     BAGGAGE_TYPE_CHANGED,
@@ -13,6 +16,13 @@ import {
     BAGGAGE_IMAGE3_CHANGED,
     BAGGAGE_IMAGE4_CHANGED,
 } from './types';
+
+export const titleChanged = (title) => {
+    return{
+        type: TITLE_CHANGED,
+        payload: title
+    }
+}
 
 export const destinationChanged = (destination) => {
     return{
@@ -26,10 +36,18 @@ export const depatureChanged = (depature) => {
         payload: depature
     }
 }
-export const startTimeChanged = (startTime) => {
+export const hoursChanged = (hours) => {
+    console.log('dans le hoursChanges: ', hours)
     return{
-        type: START_TIME_CHANGED,
-        payload: startTime
+        type: START_HOURS_CHANGED,
+        payload: hours
+    }
+}
+export const dateTimeChanged = (date_time) => {
+    console.log('dans le minutesChanges: ', date_time)
+    return{
+        type: DATE_TIME_CHANGED,
+        payload: date_time
     }
 }
 export const descriptionChanged = (description) => {
@@ -79,28 +97,31 @@ export const baggageImage4Changed = (baggageImage4) => {
     }
 };
 
-export const createNewMission = ({destination, depature, startTime, description, luggageVolume, baggageType,
-    baggageImage1, baggageImage2, baggageImage3,baggageImage4, userId} ) => {
+export const createNewMission = ({title, destination, depature, selectedHours, dateTime, selectedMinutes, description, 
+    luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, userId} ) => {
     const date = new Date()
     const missionDate = date.getDate() + "/" + (date.getMonth() + 1)+"/"+date.getFullYear()
     const missionHour = date.getHours()+":"+date.getMinutes();
+    console.log('date time mission: ', dateTime);
     return async (dispatch) => {
         dispatch({ type: CREATE_NEW_MISSION });
         console.log('Dans le create new mission!!!')
         firestore()
         .collection('Mission')
         .add({
-            activated: false,
-            miision_type:'',
-            creation_day: missionDate,
-            creation_hour: missionHour,
-            mission_destination:destination,
-            depature_place:depature,
-            depature_time:startTime,
-            started_at:'',
-            ended_at:'',
-            mission_description:description,
-            user_id: userId
+           activated: false,
+           miision_type:'',
+           creation_day: missionDate,
+           creation_hour: missionHour,
+           mission_title: title,
+           mission_destination:destination,
+           depature_place:depature,
+           //  depature_time:`${selectedHours.hours+':'+selectedHours.minutes}`,
+           depature_time: dateTime,
+           started_at:'',
+           ended_at:'',
+           mission_description:description,
+           user_id: userId
         })
         .then((snapshot)=>{
             console.log('user added!!', snapshot);
@@ -111,14 +132,15 @@ export const createNewMission = ({destination, depature, startTime, description,
             .add({
                 baggage_volume: luggageVolume,
                 baggage_type:baggageType,
-                baggage_picture:''
+                baggage_picture:'',
+                mission_id: snapshot._documentPath._parts[1]
             })
             .then((snapshot)=>{
                 console.log('Baggage added!!', snapshot._documentPath._parts[1]);
-                uploadBaggageImage(baggageImage1, snapshot._documentPath._parts[1]);
-                uploadBaggageImage(baggageImage2, snapshot._documentPath._parts[1]);
-                uploadBaggageImage(baggageImage3, snapshot._documentPath._parts[1]);
-                uploadBaggageImage(baggageImage4, snapshot._documentPath._parts[1]);
+                { baggageImage1 && uploadBaggageImage(baggageImage1, snapshot._documentPath._parts[1]) }
+                { baggageImage2 && uploadBaggageImage(baggageImage2, snapshot._documentPath._parts[1]) };
+                { baggageImage3 && uploadBaggageImage(baggageImage3, snapshot._documentPath._parts[1]) };
+                { baggageImage4 && uploadBaggageImage(baggageImage4, snapshot._documentPath._parts[1]) };
                 // dispatch({type: DRIVER_LICENSE_UPLOADED_SUCCESS})
                 // customNavigate('Awaiting');
             })
@@ -132,7 +154,7 @@ export const createNewMission = ({destination, depature, startTime, description,
     }
 };
 
-const uploadBaggageImage = async (picture, baggageId) => {
+const uploadBaggageImage = async (picture, baggageId) => {  
     console.log('dans le upload picture de profile!!!!', picture)
     const uri = picture;
     const filename = uri.substring(
@@ -154,7 +176,7 @@ const uploadBaggageImage = async (picture, baggageId) => {
                     .collection('Baggage')
                     .doc(`${baggageId}`)
                     .update({
-                        baggage_picture: reference,
+                        baggage_picture: `/baggage_pictures/${baggageId}/`,
                     })
             }
         })

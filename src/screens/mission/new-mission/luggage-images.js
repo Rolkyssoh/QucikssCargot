@@ -33,7 +33,7 @@ const LuggageImages = ({navigation}) => {
                 />
             </View>
         </View>
-    )
+    ) 
 }
 
 const styles = StyleSheet.create({

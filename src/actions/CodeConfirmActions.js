@@ -58,13 +58,16 @@ export const authStateChanged = (user) => {
         payload: user
     };
 };
-
+ 
 export const loggedOut = () => {
     return(dispatch) => {
         dispatch({ type: USER_LOGGED_OUT });
         auth()
         .signOut()
-        .then(() => console.log('user signed out!!!'))
+        .then(() => {
+            console.log('user signed out!!!')
+            customNavigate('LoadingAuth')
+        })
         .catch((error) => console.log('error while user sign out!', error))
     }
 }
@@ -131,14 +134,14 @@ const isAccountActivated = (userId) => {
         .doc(userId)
         .get()
         .then((AccountSnapshot) => {
-            console.log('resultat de retourné:', AccountSnapshot.data());
-            AccountSnapshot.data().activated ?
+            console.log('resultat de retourné:', AccountSnapshot._data);
+            AccountSnapshot._data.activated ?
                 // on vérifie si c'est un admin
-                AccountSnapshot.data().isAdmin ? 
+                AccountSnapshot._data.isAdmin ? 
                     //si c'est un admin on redirige vers la partie admin
                     customNavigate('AdminNav')
                 // sinon on vérifie si c'est un transporteur
-                : AccountSnapshot.data().isCarrier ?
+                : AccountSnapshot._data.isCarrier ?
                         //si c'est un transporteur on le redirige vers son compte
                         customNavigate('CarrierNav')
                    //sinon redirige vers le client

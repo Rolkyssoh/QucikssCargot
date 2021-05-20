@@ -1,15 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import {TimePicker} from 'react-native-simple-time-picker';
+import DatePicker from 'react-native-date-picker';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import NewMissionHeader from '../../../components/new-mission-header';
-import { destinationChanged, depatureChanged, startTimeChanged, descriptionChanged, createNewMission } from '../../../actions';
+import { 
+    titleChanged, 
+    destinationChanged, 
+    depatureChanged, 
+    hoursChanged,
+    dateTimeChanged,
+    minutesChanged, 
+    descriptionChanged, 
+    createNewMission 
+} from '../../../actions';
 
 const MissionInfos = (props) => {
+    const [date, setDate] = useState(new Date())
 
     useEffect(() => {
         console.log('id user dans mission infos: ', props.userId)
+        console.log('le date time dans missioninfos: ', props.dateTime)
     },[])
+
+    const onTitleChange = (title) => {
+        props.titleChanged(title)
+    }
 
     const onDestinationChange = (destination) => {
         props.destinationChanged(destination)
@@ -19,19 +36,15 @@ const MissionInfos = (props) => {
         props.depatureChanged(depature)
     }
 
-    const onStartTimeChange = (startTime) => {
-        props.startTimeChanged(startTime)
-    }
-
     const onDescriptionChange = (description) => {
         props.descriptionChanged(description)
     }
 
     const doCreateNewMission = () => {
-        const { destination,depature, startTime, description, luggageVolume, baggageType, baggageImage1,
-            baggageImage2, baggageImage3, baggageImage4, userId} = props;
-        props.createNewMission({destination, depature, startTime, description, luggageVolume, baggageType , baggageImage1,
-            baggageImage2, baggageImage3, baggageImage4, userId})
+        const { title, destination,depature, selectedHours, dateTime, selectedMinutes, description, 
+            luggageVolume, baggageType, baggageImage1,baggageImage2, baggageImage3, baggageImage4, userId} = props;
+        props.createNewMission({title, destination, depature, selectedHours, dateTime, selectedMinutes, description, 
+            luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4, userId})
     }
 
 
@@ -41,6 +54,11 @@ const MissionInfos = (props) => {
             <View style={styles.content_style}>
                 <View style={styles.input_view}>
                     <Input 
+                        placeholder="Titre de la mission"
+                        value={props.title}
+                        onChangeText={onTitleChange}
+                    />
+                    <Input  
                         placeholder="Destination"
                         value={props.destination}
                         onChangeText={onDestinationChange}
@@ -51,21 +69,47 @@ const MissionInfos = (props) => {
                         onChangeText={onDepatureChange}
                     />
                     <Input 
-                        placeholder="Heure de départ"
-                        value={props.startTime}
-                        onChangeText={onStartTimeChange}
-                    />
-                    <Input 
                         placeholder="Description"
                         value={props.description}
                         onChangeText={onDescriptionChange}
                     />
+                    <View style={{ alignItems:'center'}}>
+                        <Text>Date et heure de départ</Text>
+                        <DatePicker 
+                            date={props.dateTime}
+                            onDateChange={props.dateTimeChanged}
+                            mode='datetime'
+                            maximumDate={new Date('2021-12-31')}
+                            minimumDate={new Date('2021-04-01')}
+                        />
+                    </View>
+                    {/* <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
+                        <View>
+                            <Text>Date de départ</Text>
+                            <Text>date</Text>
+                        </View>
+                        <View style={{ width:'59%', alignItems:'center'}}>
+                            <Text>Heur de départ</Text>
+                            <TimePicker 
+                                selectedHours={props.selectedHours}
+                                selectedMinutes={props.selectedMinutes}
+                                onChange={(hours, minutes)=>{
+                                    props.hoursChanged(hours);
+                                    props.minutesChanged(minutes)
+                                }}
+                                zeroPadding
+                                hoursUnit='h'
+                            />
+                        </View>
+                    </View> */}
                 </View>
-                <Button 
-                    title="valider"
-                    type='outline'
-                    onPress={doCreateNewMission}
-                />
+                <View style={styles.view_button_style}>
+                    <Button 
+                        title="valider"
+                        type='outline'
+                        onPress={doCreateNewMission}
+                    />
+                </View>
             </View>
         </View>
     )
@@ -79,19 +123,27 @@ const styles = StyleSheet.create({
     input_view:{
         padding:10,
         // backgroundColor:'yellow'
-        marginBottom:50
+        marginBottom:10
     },
     content_style:{
         flex:5,
         // backgroundColor:'red'
+    },
+    view_button_style:{
+        paddingHorizontal:50
     }
 })
 
 const mapStateToProps = (state) => {
     return {
+        title: state.NewMission.title,
         destination: state.NewMission.destination,
         depature: state.NewMission.depature,
-        startTime: state.NewMission.startTime,
+
+        selectedHours: state.NewMission.selectedHours,
+        dateTime: state.NewMission.dateTime,
+        selectedMinutes: state.NewMission.selectedMinutes,
+
         description: state.NewMission.description,
         luggageVolume: state.NewMission.luggageVolume,
         baggageType: state.NewMission.baggageType,
@@ -105,11 +157,14 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-    mapStateToProps, 
-    {
+    mapStateToProps,  
+    {   
+        titleChanged,
         destinationChanged,
         depatureChanged,
-        startTimeChanged,
+        hoursChanged,
+        dateTimeChanged,
+        minutesChanged,
         descriptionChanged,
         createNewMission,
     }

@@ -9,7 +9,7 @@ const MissionItem = (props) => {
     const [missionItem, setMissionItem] = useState(null)
 
     useEffect(() => {
-        console.log('dans mission item: ', props.isCarrier)
+        console.log('dans mission item: ', props.item.id)
         if(props.item){
             setMissionItem(props.item._data)
         }
@@ -20,7 +20,7 @@ const MissionItem = (props) => {
             style={styles.item_container}
             onPress={()=> CustomNavigation.customNavigate(
                     'Details',
-                    {isCarrier:props.isCarrier, isAdmin:props.isAdmin, infos:missionItem}
+                    {isCarrier:props.isCarrier, isAdmin:props.isAdmin, infos:missionItem, id:props.item.id}
                 ) 
             }
             // onPress={ () => <MissionDetailComponent /> }

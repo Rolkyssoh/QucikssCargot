@@ -28,7 +28,7 @@ const ValidateMissionScreen = (props) => {
             <View style={styles.container_validated}>
                 {
                         missionValidated && missionValidated.map((item) => {
-                        return <CustomerMissionComponent key={item.id.toString()} missions={item} />
+                        return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
                     })
                 }
             </View>

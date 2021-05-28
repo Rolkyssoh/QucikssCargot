@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { phoneNumberChanged, handleSendCode } from '../../actions';
 
@@ -8,13 +8,17 @@ import { phoneNumberChanged, handleSendCode } from '../../actions';
 const LoginScreen = (props) => {
 
     const onPhoneNumberChange = (phone) => {
-        console.log('appelé!', phone)
         props.phoneNumberChanged(phone)
     }
 
     const doLogin = () => {
-        console.log('on est ici')
-        props.handleSendCode(props.phone)
+        
+        if(props.phone != ''){
+            props.handleSendCode(props.phone)
+            console.log('do loggg: ', props.phone)
+        } else {
+            console.log('phone est vide')
+        }
     }
 
     return(
@@ -47,9 +51,14 @@ const LoginScreen = (props) => {
                     onPress={() => props.navigation.navigate('CarrierSignup')}
                     containerStyle={{ top:20}}
                 />
+                { props.loading && 
+                    <View style={{ alignItems:'center', top:150}}>
+                        <ActivityIndicator size="large" color='black' />
+                    </View> 
+                }
             </View> 
 
-            <View style={styles.button_view}>
+            <View style={styles.button_view}> 
                 <Text>
                     Si vous continuez, vous recevrez peut-être un SMS de vérification.
                     Des frais de messagerie SMS et de transfert de données peuvent s'appliquer.
@@ -59,7 +68,7 @@ const LoginScreen = (props) => {
                     // buttonStyle={{width:370 }}
                     title="To Admin"
                     type="clear"
-                    onPress={() => props.navigation.navigate('AdminNav')}
+                    onPress={() => props.navigation.navigate('ConfirmCode')}
                 />
                 <Button
                     containerStyle={{width:370, paddingVertical:15,}}
@@ -67,14 +76,6 @@ const LoginScreen = (props) => {
                     title="Login"
                     type="outline"
                     onPress={doLogin}
-                />
-                <Button
-                    containerStyle={{width:370, paddingVertical:15,}}
-                    // buttonStyle={{width:370 }}
-                    title="To Home"
-                    type="outline"
-                    // onPress={() => props.navigation.navigate('CarrierNav')}
-                    onPress={() => props.navigation.navigate('NavTab')}
                 />
             </View>
         </View>
@@ -113,7 +114,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return{
-        phone: state.loginUsers.phone
+        phone: state.loginUsers.phone,
+        loading: state.loginUsers.loading,
     }
 }
 

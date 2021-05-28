@@ -25,20 +25,23 @@ const HomeScreen = (props) => {
     return(
         <View style={styles.home_container}>
             <View style={styles.view_title}>
-                <Text h2>Quickss</Text>
+                <Text style={{ color:'#42a3aa'}} h2>Quicksse</Text>
             </View>
-            <View style={styles.boxes_first_view}>
-                <View style={styles.boxes_second_view}>
-                    <Medium name="Petit Camion" press={() => props.navigation.navigate('Drawer')} />
-                    <Medium name="Tricycle" press={() => props.navigation.navigate('Drawer')}  />
-                </View>
-                <View style={styles.boxes_thirt_view}>
+            <View style={styles.boxes_first_view}> 
+                <View style={styles.boxes_second_view}> 
+                    <Medium name="Petit Camion" />
+                    <Medium name="Tricycle" />
+                </View> 
+                {/* <View style={styles.boxes_thirt_view}> */}
                     <Button 
                         title="Mes missions" 
                         type="outline"
                         onPress={() => props.navigation.navigate('Customer')}
+                        titleStyle={{ color:'black', fontStyle:'normal', fontWeight:'bold',zIndex:-1 }}
+                        buttonStyle={{ borderRadius:20}}
+                        containerStyle={styles.boxes_thirt_view}
                     />
-                </View>
+                {/* </View> */} 
             </View>
         </View>
     ) 
@@ -49,7 +52,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#dee1e3",
         flex:1,
         // justifyContent:'space-around',
-        alignItems:'center'
+        alignItems:'center',
+        backgroundColor:'#d5dde0'
     },
     view_title:{
         marginTop:30,
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         // backgroundColor:'yellow',
         width:'100%',
-    },
+    }, 
     boxes_second_view:{
         flexDirection:'row',
         // justifyContent:'space-around',
@@ -72,13 +76,18 @@ const styles = StyleSheet.create({
         // backgroundColor:'red'
     },
     boxes_thirt_view:{ 
-        padding:10, 
+        // padding:10, 
         // marginHorizontal:40,
+        marginTop:100,
         marginVertical:50,  
-        backgroundColor:'#fff', 
-        height:100, 
+        backgroundColor:'#42a3aa',  
+        // backgroundColor:'#42a3aa',
+        // height:80, 
         width:300,
-        justifyContent:'center' 
+        justifyContent:'center' ,
+        borderRadius:20,
+        opacity:0.4
+        
     }
 });
 

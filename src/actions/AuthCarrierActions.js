@@ -179,7 +179,7 @@ const uploadCarImage = async (photo, userId) => {
     console.log('dans le upload photo de profile!!!!', photo)
     const uri = photo;
     const filename = uri.substring(
-        uri.lastIndexOf('/') + 1
+        uri.lastIndexOf('/') + 1 
     );
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
     // create bucket storage reference to not yet existing image

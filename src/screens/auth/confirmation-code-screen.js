@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { 
     digit1Changed,
@@ -24,7 +24,7 @@ const ConfirmationCode = (props) => {
         props.digit3Changed(digit3)
     }
     const onDigit4Change = (digit4) => {
-        props.digit4Changed(digit4)
+        props.digit4Changed(digit4) 
     }
     const onDigit5Change = (digit5) => {
         props.digit5Changed(digit5)
@@ -42,7 +42,7 @@ const ConfirmationCode = (props) => {
     return(
         <View style={styles.container_view}>
             <View style={styles.text_intro_view}>
-                <Text>Saisissez le code à 6 chiffres reçu au numéro +212643826612</Text>
+                <Text>Saisissez le code à 6 chiffres reçu au numéro {props.phone}</Text>
             </View>
             <View style={styles.inputs_style_view}>
                 <Input
@@ -55,7 +55,7 @@ const ConfirmationCode = (props) => {
                     inputStyle={{ paddingHorizontal: 10, }}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={styles.input_container_style}
+                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
                 />
                 <Input
                     name='digit2'
@@ -67,7 +67,7 @@ const ConfirmationCode = (props) => {
                     inputStyle={{ paddingHorizontal: 10, }}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={styles.input_container_style}
+                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
                 />
                 <Input
                     name='digit3'
@@ -79,7 +79,7 @@ const ConfirmationCode = (props) => {
                     inputStyle={{ paddingHorizontal: 10, }}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={styles.input_container_style}
+                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
                 />
                 <Input
                     name='digit4'
@@ -91,7 +91,7 @@ const ConfirmationCode = (props) => {
                     inputStyle={{ paddingHorizontal: 10, }}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={styles.input_container_style}
+                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
                 />
                 <Input
                     name='digit5'
@@ -103,7 +103,7 @@ const ConfirmationCode = (props) => {
                     inputStyle={{ paddingHorizontal: 10, }}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={styles.input_container_style}
+                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
                 />
                 <Input
                     name='digit6'
@@ -115,11 +115,12 @@ const ConfirmationCode = (props) => {
                     inputStyle={{ paddingHorizontal: 10, }}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={styles.input_container_style}
+                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
                 />
             </View>
+            {/* display the error */}
             <View style={styles.error_view_style}>
-                <Text style={{color:'red'}}>erreurs ici</Text>
+                <Text style={{color:'red'}}>{props.displayError}</Text>
             </View>
             <Button
                 containerStyle={{alignSelf:'flex-start'}}
@@ -128,6 +129,11 @@ const ConfirmationCode = (props) => {
                 type="clear"
                 // onPress={doLogin}
             />
+            {props.loading && 
+                <View style={{ alignItems:'center', top:150 }}>
+                    <ActivityIndicator size="large" color='black' />
+                </View>
+            }
            
             <View style={styles.validation_button_view}>            
                 <Button
@@ -158,13 +164,14 @@ const styles = StyleSheet.create({
     input_container_style:{
         marginTop: 5,
         borderBottomWidth:2,
-        // borderBottomColor:{val = 1? 'blakc':'red'},
-        borderBottomColor:'black',
+        // borderBottomColor:`${props.displayError ? 'red':'black'}`,
+        // borderBottomColor:'black',
         alignItems:'center', 
         justifyContent:'center' 
     },
     error_view_style: {
-        marginVertical:15,
+        marginVertical:10,
+        paddingHorizontal:10,
     },
     resend_view_style:{},
     validation_button_view:{
@@ -177,6 +184,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) =>{
     return{
+        phone: state.loginUsers.phone,
         receivedCode:state.loginUsers.receivedCode,
         digit1: state.confirmationCode.digit1,
         digit2: state.confirmationCode.digit2,
@@ -184,6 +192,8 @@ const mapStateToProps = (state) =>{
         digit4: state.confirmationCode.digit4,
         digit5: state.confirmationCode.digit5,
         digit6: state.confirmationCode.digit6,
+        displayError: state.confirmationCode.displayError,
+        loading: state.confirmationCode.loading,
     }
 }
 

@@ -101,7 +101,7 @@ export const confirmCode = ({ receivedCode, enteredCode}) => {
                 })
                 .catch((error)=>{
                     console.log('erreur lors de la confirmation:', error);
-                    dispatch({ type: FAIL_CONFIRMATION })
+                    dispatch({ type: FAIL_CONFIRMATION, payload:error })
                 })
         }
 
@@ -127,26 +127,26 @@ const addNewUser = (userId,phoneNum) => {
         })
         .catch((error) => { console.log('error while adding new user: ', error)})
 };
-
+ 
 const isAccountActivated = (userId) => {
+    console.log('dans le isAccountActivated : ', userId)
     firestore()
-        .collection('User')
-        .doc(userId)
+        .collection('Users')
+        .doc(`${userId}`)
         .get()
-        .then((AccountSnapshot) => {
-            console.log('resultat de retourné:', AccountSnapshot._data);
-            AccountSnapshot._data.activated ?
+        .then((documentSnapshot) => {
+            console.log('resultat de retourné:', documentSnapshot._data);
+            documentSnapshot._data.activated ?
                 // on vérifie si c'est un admin
-                AccountSnapshot._data.isAdmin ? 
+                documentSnapshot._data.isAdmin ? 
                     //si c'est un admin on redirige vers la partie admin
                     customNavigate('AdminNav')
                 // sinon on vérifie si c'est un transporteur
-                : AccountSnapshot._data.isCarrier ?
+                : documentSnapshot._data.isCarrier ?
                         //si c'est un transporteur on le redirige vers son compte
                         customNavigate('CarrierNav')
                    //sinon redirige vers le client
                   : customNavigate('NavTab')  
-                    
             //compte pas encore activé
             : customNavigate('Awaiting') 
         })

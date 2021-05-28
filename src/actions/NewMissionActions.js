@@ -110,6 +110,7 @@ export const createNewMission = ({title, destination, depature, selectedHours, d
         .collection('Mission')
         .add({
            activated: false,
+           rejected:false,
            miision_type:'',
            creation_day: missionDate,
            creation_hour: missionHour,
@@ -157,7 +158,7 @@ export const createNewMission = ({title, destination, depature, selectedHours, d
 const uploadBaggageImage = async (picture, baggageId) => {  
     console.log('dans le upload picture de profile!!!!', picture)
     const uri = picture;
-    const filename = uri.substring(
+    const filename = uri.substring( 
         uri.lastIndexOf('/') + 1
     );
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;

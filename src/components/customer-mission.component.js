@@ -8,7 +8,7 @@ const CustomerMissionComponent = (props) => {
 
     useEffect(() => {
         if(props.missions) {
-            console.log('contenu venant de pending : ', props.missions.id)
+            console.log('contenu venant de pending : ', props.missions._data)
             setMissionItem(props.missions._data)
         }
         
@@ -23,7 +23,7 @@ const CustomerMissionComponent = (props) => {
                 <Image style={styles.image_style} />    
             </View> 
             <View style={styles.view_title_style}>
-                {missionItem && <Text>{missionItem.mission_description}</Text>}
+                {missionItem && <Text style={{ fontWeight:'bold'}}>{missionItem.mission_description}</Text>}
             </View>
         </TouchableOpacity>
     )
@@ -35,25 +35,34 @@ const styles = StyleSheet.create({
         margin:5,
         width:'47%',
         height: 150 ,
-        borderColor:'blue',
-        borderWidth:1
+        // borderColor:'blue',
+        // borderWidth:1,
+        backgroundColor:'#7bc7cb',
+        // opacity:0.4,
+        borderRadius:20
     },
     view_image_style:{
         backgroundColor:'grey', 
         width:'100%', 
         height:'74%',
-        borderColor:'green',
-        borderWidth:1
+        // borderColor:'green',
+        // borderWidth:1,
+        borderTopEndRadius:20,
+        borderTopStartRadius:20
     },
     image_style:{
-        backgroundColor:'grey', 
+        // backgroundColor:'brown', 
         width:'100%', 
         height:'100%',
-        borderColor:'yellow',
-        borderWidth:2
+        // borderColor:'yellow',
+        // borderWidth:1,
+        borderTopRightRadius:20,
+        borderTopLeftRadius:20
     },
     view_title_style:{
-        padding:5
+        padding:5,
+        alignItems:'center',
+        // opacity:0.4,
     }
 })
 

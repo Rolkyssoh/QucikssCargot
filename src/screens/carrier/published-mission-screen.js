@@ -20,7 +20,7 @@ const PublishedMissionScreen = () => {
     },[])
 
 
-    return(
+    return( 
         <View style={styles.published_view_container}>
             <View style={{ alignItems:'center'}}>
                 <Text h3>Missions Disponible</Text>
@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:'#d5dde0',
         padding:15,
+        // marginBottom:55
+        paddingBottom:71
     },
     view_item_style:{
 

@@ -13,7 +13,7 @@ const CustomerMissions = () => {
         <MissionTab.Navigator
             tabBar={(props) => <MaterialTabBar {...props} />}
             tabBarPosition='bottom'
-        >
+        > 
             <MissionTab.Screen 
                 name="En attente"
                 component={PendingMissionScreen}

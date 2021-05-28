@@ -21,7 +21,8 @@ const INITIAL_STATE = {
     digit6: '',
     userDatas: null,
     loading: false,
-    currentUser:null
+    currentUser:null,
+    displayError:''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -44,12 +45,12 @@ export default (state = INITIAL_STATE, action) => {
         case SUCCESS_CONFIRMATION:
             return { ...state, userDatas: action.payload, loading: false };
         case FAIL_CONFIRMATION:
-            return { ...state, loading: false }
+            return { ...state, loading: false, displayError:action.payload }
         case USER_IS_CONNECTED:
             return { ...state, currentUser: action.payload };
         case USER_LOGGED_OUT:
             return { ...state, currentUser: null }
         default: 
             return state;
-    }
+    } 
 }

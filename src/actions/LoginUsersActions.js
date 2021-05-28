@@ -28,7 +28,7 @@ export const handleSendCode = ( phone ) => {
             }) 
             .catch((error) => {
                 console.log('Pas de code : ', error);
-                dispatch({ type: FAIL_SEND_CODE})
+                dispatch({ type: FAIL_SEND_CODE}) 
             })
     };
 };

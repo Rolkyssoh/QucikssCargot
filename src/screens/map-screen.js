@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo'
 
-const MapScreen = ({navigation}) => {
+const MapScreen = ({navigation, route}) => {
+
+    useEffect(() => {
+        console.log('dans le mapScreen : ', route)
+    },[])
+
     return(
         <View style={styles.map_container}>
             <MapView

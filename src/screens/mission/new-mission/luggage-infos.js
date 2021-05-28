@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
-import { Text, Input } from 'react-native-elements';
+import { Text, Input, Button } from 'react-native-elements';
 import CustomButton from '../../../components/custom-button';
 import NewMissionHeader from '../../../components/new-mission-header';
 import { volumeChanged, baggageTypeChanged} from '../../../actions';
@@ -33,12 +33,14 @@ const LuggageInfos = (props) => {
                     {/* <Input 
                         placeholder="Ajouter images"
                     /> */}
-                    <CustomButton 
-                        customTitle="Ajouter images"
-                        customPress={() => props.navigation.navigate("ImgLuggage") }
+                    <Button 
+                        title="Ajouter images"
+                        type="clear"
+                        onPress={() => props.navigation.navigate("ImgLuggage") }
+                        titleStyle={{ color:'#42a3aa'}}
                     />
                 </View>
-                <View style={styles.text_view}>
+                <View style={styles.text_view}> 
                     <Text>
                         Conseil: Les missions avec images sont le plus vue
                     </Text>

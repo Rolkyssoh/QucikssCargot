@@ -108,6 +108,8 @@ const MissionInfos = (props) => {
                         title="valider"
                         type='outline'
                         onPress={doCreateNewMission}
+                        titleStyle={{ color:'#42a3aa'}}
+                        buttonStyle={{ borderRadius:20, borderColor:'#42a3aa'}}
                     />
                 </View>
             </View>
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-    return {
+    return { 
         title: state.NewMission.title,
         destination: state.NewMission.destination,
         depature: state.NewMission.depature,

@@ -49,6 +49,7 @@ const UserProfileComponent = ({infosCurrentUser, doPress, disconnectUser}) => {
                     title="Se déconnecter"
                     type="clear"
                     onPress={disconnectUser}
+                    titleStyle={{ color:'#42a3aa'}}
                     // onPress={()=>props.navigation.navigate('Customer')}
                 />
             </View>

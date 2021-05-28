@@ -52,7 +52,7 @@ const App = () => {
                     options={{ title:'' }} 
                 />
                 <Stack.Screen 
-                  name="ConfirmCode"
+                  name="ConfirmCode" 
                   component={ConfirmationCode}
                 />
                 <Stack.Screen 
@@ -60,9 +60,20 @@ const App = () => {
                   component={CarrierSignupScreen}
                   options={{ headerShown:false }}
                 />
+                <Stack.Screen 
+                    name="LoadingAuth"
+                    component={LoadingAuthScreen}
+                    options={{ headerShown:false }}
+                />
+                <Stack.Screen 
+                    name="NavTab"
+                    component={NavigationHome}
+                    // options={{ title:'' }}
+                    options={{ headerShown:false }}
+                />
               </>
               :
-              <>
+              <> 
                 {/* <Stack.Screen 
                   name="AddInfos"
                   component={AddInfosScreen}
@@ -72,6 +83,15 @@ const App = () => {
                     name="LoadingAuth"
                     component={LoadingAuthScreen}
                     options={{ headerShown:false }}
+                />
+                <Stack.Screen 
+                    name="Login" 
+                    component={LoginScreen}
+                    options={{ title:'' }} 
+                />
+                <Stack.Screen 
+                  name="ConfirmCode" 
+                  component={ConfirmationCode}
                 />
                 <Stack.Screen 
                   name="AddInfos"
@@ -107,7 +127,7 @@ const App = () => {
                   name="ImgLuggage"
                   component={LuggageImages}
                   options={{ headerShown:false }}
-                />
+                /> 
                 <Stack.Screen 
                   name="AdminNav"
                   component={AdminNavigation}
@@ -115,6 +135,7 @@ const App = () => {
                 <Stack.Screen 
                   name="CarrierNav"
                   component={CarrierProfileNavigation}
+                  options={{ headerShown:false }}
                 />
                 <Stack.Screen 
                   name="Details"

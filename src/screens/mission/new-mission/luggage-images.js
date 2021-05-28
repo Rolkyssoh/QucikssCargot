@@ -3,7 +3,6 @@ import { StyleSheet, View,TouchableOpacity } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import DisplayImage from '../../../components/display-image';
 import NewMissionHeader from '../../../components/new-mission-header';
-// import Ionicons from 'react-native-vector-icons/Ionicons'
  
 const LuggageImages = ({navigation}) => {
     return(
@@ -23,13 +22,14 @@ const LuggageImages = ({navigation}) => {
                         <DisplayImage img4 />
                     </View>
                 </View>
-                {/* <View style={{ flex:2 }} /> */}
             </View>
-            <View style={{ flex:2, justifyContent:'center', alignItems:'center' }}>
+            <View style={{ flex:2, justifyContent:'center', marginHorizontal:50}}>
                 <Button 
                     title="Valider"
                     type='outline'
                     onPress={()=>navigation.navigate('Bagage') }
+                    titleStyle={{ color:'#42a3aa'}}
+                    buttonStyle={{ borderRadius:20, borderColor:'#42a3aa',}}
                 />
             </View>
         </View>
@@ -51,14 +51,12 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     dislay_image_view:{
-        // backgroundColor:'red',
         flex:3,
         flexDirection:'row',
         borderColor:'grey',
         borderWidth:0.3
     },
     image_view:{
-        // backgroundColor:'green',
         flex:1,
     },
 })

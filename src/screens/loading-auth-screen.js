@@ -8,7 +8,7 @@ import { userIdChanged,authStateChanged } from '../actions';
 
 const LoadingAuthScreen = (props) => {
     const [loading, setLoading] = useState(true)
-
+ 
     useEffect(() => {
         const subscriber = auth().onAuthStateChanged((user)=>{
             if(user){

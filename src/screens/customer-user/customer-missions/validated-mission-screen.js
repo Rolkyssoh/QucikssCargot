@@ -34,13 +34,14 @@ const ValidateMissionScreen = (props) => {
             </View>
         </ScrollView>
         <View style={styles.view_button_style}>
-            <IconArrow name="arrowleft" size={30} />
+            <IconArrow name="arrowleft" color='#42a3aa' size={30} />
             <Button 
                 title="Retour"
                 type="clear"
                 onPress={() => props.navigation.navigate('NavTab')}
+                titleStyle={{ color:'#42a3aa'}}
             />
-            <IconArrow name="arrowright" size={30} />
+            <IconArrow name="arrowright" color='#42a3aa' size={30} />
         </View>
         </>
     )
@@ -52,7 +53,9 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
         flexDirection:'row',
         padding:10,
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        borderTopColor:'#42a3aa',
+        borderTopWidth:1
     },
     view_button_style:{
         marginTop:5,

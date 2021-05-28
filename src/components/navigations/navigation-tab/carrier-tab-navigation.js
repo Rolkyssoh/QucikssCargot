@@ -7,15 +7,15 @@ import CarrierProfileScreen from '../../../screens/carrier/carrier-profile-scree
 const CarrierTab = createBottomTabNavigator()
 
 const CarrierProfileNavigation = () => { 
-    return(
+    return( 
         <CarrierTab.Navigator tabBar={(props) => <TabBarHome {...props} />}>
             <CarrierTab.Screen 
-                name="PublishedMission" 
+                name="Missions" 
                 component={PublishedMissionScreen}
                 initialParams={{ icon: 'home'}}
             />
             <CarrierTab.Screen 
-                name="CarrierProfile"
+                name="Profile"
                 component={CarrierProfileScreen}
                 initialParams={{ icon: 'user'}}
             />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'; 
 import { View } from 'react-native';
-import { Text,Button } from 'react-native-elements';
+import { Text,Button } from 'react-native-elements';  
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { loggedOut } from '../../actions';
 import UserProfileComponent from '../../components/user-profile-component';
@@ -12,7 +12,8 @@ const ProfileScreen = (props) => {
     const [infosCurrentUser, setInfosCurrentUser] = useState()
 
     useEffect(() =>{
-        if(props.currentUser){
+        let isCancelled = false;
+        if(props.currentUser){ 
             firestore()
             .collection('Users')
             .where("userPhoneNumber", "==", props.currentUser.phoneNumber)
@@ -25,7 +26,10 @@ const ProfileScreen = (props) => {
         } else {
             props.navigation.navigate('Login')
         }
-    })
+        return () => {
+            isCancelled = true;
+          };
+    },[])
 
     const doLogOut = () => {
         props.loggedOut()
@@ -34,7 +38,7 @@ const ProfileScreen = (props) => {
     const goToSetting = () => {
         props.navigation.navigate('Setting')
     }
-
+ 
     return(
         <>
             {

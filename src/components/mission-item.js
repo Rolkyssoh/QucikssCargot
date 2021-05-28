@@ -1,17 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View,TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
+import { StyleSheet, View,TouchableOpacity,Image } from 'react-native';
+import { Text, } from 'react-native-elements';
 import MissionDetailComponent from './mission/mission-detail.component';
 import * as CustomNavigation from './navigations/CustomNavigation';
 
 const MissionItem = (props) => { 
-
     const [missionItem, setMissionItem] = useState(null)
+    const [missionImage, setMissionImage] = useState()
 
     useEffect(() => {
-        console.log('dans mission item: ', props.item.id)
+        console.log('dans mission item: ', props.item._data)
         if(props.item){
             setMissionItem(props.item._data)
+
+            firestore()
+                .collection('Baggage')
+                .where("mission_id", "==", props.item.id)
+                .get()
+                .then((response)=>{
+                    console.log('result on getting path image by id mission: ', response.docs[0]._data);
+
+                    storage()
+                        .ref(response.docs[0]._data.baggage_picture)
+                        .list()
+                        .then((result) => {
+                            console.log('image dispo : ', result._items[0].path)
+                            setMissionImage(result._items[0].path)
+                            result.items.forEach(ref => {
+                                console.log('url image : ',ref.path);
+                                // setMissionImage(ref.path)
+                            });
+                        })
+                        .catch((error) => { console.log('erreur lors du chargement de la liste d\'image dans missionItem : ', error)})
+                })
+                .catch((error)=> { console.log('error while getting path image in missionItem : ', error)})
         }
     },[])
 
@@ -26,10 +50,12 @@ const MissionItem = (props) => {
             // onPress={ () => <MissionDetailComponent /> }
         >
             <View style={styles.item_image}>
-                <Text>Image Item</Text>
+                {/* <Text>Image Item</Text> */}
+                {missionImage && <Image source={{ uri: `${missionImage}`}} style={{ height:120, width:90, borderTopLeftRadius:20, borderBottomLeftRadius:20,}} />}
             </View>
             <View style={styles.item_text}>
-                { missionItem && <Text>destination : {missionItem.depature_place} vers {missionItem.mission_destination}</Text>}
+                { missionItem && <Text h4>{ missionItem.mission_title }</Text>}
+                { missionItem && <Text>destination : {missionItem.mission_destination}</Text>}
                 <Text>Heure départ : heure</Text>
                 { missionItem && <Text>Type mission : {missionItem.miision_type}</Text>}
             </View>
@@ -45,6 +71,7 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         marginVertical:10,
         borderColor:'black',
+        borderRadius:20,
         // borderWidth:0.3,
         shadowColor:'black',
         // shadowOffset:{
@@ -57,8 +84,12 @@ const styles = StyleSheet.create({
     },
     item_image:{
         width:90,
-        height:90,
+        height:120,
         backgroundColor:'grey',
+        borderTopLeftRadius:20,
+        borderBottomLeftRadius:20,
+        alignItems:'center',
+        justifyContent:'center'
         // marginRight:5
     },
     item_text:{

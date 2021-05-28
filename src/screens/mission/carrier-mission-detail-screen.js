@@ -11,7 +11,7 @@ const MissionDetailComponent = ({navigation,route}) => {
     const [missionPicture, setMissionPicture] = useState()
 
     useEffect(() => {
-        console.log('params recue: ', route.params.id)
+        console.log('params recue: ', route.params.infos)
         if(route.params.id){
             getMissionImage(route.params.id)
         }
@@ -54,25 +54,8 @@ const MissionDetailComponent = ({navigation,route}) => {
             <CustomHeader customTitle="Details" />
             {route.params.infos && 
                 <View style={styles.slider_view}>
-                    <View style={{ flex:3, borderColor:'blue', borderWidth:2}}>
-                        {/* <Text>Slider ici</Text> */}
-                        {/* <SwiperFlatList
-                            autoplay
-                            autoplayDelay={2}
-                            autoplayLoop
-                            index={2}
-                            showPagination
-                            renderItem={() => (
-                                  <View style={styles.child}>
-                                      <Text style={styles.text}>item ici</Text>
-                                      <Text style={styles.text}>item ici</Text>
-                                  </View>
-                            )}  
-                        /> */}
-                        <SwiperFlatList autoplay autoplayDelay={5} autoplayLoop index={3} showPagination>
-                          {/* <View style={[styles.child, { backgroundColor: 'tomato' }]}>
-                            <Text style={styles.text}>1</Text>
-                          </View> */}
+                    <View style={{ flex:3 }}> 
+                        <SwiperFlatList autoplay autoplayDelay={5} autoplayLoop index={1} showPagination>
                           {
                             missionPicture && missionPicture.map((picture) => (
                                 
@@ -86,72 +69,96 @@ const MissionDetailComponent = ({navigation,route}) => {
                             ))
                             
                           }
-                          {/* <View style={[styles.child, { backgroundColor: 'thistle' }]}>
-                            <Text style={styles.text}>2</Text>
-                          </View>
-                          <View style={[styles.child, { backgroundColor: 'skyblue' }]}>
-                            <Text style={styles.text}>3</Text>
-                          </View>
-                          <View style={[styles.child, { backgroundColor: 'teal' }]}>
-                            <Text style={styles.text}>4</Text>
-                          </View> */}
                         </SwiperFlatList>
                     </View>
                     <View style={{ padding:10, flex:1, justifyContent:'center' }}>
-                        <Text h4>Titre</Text>
+                        { route.params.infos.mission_destination && 
+                            <Text h4>{route.params.infos.mission_title}</Text>
+                        }
                     </View>
                 </View>
             }
             {route.params.infos && 
                 <View style={styles.description_view}>
-                    <Text>{route.params.infos.mission_description}</Text>
-                    <Text>Départ : {route.params.infos.depature_place} </Text>
-                    <Text>Destination : { route.params.infos.mission_destination}</Text>
+                    <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
+                        <Text>Publiée: {route.params.infos.creation_day} </Text>
+                        <Text>Heure : { route.params.infos.creation_hour}</Text> 
+                    </View>
+                    <View style={{ flexDirection:'row', justifyContent:'space-around', marginVertical:20}}>
+                        <Text>Départ : {route.params.infos.depature_place} </Text>
+                        <Text>Destination : { route.params.infos.mission_destination}</Text>
+                    </View>
+
+                    <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+                        <Text>Type : </Text>
+                        {route.params.infos.mission_type && <Text>{ route.params.infos.mission_type}</Text>}
+                    </View>
+                    
+                    <View style={{ marginVertical:25}}>
+                        <Text h4>Description</Text>
+                        <Text>{route.params.infos.mission_description}</Text>
+                    </View>
                 </View>
             }
                 {/* For Admin */}
             {   route.params.isAdmin &&
                 <View style={styles.button_view}>
-                    <CustomButton 
+                    <Button 
                         customTitle="Retour"
+                        type="clear"
                         customPress={() =>navigation.navigate("AdminNav")}
+                        titleStyle={{ color:'#42a3aa'}}
                     /> 
-                    <CustomButton 
-                        customTitle="Valider" 
+                    <Button 
+                        customTitle="Valider"
+                        type="clear"
                         customPress={() => navigation.navigate('Map')}
-                    />
-                    <CustomButton 
-                        customTitle="Rejeter" 
+                        titleStyle={{ color:'#42a3aa'}}
+                    /> 
+                    <Button 
+                        customTitle="Rejeter"
+                        type="clear"
                         customPress={() => navigation.navigate('Rejection')}
+                        titleStyle={{ color:'#42a3aa'}}
                     />
                 </View>
             }
                 {/* For carrier */}
             {   route.params.isCarrier &&
                 <View style={styles.button_view}>
-                    <CustomButton 
-                        customTitle="Retour"
-                        customPress={() =>navigation.navigate("CarrierNav")}
+                    <Button 
+                        title="Retour"
+                        type="clear"
+                        onPress={() =>navigation.navigate("CarrierNav")}
+                        titleStyle={{ color:'#42a3aa'}}
                     /> 
-                    <CustomButton 
-                        customTitle="Intéressé" 
-                        customPress={() => navigation.navigate('Rejection')}
+                    <Button 
+                        title="Intéressé"
+                        type="clear"
+                        onPress={() => navigation.navigate('Rejection')}
+                        titleStyle={{ color:'#42a3aa'}}
                     />
                 </View> 
             }
             {   route.params.isCustomer &&
                 <View style={styles.button_view}>
-                    <CustomButton 
-                        customTitle="Retour"
-                        customPress={() =>navigation.navigate("Customer")}
+                    <Button 
+                        title="Retour"
+                        type="clear"
+                        onPress={() =>navigation.navigate("Customer")}
+                        titleStyle={{ color:'#42a3aa'}}
                     /> 
-                    <CustomButton 
-                        customTitle="Modifier" 
-                        customPress={() => navigation.navigate('Map')}
+                    <Button 
+                        title="Modifier"
+                        type="clear"
+                        onPress={() => navigation.navigate('Map')}
+                        titleStyle={{ color:'#42a3aa'}}
                     />
-                    <CustomButton 
-                        customTitle="Suprimer" 
-                        customPress={() => navigation.navigate('Rejection')}
+                    <Button 
+                        title="Suprimer"
+                        type="clear"
+                        onPress={() => navigation.navigate('Rejection')}
+                        titleStyle={{ color:'#42a3aa'}}
                     />
                 </View>
             }
@@ -173,8 +180,8 @@ const styles = StyleSheet.create({
     },
     slider_view:{
         flex:6,
-        borderColor:'red',
-        borderWidth:1
+        // borderColor:'red',
+        // borderWidth:1
     },
     description_view:{
         flex:5,
@@ -189,7 +196,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         paddingHorizontal:10,
         borderColor:'grey',
-        borderTopWidth:3
+        borderTopWidth:1
         // paddingBottom:10
     }
 })

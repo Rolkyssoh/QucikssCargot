@@ -18,7 +18,7 @@ const PendingMissionScreen = (props) => {
         // }
         firestore()
             .collection('Mission')
-            .where("activated", "==", false)
+            .where("activated", "==", false) 
             .where("user_id", "==", user_id) 
             .get()
             .then((resp) => { 
@@ -30,36 +30,40 @@ const PendingMissionScreen = (props) => {
 
     return(
         <>
-        <CustomHeader customTitle="En attente" />
-        <ScrollView >
-            <View style={styles.container_pending}>
-                {
-                    missionPending && missionPending.map((item) => { 
-                        return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
-                    })
-                }
+            <CustomHeader customTitle="En attente" />
+            <ScrollView >
+                <View style={styles.container_pending}>
+                    {
+                        missionPending && missionPending.map((item) => { 
+                            return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
+                        })
+                    }
+                </View>
+            </ScrollView>
+            <View style={styles.view_button_style}>
+                <View />
+                <Button 
+                    title="Retour"
+                    type="clear"
+                    onPress={() => props.navigation.navigate('NavTab')}
+                    titleStyle={{ color:'#42a3aa'}}
+                />
+                <IconArrow name="arrowright" color='#42a3aa' size={30} />
             </View>
-        </ScrollView>
-        <View style={styles.view_button_style}>
-            <View />
-            <Button 
-                title="Retour"
-                type="clear"
-                onPress={() => props.navigation.navigate('NavTab')}
-            />
-            <IconArrow name="arrowright" size={30} />
-        </View>
         </>
     )
 }
 
 const styles = StyleSheet.create({
     container_pending:{
-        flex:1,
+        flex:1, 
         flexWrap:'wrap',
         flexDirection:'row',
         padding:10,
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        // backgroundColor: "#dee1e3",
+        borderTopColor:'#42a3aa',
+        borderTopWidth:1
     },
     view_button_style:{
         marginTop:5,

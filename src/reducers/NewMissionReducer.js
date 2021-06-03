@@ -12,7 +12,8 @@ import {
     BAGGAGE_IMAGE2_CHANGED,
     BAGGAGE_IMAGE3_CHANGED,
     BAGGAGE_IMAGE4_CHANGED,
-    CREATE_NEW_MISSION
+    CREATE_NEW_MISSION,
+    UPDATE_AND_EXISTING_MISSION
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -61,7 +62,9 @@ export default (state = INITIAL_STATE, action) => {
         case BAGGAGE_IMAGE4_CHANGED:
             return { ...state, baggageImage4: action.payload };
         case CREATE_NEW_MISSION:
-            return { ...state } 
+            return { ...state };
+        case UPDATE_AND_EXISTING_MISSION:
+            return { ...state }
         default:
             return state;
     }

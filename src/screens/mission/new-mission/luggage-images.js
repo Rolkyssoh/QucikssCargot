@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View,TouchableOpacity } from 'react-native';
-import { Text, Button } from 'react-native-elements';
+import { Text, Button } from 'react-native-elements'; 
 import DisplayImage from '../../../components/display-image';
 import NewMissionHeader from '../../../components/new-mission-header';
  
@@ -15,7 +15,7 @@ const LuggageImages = ({navigation}) => {
                 <View style={styles.dislay_image_view} >  
                     <View style={styles.image_view}>
                         <DisplayImage imgOne />
-                        <DisplayImage img2 />
+                        <DisplayImage img2 /> 
                     </View>
                     <View style={styles.image_view}>
                         <DisplayImage img3 />

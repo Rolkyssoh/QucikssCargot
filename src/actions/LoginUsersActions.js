@@ -25,7 +25,7 @@ export const handleSendCode = ( phone ) => {
                 console.log('confirmeResult : ', receivedCode);
                 dispatch({ type: SUCCESS_SEND_CODE, payload: receivedCode })
                 customNavigate('ConfirmCode')
-            }) 
+            })  
             .catch((error) => {
                 console.log('Pas de code : ', error);
                 dispatch({ type: FAIL_SEND_CODE}) 

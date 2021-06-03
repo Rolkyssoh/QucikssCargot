@@ -114,7 +114,7 @@ const App = () => {
                   options={{ headerShown:false }}
                 />
                 <Stack.Screen 
-                  name="Mission"
+                  name="ManageMission"
                   component={NewMission}
                   options={{ headerShown:false }}
                 />
@@ -131,6 +131,7 @@ const App = () => {
                 <Stack.Screen 
                   name="AdminNav"
                   component={AdminNavigation}
+                  options={{ headerShown:false }} 
                 />
                 <Stack.Screen 
                   name="CarrierNav"

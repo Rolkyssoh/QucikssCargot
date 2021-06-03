@@ -11,16 +11,22 @@ const LuggageInfos = (props) => {
     const onVolumeChange = (luggageVolume) => {
         props.volumeChanged(luggageVolume) 
     }
-    const onBaggageTypeChange = (baggageType) => {
+    const onBaggageTypeChange = (baggageType) => { 
         props.baggageTypeChanged(baggageType)
+    }
+
+    const clearInputFields = () => {
+        props.volumeChanged('');
+        props.baggageTypeChanged('');
+        props.navigation.navigate('Drawer')
     }
 
     return(
         <View style={styles.luggage_infos_container}>
-            <NewMissionHeader title="Détails du Bagage" doNav={()=>props.navigation.navigate('Drawer')} />
+            <NewMissionHeader title="Détails du Bagage" doNav={clearInputFields} />
             <View style={styles.content_view}>
                 <View style={styles.input_view}>
-                    <Input 
+                    <Input  
                         placeholder="Volume approximatif"
                         value={props.luggageVolume}
                         onChangeText={onVolumeChange}
@@ -42,7 +48,7 @@ const LuggageInfos = (props) => {
                 </View>
                 <View style={styles.text_view}> 
                     <Text>
-                        Conseil: Les missions avec images sont le plus vue
+                        Conseil: Les missions avec images attirent plus l'attention
                     </Text>
                 </View> 
             </View>

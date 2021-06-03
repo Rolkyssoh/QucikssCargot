@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { StyleSheet } from 'react-native';
 import MissionInfos from './mission-infos';
@@ -15,7 +15,8 @@ const NewMission = () => {
             <MissionTab.Screen 
                 name="Mission"
                 component={MissionInfos}
-            />
+
+            /> 
             <MissionTab.Screen
                 name="Bagage"
                 component={LuggageInfos}

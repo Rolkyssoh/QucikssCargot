@@ -44,7 +44,7 @@ const MapScreen = ({navigation, route}) => {
                 <Button 
                     title="Créer mission" 
                     type="clear"
-                    onPress={() => navigation.navigate('Mission')}
+                    onPress={() => navigation.navigate('ManageMission')}
                 />
             </View>
         </View>

@@ -45,6 +45,7 @@ export const DESCRIPTION_CHANGED = 'description_changed';
 export const VOLUME_BAGGAGE_CHANGED = 'volume_baggage_changed';
 export const BAGGAGE_TYPE_CHANGED = 'baggage_type_changed';
 export const CREATE_NEW_MISSION = 'create_new_mission';
+export const UPDATE_AND_EXISTING_MISSION = 'update_and_existing_mission';
 
 export const BAGGAGE_IMAGE1_CHANGED = 'baggage_image1_changed';
 export const BAGGAGE_IMAGE2_CHANGED = 'baggage_image2_changed';

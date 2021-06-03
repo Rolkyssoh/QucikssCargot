@@ -41,7 +41,7 @@ const PublishedMissionScreen = () => {
 const styles = StyleSheet.create({
     published_view_container:{
         flex:1,
-        backgroundColor:'#d5dde0',
+        backgroundColor:'#d5dde0', 
         padding:15,
         // marginBottom:55
         paddingBottom:71

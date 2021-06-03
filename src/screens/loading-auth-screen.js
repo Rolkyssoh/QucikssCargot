@@ -27,7 +27,7 @@ const LoadingAuthScreen = (props) => {
                                 props.navigation.navigate('AdminNav')
                                 :response.docs[0]._data.isCarrier ?
                                     props.navigation.navigate('CarrierNav')
-                                    : response.docs[0]._data.username =='' ?
+                                    : response.docs[0]._data.username =='' ? 
                                         props.navigation.navigate('AddInfos')
                                         :props.navigation.navigate('NavTab') 
                         : props.navigation.navigate('Awaiting')

@@ -49,6 +49,7 @@ const LoginScreen = (props) => {
                     title="Devenir transporteur"
                     type="clear"
                     onPress={() => props.navigation.navigate('CarrierSignup')}
+                    titleStyle={{ color:'#42a3aa'}}
                     containerStyle={{ top:20}}
                 />
                 { props.loading && 
@@ -66,16 +67,11 @@ const LoginScreen = (props) => {
                 <Button
                     containerStyle={{width:370, paddingVertical:15,}}
                     // buttonStyle={{width:370 }}
-                    title="To Admin"
-                    type="clear"
-                    onPress={() => props.navigation.navigate('ConfirmCode')}
-                />
-                <Button
-                    containerStyle={{width:370, paddingVertical:15,}}
-                    // buttonStyle={{width:370 }}
-                    title="Login"
+                    title="Confirmer"
                     type="outline"
                     onPress={doLogin}
+                    titleStyle={{ color:'#42a3aa'}}
+                    buttonStyle={{ borderRadius:20, borderColor:'#42a3aa'}}
                 />
             </View>
         </View>

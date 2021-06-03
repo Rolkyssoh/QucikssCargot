@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         shadowRadius:1,
         shadowOpacity:1,
         shadowColor:'red',
-        shadowOffset:{height:10, width:10},
+        shadowOffset:{height:10, width:10}, 
         // backgroundColor:'red'
     },
     boxes_thirt_view:{ 

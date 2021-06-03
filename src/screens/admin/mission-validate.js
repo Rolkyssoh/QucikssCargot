@@ -31,13 +31,14 @@ const MissionValidate = ({ navigation }) => {
             </View> 
         </View> 
     )
-}
+} 
 
 const styles = StyleSheet.create({
     validate_container:{
         flex:1,
         alignItems:'center',
-        backgroundColor:'#d5dde0'
+        backgroundColor:'#d5dde0',
+        paddingBottom:105
     },
     items_list:{
         // backgroundColor:'red',

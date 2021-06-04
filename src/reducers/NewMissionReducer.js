@@ -3,8 +3,12 @@ import {
     DESTINATION_CHANGED,
     DEPATURE_CHANGED,
     START_HOURS_CHANGED,
-    DATE_TIME_CHANGED,
     START_MINUTES_CHANGED,
+    START_DAY_CHANGED,
+    START_DATE_CHANGED,
+    START_MONTH_CHANGED,
+    START_YEAR_CHANGED,
+    MISSION_TYPE_CHANGED,
     DESCRIPTION_CHANGED,
     VOLUME_BAGGAGE_CHANGED,
     BAGGAGE_TYPE_CHANGED,
@@ -21,8 +25,13 @@ const INITIAL_STATE = {
     destination:'',
     depature:'',
     selectedHours:0,
-    dateTime: new Date(),
-    selectedMinutes:0,
+    // dateTime: new Date(),
+    selectedMinutes:0, 
+    selectedDay:'',
+    selectedDate:'',
+    selectedMonth:'',
+    selectedYear:'',
+    missionType: 'instantanée',
     description:'',
     luggageVolume:'',
     baggageType:'',
@@ -42,10 +51,18 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, depature: action.payload };
         case START_HOURS_CHANGED:
             return { ...state, selectedHours: action.payload };
-        case DATE_TIME_CHANGED:
-            return { ...state, dateTime: action.payload }; 
         case START_MINUTES_CHANGED:
             return { ...state, selectedMinutes: action.payload };
+        case START_DAY_CHANGED :
+            return { ...state , selectedDay: action.payload } 
+        case START_DATE_CHANGED :
+            return { ...state , selectedDate: action.payload } 
+        case START_MONTH_CHANGED :
+            return { ...state , selectedMonth: action.payload } 
+        case START_YEAR_CHANGED :
+            return { ...state , selectedYear: action.payload }
+        case MISSION_TYPE_CHANGED: 
+            return { ...state, missionType: action.payload }
         case DESCRIPTION_CHANGED:
             return { ...state, description: action.payload };
         case VOLUME_BAGGAGE_CHANGED:

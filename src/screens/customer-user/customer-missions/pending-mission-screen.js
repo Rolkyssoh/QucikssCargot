@@ -11,7 +11,7 @@ const PendingMissionScreen = (props) => {
     const [missionPending, setMissionPending] = useState()
     const [user_id, setUserId] = useState(props.userId)
 
-    useEffect(() => {
+    useEffect(() => { 
         console.log('valeu de user id : ', props.userId)
         // if(props.userId){
         //     setUserId(props.userId)
@@ -38,7 +38,14 @@ const PendingMissionScreen = (props) => {
                             return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
                         })
                     }
-                </View>
+                    
+                </View> 
+                {/* {
+                    missionPending.length ==0 &&
+                    <View style={{ alignItems:'center', marginTop:100}}>
+                        <Text>Aucune mission trouvée</Text>
+                    </View>
+                } */}
             </ScrollView>
             <View style={styles.view_button_style}>
                 <View />

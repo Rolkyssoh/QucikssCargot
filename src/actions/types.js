@@ -31,15 +31,19 @@ export const DIGIT6_CHANGED = 'digit6_changed';
 export const CONFIRM_CODE = 'confrim_code';
 export const SUCCESS_CONFIRMATION = 'success_confirmation';
 export const USER_IS_CONNECTED = 'user_is_connected';
-export const FAIL_CONFIRMATION = 'fail_confirmation';
+export const FAIL_CONFIRMATION = 'fail_confirmation'; 
 
 //For new mission
 export const TITLE_CHANGED = 'title_changed';
 export const DESTINATION_CHANGED = 'destination_changed'; 
 export const DEPATURE_CHANGED = 'depature_changed';
 export const START_HOURS_CHANGED = 'start_hours_changed';
-export const DATE_TIME_CHANGED = 'date_time_changed';
 export const START_MINUTES_CHANGED = 'start_minutes_changed';
+export const START_DAY_CHANGED = 'start_day_changed';
+export const START_DATE_CHANGED = 'start_date_changed';
+export const START_MONTH_CHANGED = 'start_month_changed';
+export const START_YEAR_CHANGED = 'start_year_changed';
+export const MISSION_TYPE_CHANGED = 'mission_type_changed';
 export const DESCRIPTION_CHANGED = 'description_changed';
 
 export const VOLUME_BAGGAGE_CHANGED = 'volume_baggage_changed';

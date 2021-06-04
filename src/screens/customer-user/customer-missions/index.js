@@ -8,13 +8,13 @@ import MaterialTabBar from '../../../components/navigations/material-tab.compone
 
 const MissionTab =createMaterialTopTabNavigator()
 
-const CustomerMissions = () => {
+const CustomerMissions = () => { 
     return(
         <MissionTab.Navigator
             tabBar={(props) => <MaterialTabBar {...props} />}
             tabBarPosition='bottom'
         > 
-            <MissionTab.Screen 
+            <MissionTab.Screen  
                 name="En attente"
                 component={PendingMissionScreen}
             />

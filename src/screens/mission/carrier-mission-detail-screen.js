@@ -62,8 +62,8 @@ const MissionDetailComponent = ({navigation,route}) => {
                     </View>
                 </View>
             }
-            {route.params.infosMission && 
-                <View style={styles.description_view}>
+            {   route.params.infosMission && 
+                <View style={styles.description_view}> 
                     <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
                         <Text>Publiée: {route.params.infosMission.creation_day} </Text>
                         <Text>Heure : { route.params.infosMission.creation_hour}</Text> 
@@ -75,7 +75,9 @@ const MissionDetailComponent = ({navigation,route}) => {
 
                     <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
                         <Text>Type : </Text>
-                        {route.params.infosMission.mission_type && <Text>{ route.params.infosMission.mission_type}</Text>}
+                        {/* {   route.params.infosMission.mission_type &&  */}
+                            <Text>{ route.params.infosMission.mission_type}</Text>
+                        {/* } */}
                     </View>
                     
                     <View style={{ marginVertical:25}}>
@@ -111,7 +113,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                     />
                 </View>
             }
-                {/* For carrier */}
+                {/* For carrier */} 
             {   route.params.isCarrier &&
                 <View style={styles.button_view}>
                     <Button 
@@ -144,7 +146,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                             {   
                                 screen: 'Mission',
                                 params: {
-                                    missionId: route.params.id
+                                    missionId: route.params.id  
                                 }
                                 
                             }

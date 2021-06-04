@@ -5,8 +5,14 @@ import {
     DESTINATION_CHANGED,
     DEPATURE_CHANGED,
     START_HOURS_CHANGED,
-    DATE_TIME_CHANGED,
     START_MINUTES_CHANGED,
+
+    START_DAY_CHANGED,
+    START_DATE_CHANGED,
+    START_MONTH_CHANGED,
+    START_YEAR_CHANGED,
+    MISSION_TYPE_CHANGED,
+
     DESCRIPTION_CHANGED,
     VOLUME_BAGGAGE_CHANGED,
     BAGGAGE_TYPE_CHANGED,
@@ -44,13 +50,50 @@ export const hoursChanged = (hours) => {
         payload: hours
     }
 }
-export const dateTimeChanged = (date_time) => {
-    console.log('dans le minutesChanges: ', date_time)
+export const minutesChanged = (minutes) => {
+    console.log('minute entrée: ', minutes)
     return{
-        type: DATE_TIME_CHANGED,
-        payload: date_time
+        type: START_MINUTES_CHANGED,
+        payload: minutes
     }
 }
+
+export const startDayChanged = (weekDay) => {
+    console.log('jour entrée: ', weekDay)
+    return{
+        type: START_DAY_CHANGED,
+        payload: weekDay
+    }
+}
+export const startDateChanged = (date) => {
+    console.log('date entrée: ', date)
+    return{
+        type: START_DATE_CHANGED,
+        payload: date
+    }
+}
+export const startMonthChanged = (month) => {
+    console.log('month entrée: ', month)
+    return{
+        type: START_MONTH_CHANGED,
+        payload: month
+    }
+}
+export const startYearChanged = (year) => {
+    console.log('year entrée: ', year)
+    return{
+        type: START_YEAR_CHANGED,
+        payload: year
+    }
+}
+export const missionTypeChanged = (mType) => {
+    console.log('mission type:', mType)
+    return {
+        type: MISSION_TYPE_CHANGED,
+        payload: mType
+    }
+}
+
 export const descriptionChanged = (description) => {
     return{
         type: DESCRIPTION_CHANGED,
@@ -98,12 +141,14 @@ export const baggageImage4Changed = (baggageImage4) => {
     }
 };
 
-export const createNewMission = ({title, destination, depature, selectedHours, dateTime, selectedMinutes, description,
-    luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, userId} ) => {
+export const createNewMission = ({title, destination, depature, selectedHours, selectedMinutes, selectedDay, selectedDate, selectedMonth, selectedYear, 
+    missionType, description, luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, userId} ) => {
     const date = new Date()
     const missionDate = date.getDate() + "/" + (date.getMonth() + 1)+"/"+date.getFullYear()
     const missionHour = date.getHours()+":"+date.getMinutes();
-    console.log('date time mission: ', dateTime);
+    const depatureDateGive = selectedDay + ', le ' + `${selectedDate}/${selectedMonth}/${selectedYear}`;
+    const currentDateMIssion = selectedDay + ', le ' + `${missionDate}`
+
     return async (dispatch) => {
         dispatch({ type: CREATE_NEW_MISSION });
         console.log('Dans le create new mission!!!')
@@ -112,14 +157,15 @@ export const createNewMission = ({title, destination, depature, selectedHours, d
         .add({
            activated: false,
            rejected:false,
-           miision_type:'',
+           mission_type:missionType,
            creation_day: missionDate,
            creation_hour: missionHour,
            mission_title: title,
            mission_destination:destination,
            depature_place:depature,
            //  depature_time:`${selectedHours.hours+':'+selectedHours.minutes}`,
-           depature_time: dateTime,
+           depature_time: selectedHours+':'+selectedMinutes,
+           depature_day: `${ missionType == 'programmée' ? depatureDateGive : currentDateMIssion }`,
            started_at:'',
            ended_at:'',
            mission_description:description,
@@ -127,8 +173,6 @@ export const createNewMission = ({title, destination, depature, selectedHours, d
         })
         .then((snapshot)=>{
             console.log('user added!!', snapshot);
-            // dispatch({type: DRIVER_LICENSE_UPLOADED_SUCCESS})
-            // customNavigate('Awaiting');
             firestore()
             .collection('Baggage')
             .doc('Mission')
@@ -138,13 +182,11 @@ export const createNewMission = ({title, destination, depature, selectedHours, d
                 baggage_type:baggageType,
             })
             .then((snapshot)=>{
-                console.log('Baggage added!!', snapshot._documentPath._parts[1]);
+                console.log('Baggage added!!', snapshot);
                 { baggageImage1 && uploadBaggageImage(baggageImage1, snapshot.path, snapshot.id) }
                 { baggageImage2 && uploadBaggageImage(baggageImage2, snapshot.path, snapshot.id) };
                 { baggageImage3 && uploadBaggageImage(baggageImage3, snapshot.path, snapshot.id) };
                 { baggageImage4 && uploadBaggageImage(baggageImage4, snapshot.path, snapshot.id) };
-                // dispatch({type: DRIVER_LICENSE_UPLOADED_SUCCESS})
-                // customNavigate('Awaiting');
             })
             .catch((error)=> {
                 console.log('erreor while add baggage : ', error)
@@ -156,12 +198,14 @@ export const createNewMission = ({title, destination, depature, selectedHours, d
     }
 };
 
-export const updatingMission = ({title, destination, depature, dateTime, description,
-    luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, missionId, documentMissionId}) => {
+export const updatingMission = ({title, destination, depature, description,selectedHours, selectedMinutes, selectedDay, selectedDate, 
+    selectedMonth, selectedYear, luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, missionId, documentMissionId}) => {
         return async (dispatch) => {
             const date = new Date()
             const missionDateUpdate = date.getDate() + "/" + (date.getMonth() + 1)+"/"+date.getFullYear()
             const missionHourUpdate = date.getHours()+":"+date.getMinutes();
+            const depatureDateGive = selectedDay + ', le ' + `${selectedDate}/${selectedMonth}/${selectedYear}`;
+            const currentDateMIssion = selectedDay + ', le ' + `${missionDate}`
             dispatch ({ type: UPDATE_AND_EXISTING_MISSION});
             console.log({missionId, documentMissionId})
 
@@ -173,11 +217,12 @@ export const updatingMission = ({title, destination, depature, dateTime, descrip
                 rejected:false,
                 updatingDay: missionDateUpdate,
                 updatingHour: missionHourUpdate ,
-                miision_type:'',
+                mission_type:'',
                 mission_title: title,
                 mission_destination:destination,
                 depature_place:depature,
-                depature_time: dateTime,
+                depature_time: selectedHours+':'+selectedMinutes,
+                depature_day: `${ missionType == 'programmée' ? depatureDateGive : currentDateMIssion }`,
                 started_at:'',
                 ended_at:'',
                 mission_description:description,
@@ -216,7 +261,7 @@ const updateBaggageInfos = async (theMissinCollectionId, missionDocId, vol, typ)
       .catch((error) => console.log('error while updating baggage infos', error))
 }
 
-const uploadBaggageImage = async (picture, baggagePath, missionId, docMissionId) => {
+const uploadBaggageImage = async (picture, baggagePath, docMissionId) => {
     console.log({baggagePath})
     console.log('dans le upload picture de profile!!!!', picture)
     const uri = picture;
@@ -232,12 +277,12 @@ const uploadBaggageImage = async (picture, baggagePath, missionId, docMissionId)
         .then( async (datas) => {
             console.log('picture baggage uploadée', datas)
             const imageUrl = await storage().ref(`${reference}`).getDownloadURL();
-            console.log({imageUrl, missionId, baggageId: baggagePath})
+            console.log({imageUrl, baggageId: baggagePath})
             // console.log('picture baggage uploadée', datas.)
             //Insertion de l'url dans firestore
             if (imageUrl != null) {
                 console.log('dans la ligne mm!!!')
-                if(!docMissionId){
+                // if(!docMissionId){
                     firestore()
                         // .collection('Baggage')
                         // .doc('Missions')
@@ -247,7 +292,7 @@ const uploadBaggageImage = async (picture, baggagePath, missionId, docMissionId)
                         .add({
                             imageUrl,
                         })
-                } else {
+                // } else {
                     // firestore()
                     // //   .collection('Mission')
                     //   .doc(baggagePath)
@@ -258,7 +303,7 @@ const uploadBaggageImage = async (picture, baggagePath, missionId, docMissionId)
                     //     console.log('Baggage updated!');
                     //   })
                     //   .catch((error) => console.log('error while updating mission: ', error))
-                }
+                // }
             }
         })
         .catch((error) => {

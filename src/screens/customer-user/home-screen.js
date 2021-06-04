@@ -27,21 +27,21 @@ const HomeScreen = (props) => {
             <View style={styles.view_title}>
                 <Text style={{ color:'#42a3aa'}} h2>Quicksse</Text>
             </View>
-            <View style={styles.boxes_first_view}> 
+            <View style={styles.boxes_first_view}>
+                <Text h4>Choisissez le vehicule qui correspond à votre mission</Text>
                 <View style={styles.boxes_second_view}> 
                     <Medium name="Petit Camion" />
                     <Medium name="Tricycle" />
-                </View> 
-                {/* <View style={styles.boxes_thirt_view}> */}
-                    <Button 
-                        title="Mes missions" 
-                        type="outline"
-                        onPress={() => props.navigation.navigate('Customer')}
-                        titleStyle={{ color:'black', fontStyle:'normal', fontWeight:'bold',zIndex:-1 }}
-                        buttonStyle={{ borderRadius:20}}
-                        containerStyle={styles.boxes_thirt_view}
-                    />
-                {/* </View> */} 
+                </View>
+                <View style={{ borderWidth:0.5, borderColor:'white', width:'100%', marginVertical:40}} />
+                <Button 
+                    title="Mes missions" 
+                    type="outline"
+                    onPress={() => props.navigation.navigate('Customer')}
+                    titleStyle={{ color:'black', fontStyle:'normal', fontWeight:'bold',zIndex:-1 }}
+                    buttonStyle={{ borderRadius:20}}
+                    containerStyle={styles.boxes_thirt_view}
+                />
             </View>
         </View>
     ) 
@@ -51,38 +51,29 @@ const styles = StyleSheet.create({
     home_container: {
         backgroundColor: "#dee1e3",
         flex:1,
-        // justifyContent:'space-around',
         alignItems:'center',
         backgroundColor:'#d5dde0'
     },
     view_title:{
         marginTop:30,
-        marginBottom:120
+        marginBottom:70
     },
     boxes_first_view:{
-        // flex:1,
         justifyContent:'center',
         alignItems:'center',
-        // backgroundColor:'yellow',
         width:'100%',
     }, 
     boxes_second_view:{
         flexDirection:'row',
-        // justifyContent:'space-around',
         shadowRadius:1,
         shadowOpacity:1,
         shadowColor:'red',
         shadowOffset:{height:10, width:10}, 
-        // backgroundColor:'red'
     },
     boxes_thirt_view:{ 
-        // padding:10, 
-        // marginHorizontal:40,
-        marginTop:100,
-        marginVertical:50,  
+        marginTop:70,
+        // marginVertical:50,  
         backgroundColor:'#42a3aa',  
-        // backgroundColor:'#42a3aa',
-        // height:80, 
         width:300,
         justifyContent:'center' ,
         borderRadius:20,

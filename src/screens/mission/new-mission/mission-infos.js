@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {TimePicker} from 'react-native-simple-time-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import DatePicker from 'react-native-date-picker';
+import { RadioButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
@@ -12,8 +11,12 @@ import {
     destinationChanged, 
     depatureChanged, 
     hoursChanged,
-    dateTimeChanged,
-    minutesChanged, 
+    minutesChanged,
+    startDayChanged,
+    startDateChanged,
+    startMonthChanged,
+    startYearChanged,
+    missionTypeChanged,
     descriptionChanged, 
     createNewMission ,
     updatingMission,
@@ -26,13 +29,42 @@ import {
 } from '../../../actions';
 
 const MissionInfos = (props) => {
-    const [date, setDate] = useState(new Date())
+    // const [date, setDate] = useState(new Date())
     const [documentMissionId, setDocumentMissionId] = useState()
+    const [value, setValue] = useState('instantanée')
+
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+        props.hoursChanged(currentDate.getHours())
+        props.minutesChanged(currentDate.getMinutes())
+        props.startDayChanged(currentDate.getDay())
+        props.startDateChanged(currentDate.getDate())
+        props.startMonthChanged(currentDate.getMonth())
+        props.startYearChanged(currentDate.getFullYear())
+      };
+
+      const showMode = (currentMode) => {
+        setShow(true); 
+        setMode(currentMode);
+      };
+
+      const showDatepicker = () => {
+        showMode('date');
+      };
+
+      const showTimepicker = () => {
+        showMode('time');
+      };
 
     useEffect(() => {
         console.log('id user dans mission infos: ', props.userId)
         console.log('params reçu dans missioniNFOS: ', props.route)
-        console.log('le date time dans missioninfos: ', props.dateTime)
 
         if(props.route.params){
             //get mission infos
@@ -47,12 +79,21 @@ const MissionInfos = (props) => {
             .doc(theMissionId)
             .get()
             .then((result) => {
-                console.log('the infos mission for update: ', result.id)
-                const { mission_title, mission_destination, depature_place, mission_description} = result._data
+                console.log('the infos mission for update: ', result._data)
+                console.log('element extrait : ', result._data.depature_time.substring(0, result._data.depature_time.indexOf(':')))
+                console.log('element extrait avec indexof : ', result._data.depature_day.indexOf('/'))
+                const { mission_title, mission_destination, depature_place, mission_description, mission_type, depature_day, depature_time} = result._data
                 onTitleChange(mission_title)
                 onDestinationChange(mission_destination)
                 onDepatureChange(depature_place)
                 onDescriptionChange(mission_description)
+                onMissionTypeChange(mission_type)
+
+                props.hoursChanged(depature_time.substring(0, depature_time.indexOf(':')))
+                props.minutesChanged(depature_time.substring(depature_time.lastIndexOf(':') + 1))
+                props.startDateChanged(depature_day.substring(depature_day.lastIndexOf(' ') ,depature_day.indexOf('/')))
+                props.startMonthChanged(depature_day.substring(depature_day.indexOf('/')+1 ,depature_day.lastIndexOf('/')))
+                props.startYearChanged(depature_day.substring(depature_day.lastIndexOf('/') +1))
                 //baggage infos to update
                 getBaggageInfosForUpdate(result.id)
             })
@@ -87,14 +128,24 @@ const MissionInfos = (props) => {
             .collection('BaggagePicture')
             .get()
             .then((resp) => { 
-                console.log('response getting Baggage image once: ', resp.docs[0])
+                console.log('response getting Baggage image once: ', resp.docs.length)
                 resp.docs.forEach((ref) => { 
                     console.log('dans le forEach : ', ref)
                 })
-                props.baggageImage1Changed(resp.docs[0]._data.imageUrl), 
-                props.baggageImage2Changed(resp.docs[1]._data.imageUrl), 
-                props.baggageImage3Changed(resp.docs[2]._data.imageUrl), 
-                props.baggageImage4Changed(resp.docs[3]._data.imageUrl)
+                if(resp.docs.length != 0){
+                    if(resp.docs[0]){
+                        props.baggageImage1Changed(resp.docs[0]._data.imageUrl)
+                    }
+                    if(resp.docs[1]){
+                        props.baggageImage2Changed(resp.docs[1]._data.imageUrl)
+                    }
+                    if(resp.docs[2]){
+                        props.baggageImage3Changed(resp.docs[2]._data.imageUrl)
+                    }
+                    if(resp.docs[3]){
+                        props.baggageImage4Changed(resp.docs[3]._data.imageUrl)
+                    }
+                }
             })
             .catch((error) => { console.log('error while getting baggage image once : ', error)})
     }
@@ -111,23 +162,34 @@ const MissionInfos = (props) => {
         props.depatureChanged(depature)
     }
 
-    const onDescriptionChange = (description) => {
+    const onDescriptionChange = (description) => { 
         props.descriptionChanged(description)
     }
 
-    const doCreateNewMission = () => {
-        const { title, destination,depature, selectedHours, dateTime, selectedMinutes, description, 
-            luggageVolume, baggageType, baggageImage1,baggageImage2, baggageImage3, baggageImage4, userId} = props;
-        const missionId = props.route.params.missionId;
+    const onMissionTypeChange = (mType) => {
+        props.missionTypeChanged(mType)
+    }
 
-        if(props.route.params){
+    const doCreateNewMission = () => {
+        const { title, destination,depature, selectedHours, selectedMinutes, selectedDay, selectedDate, selectedMonth, selectedYear, 
+            missionType, description, luggageVolume, baggageType, baggageImage1,baggageImage2, baggageImage3, baggageImage4, userId} = props;
+        
+
+        if(props.route.params){ 
+            const missionId = props.route.params.missionId;
             //Pour la modification
-            props.updatingMission({title, destination, depature, selectedHours, dateTime, selectedMinutes, description, 
-                luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4,missionId, documentMissionId})
+            props.updatingMission({title, destination, depature, selectedHours, selectedMinutes,selectedDay, selectedDate, selectedMonth, selectedYear,
+                 description, luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4,missionId, documentMissionId})
         } else {
             //Pour la création
-            props.createNewMission({title, destination, depature, selectedHours, dateTime, selectedMinutes, description, 
-                luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4, userId})
+            props.createNewMission({title, destination, depature, selectedHours, selectedMinutes, selectedDay, selectedDate, selectedMonth, selectedYear,
+                missionType,description, luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4, userId});
+                props.titleChanged('');
+                props.destinationChanged('');
+                props.depatureChanged('');
+                props.descriptionChanged('');
+                props.volumeChanged('');
+                props.baggageTypeChanged('');
         }
     }
 
@@ -136,6 +198,8 @@ const MissionInfos = (props) => {
         props.destinationChanged('');
         props.depatureChanged('');
         props.descriptionChanged('');
+        props.volumeChanged('');
+        props.baggageTypeChanged('');
         props.navigation.navigate('Drawer')
     }
 
@@ -168,35 +232,57 @@ const MissionInfos = (props) => {
                         value={props.description}
                         onChangeText={onDescriptionChange}
                     />
-                    <View style={{ alignItems:'center'}}>
-                        <Text>Date et heure de départ</Text>
-                        <DatePicker 
-                            date={props.dateTime}
-                            onDateChange={props.dateTimeChanged}
-                            mode='datetime'
-                            maximumDate={new Date('2021-12-31')}
-                            minimumDate={new Date('2021-04-01')}
-                        />
+                    <View>
+                        <Text style={{ alignSelf:'center'}}>Type de la mission</Text>
+                        <RadioButton.Group onValueChange={onMissionTypeChange} value={props.missionType}>
+                            <View style={{ flexDirection:'row', justifyContent:'space-around', marginBottom:20}}> 
+                                <View style={{ alignItems:'center', flexDirection:'row'}}>
+                                  <Text>Instantanée</Text>
+                                  <RadioButton value="instantanée" />
+                                </View>
+                                <View style={{ alignItems:'center', flexDirection:'row'}}>
+                                  <Text>Programmée</Text>
+                                  <RadioButton value="programmée" />
+                                </View>
+                            </View>
+                        </RadioButton.Group>
                     </View>
-                    {/* <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
-                        <View>
-                            <Text>Date de départ</Text>
-                            <Text>date</Text>
-                        </View>
-                        <View style={{ width:'59%', alignItems:'center'}}>
-                            <Text>Heur de départ</Text>
-                            <TimePicker 
-                                selectedHours={props.selectedHours}
-                                selectedMinutes={props.selectedMinutes}
-                                onChange={(hours, minutes)=>{
-                                    props.hoursChanged(hours);
-                                    props.minutesChanged(minutes)
-                                }}
-                                zeroPadding
-                                hoursUnit='h'
+                    <View style={{ alignItems:'center'}}>
+                        { props.missionType == 'programmée' && <Text>Date et heure de départ</Text>}
+                        { props.missionType == 'instantanée' && <Text>Heure de départ</Text> }
+                    </View>
+                    <View style={{ flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
+                        { props.missionType == 'programmée' && 
+                            <View style={{ alignItems:'center'}}>
+                              <Button 
+                                  onPress={showDatepicker} 
+                                  title="Choisir la date"
+                                  type="clear"
+                                  titleStyle={{ color:'#42a3aa'}}
+                              />
+                              <Text>{props.selectedDate}/{props.selectedMonth}/{props.selectedYear}</Text>
+                            </View>
+                        }
+                        <View style={{ alignItems:'center'}}>
+                            <Button 
+                                onPress={showTimepicker}  
+                                title="Choisir l'heure"
+                                type="clear"
+                                titleStyle={{ color:'#42a3aa'}}
                             />
+                            <Text>{props.selectedHours}:{props.selectedMinutes}</Text>
                         </View>
-                    </View> */}
+                        {show && (
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChange}
+                            />
+                        )}
+                    </View>
                 </View>
                 <View style={styles.view_button_style}>
                     <Button 
@@ -205,6 +291,8 @@ const MissionInfos = (props) => {
                         onPress={doCreateNewMission}
                         titleStyle={{ color:'#42a3aa'}}
                         buttonStyle={{ borderRadius:20, borderColor:'#42a3aa'}}
+                        maximumDate={new Date(2021, 12, 31  )}
+                        minimumDate={new Date(2021, 6, 3 )}
                     />
                 </View>
             </View>
@@ -236,8 +324,12 @@ const mapStateToProps = (state) => {
         depature: state.NewMission.depature,
 
         selectedHours: state.NewMission.selectedHours,
-        dateTime: state.NewMission.dateTime,
         selectedMinutes: state.NewMission.selectedMinutes,
+        selectedDay: state.NewMission.selectedDay,
+        selectedDate: state.NewMission.selectedDate,
+        selectedMonth: state.NewMission.selectedMonth,
+        selectedYear: state.NewMission.selectedYear,
+        missionType: state.NewMission.missionType,
 
         description: state.NewMission.description,
         luggageVolume: state.NewMission.luggageVolume,
@@ -258,8 +350,12 @@ export default connect(
         destinationChanged,
         depatureChanged,
         hoursChanged,
-        dateTimeChanged,
         minutesChanged,
+        startDayChanged,
+        startDateChanged,
+        startMonthChanged,
+        startYearChanged,
+        missionTypeChanged,
         descriptionChanged,
         createNewMission,
         updatingMission,

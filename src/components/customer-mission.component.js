@@ -44,12 +44,14 @@ const CustomerMissionComponent = (props) => {
             .get()
             .then((resp) => { 
                 console.log('response getting Baggage image once: ', resp.docs)
-                setBaggageImage(resp.docs[0]._data.imageUrl)
+                if(resp.docs[0]){
+                    setBaggageImage(resp.docs[0]._data.imageUrl)
+                }
             })
             .catch((error) => { console.log('error while getting baggage image once : ', error)})
     }
 
-    return(
+    return(  
         <TouchableOpacity 
             style={styles.view_content_style}
             onPress={() => customNavigate(

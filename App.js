@@ -104,7 +104,7 @@ const App = () => {
                     // options={{ title:'' }}
                     options={{ headerShown:false }}
                 />
-                <Stack.Screen 
+                <Stack.Screen  
                   name="Setting"
                   component={SettingScreen} 
                 />

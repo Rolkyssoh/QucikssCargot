@@ -45,6 +45,7 @@ export const START_MONTH_CHANGED = 'start_month_changed';
 export const START_YEAR_CHANGED = 'start_year_changed';
 export const MISSION_TYPE_CHANGED = 'mission_type_changed';
 export const DESCRIPTION_CHANGED = 'description_changed';
+export const CONVEYANCE_CHANGED = 'conveyance_changed';
 
 export const VOLUME_BAGGAGE_CHANGED = 'volume_baggage_changed';
 export const BAGGAGE_TYPE_CHANGED = 'baggage_type_changed';

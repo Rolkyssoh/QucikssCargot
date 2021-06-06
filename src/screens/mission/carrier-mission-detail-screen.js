@@ -6,6 +6,7 @@ import { Text, Button, Image } from 'react-native-elements';
 import CustomButton from '../../components/custom-button'; 
 import CustomHeader from '../../components/custom-header';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import CustomModalComponent from '../../components/custom-modal.component';
 
 const MissionDetailComponent = ({navigation,route}) => {
     const [missionPictures, setMissionPictures] = useState()
@@ -57,7 +58,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                     </View>
                     <View style={{ padding:10, flex:1, justifyContent:'center' }}>
                         { route.params.infosMission.mission_destination && 
-                            <Text h4>{route.params.infosMission.mission_title}</Text>
+                            <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>{route.params.infosMission.mission_title}</Text>
                         }
                     </View>
                 </View>
@@ -65,28 +66,46 @@ const MissionDetailComponent = ({navigation,route}) => {
             {   route.params.infosMission && 
                 <View style={styles.description_view}> 
                     <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
-                        <Text>Publiée: {route.params.infosMission.creation_day} </Text>
-                        <Text>Heure : { route.params.infosMission.creation_hour}</Text> 
+                        <View style={{ flexDirection:'row'}}>
+                            <Text style={{ fontFamily:'Nunito-Black'}}>Publiée le:</Text>
+                            <Text style={{ fontFamily:'Nunito-Regular'}}> {route.params.infosMission.creation_day} </Text>
+                        </View>
+                        <View style={{ flexDirection:'row'}}>
+                            <Text style={{ fontFamily:'Nunito-Black'}}>Heure : </Text> 
+                            <Text style={{ fontFamily:'Nunito-Regular'}}> { route.params.infosMission.creation_hour} </Text>
+                        </View>
                     </View>
                     <View style={{ flexDirection:'row', justifyContent:'space-around', marginVertical:20}}>
-                        <Text>Départ : {route.params.infosMission.depature_place} </Text>
-                        <Text>Destination : { route.params.infosMission.mission_destination}</Text>
+                        <View style={{ flexDirection:'row'}}>
+                            <Text style={{ fontFamily:'Nunito-Black'}}>Départ : </Text> 
+                            <Text style={{ fontFamily:'Nunito-Regular'}}> {route.params.infosMission.depature_place} </Text>
+                        </View>
+                        <View style={{ flexDirection:'row'}}>
+                            <Text style={{ fontFamily:'Nunito-Black'}}>Destination : </Text> 
+                            <Text style={{ fontFamily:'Nunito-Regular'}}> { route.params.infosMission.mission_destination} </Text>
+                        </View>
                     </View>
 
-                    <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text>Type : </Text>
-                        {/* {   route.params.infosMission.mission_type &&  */}
-                            <Text>{ route.params.infosMission.mission_type}</Text>
-                        {/* } */}
+                    <View style={{ flexDirection:'row', justifyContent:'center'}}>
+                        <Text style={{ fontFamily:'Nunito-Black'}}>Type : </Text>
+                        <Text>{ route.params.infosMission.mission_type}</Text>
                     </View>
                     
                     <View style={{ marginVertical:25}}>
-                        <Text h4>Description</Text>
-                        <Text>{route.params.infosMission.mission_description}</Text>
+                        <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>Description</Text>
+                        <Text style={{fontFamily:'Nunito-Regular'}}>{route.params.infosMission.mission_description}</Text>
                     </View>
                     <View>
-                        { route.params.infosBaggage && <Text>Type de bagage : {route.params.infosBaggage.baggage_type } </Text>}
-                        { route.params.infosBaggage && <Text>Vulume : {route.params.infosBaggage.baggage_volume} </Text>}
+                        <View style={{ flexDirection:'row', justifyContent:'center'}}>
+                            <Text style={{ fontFamily:'Nunito-Black'}}>Type de bagage : </Text>
+                            <Text>{route.params.infosBaggage.baggage_type }</Text>
+                        </View>
+                        <View style={{ flexDirection:'row', justifyContent:'center'}}>
+                            <Text style={{ fontFamily:'Nunito-Black'}}>Vulume : </Text>
+                            <Text>{route.params.infosBaggage.baggage_volume}</Text>
+                        </View>
+                        {/* { route.params.infosBaggage && <Text>Type de bagage : {route.params.infosBaggage.baggage_type } </Text>}
+                        { route.params.infosBaggage && <Text>Vulume : {route.params.infosBaggage.baggage_volume} </Text>} */}
                     </View>
                 </View>
             }
@@ -97,19 +116,19 @@ const MissionDetailComponent = ({navigation,route}) => {
                         customTitle="Retour"
                         type="clear"
                         customPress={() =>navigation.navigate("AdminNav")}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <Button 
                         customTitle="Valider"
                         type="clear"
                         customPress={() => navigation.navigate('Map')}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <Button 
                         customTitle="Rejeter"
                         type="clear"
                         customPress={() => navigation.navigate('Rejection')}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     />
                 </View>
             }
@@ -120,13 +139,13 @@ const MissionDetailComponent = ({navigation,route}) => {
                         title="Retour"
                         type="clear"
                         onPress={() =>navigation.navigate("CarrierNav")}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <Button 
                         title="Intéressé"
                         type="clear"
                         onPress={() => navigation.navigate('Rejection')}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     />
                 </View> 
             }
@@ -136,7 +155,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                         title="Retour"
                         type="clear"
                         onPress={() =>navigation.navigate("Customer")}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <Button 
                         title="Modifier"
@@ -151,13 +170,19 @@ const MissionDetailComponent = ({navigation,route}) => {
                                 
                             }
                         )}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     />
-                    <Button 
+                    {/* <Button 
                         title="Suprimer"
                         type="clear"
                         onPress={() => navigation.navigate('Rejection')}
                         titleStyle={{ color:'#42a3aa'}}
+                    /> */}
+                    <CustomModalComponent 
+                        pressableTitle="Supprimer" 
+                        modalText="Voulez-vous vraiment supprimer cette mission?"
+                        missionId={route.params.id}
+                        docIdMission={route.params.docIdMission}
                     />
                 </View>
             }
@@ -194,7 +219,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'space-between',
         paddingHorizontal:10,
-        borderColor:'grey',
+        borderColor:'#fff',
         borderTopWidth:1
         // paddingBottom:10
     }

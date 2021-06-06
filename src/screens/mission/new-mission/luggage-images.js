@@ -10,7 +10,7 @@ const LuggageImages = ({navigation}) => {
             <NewMissionHeader title="Images du Bagage" doNav={()=>navigation.navigate('Bagage') } />
             <View style={styles.view_content}>
                 <View style={styles.icon_view}>
-                    <Text>Vous pouvez ajouter jusqu'à 4 images</Text>
+                    <Text style={{ fontFamily:'Nunito-Black' }}>Vous pouvez ajouter jusqu'à 4 images</Text>
                 </View> 
                 <View style={styles.dislay_image_view} >  
                     <View style={styles.image_view}>
@@ -27,8 +27,12 @@ const LuggageImages = ({navigation}) => {
                 <Button 
                     title="Valider"
                     type='outline'
-                    onPress={()=>navigation.navigate('Bagage') }
-                    titleStyle={{ color:'#42a3aa'}}
+                    onPress={()=>
+                        navigation.navigate(
+                            'Mission'
+                        ) 
+                    }
+                    titleStyle={{ color:'#42a3aa',fontFamily:'Nunito-Black'}}
                     buttonStyle={{ borderRadius:20, borderColor:'#42a3aa',}}
                 />
             </View>

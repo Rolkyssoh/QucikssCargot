@@ -7,7 +7,7 @@ const TabHome = ({tab, icon, color, onPress}) => {
     return(
         <TouchableOpacity style={styles.container} onPress={onPress}>
             {icon && <IconHome name={icon} size={20} color={color} />}
-            <Text style={{color}}>{tab.name}</Text>
+            <Text style={{color, fontFamily:'Nunito-Black'}}>{tab.name}</Text>
         </TouchableOpacity>
     )
 }

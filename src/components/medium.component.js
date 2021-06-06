@@ -6,20 +6,26 @@ import { customNavigate } from './navigations/CustomNavigation';
 const Medium = ({name}) => { 
  
     const doNavigation = (givenParam) => {
+        // customNavigate(
+        //     'Drawer', {
+        //         screen:'Map',
+        //         params:{moyen: `${givenParam}`}
+        //     }
+        // )
         customNavigate(
-            'Drawer', {
-                screen:'Map',
-                params:{moyen: `${givenParam}`}
+            'ManageMission', {
+                screen:'Mission',
+                params: {moyen: `${givenParam}`}
             }
         )
     }
 
     return(
         <View style={styles.medium_container}>
-            {name == 'Petit Camion' && 
+            {name == 'Camionnette' && 
                 <Image 
                     source={require('../../assets/images/ptit_camion.png')} 
-                    onPress={()=> doNavigation('ptit_camion')} 
+                    onPress={()=> doNavigation('camionnette')} 
                     style={styles.image_style} 
                 />
             }
@@ -29,7 +35,7 @@ const Medium = ({name}) => {
                     style={styles.image_style} 
                 />
             }
-            <Text>{name}</Text>
+            <Text style={{ fontFamily:'Nunito-Black'}}>{name}</Text>
         </View>
     )
 }

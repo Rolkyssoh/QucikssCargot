@@ -48,7 +48,7 @@ const NewMissionHeader = ({ title, doNav }) => {
                     title="Annuler"
                     type="clear"
                     onPress={doNav}
-                    titleStyle={{ color:'#42a3aa'}}
+                    titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                 />
                 <View style={styles.userinfos_view}> 
                     <View style={styles.avatar_view}>
@@ -57,7 +57,7 @@ const NewMissionHeader = ({ title, doNav }) => {
                         {/* //         : <Image source={{uri: profilePicture}} /> */}
                         {/* // } */}
                     </View>
-                    {userCurrent && <Text>{userCurrent.username}</Text>}
+                    {userCurrent && <Text style={{ fontFamily:'Nunito-Black' }}>{userCurrent.username}</Text>}
                 </View>
                 <Button 
                     title="Modifier"
@@ -67,11 +67,11 @@ const NewMissionHeader = ({ title, doNav }) => {
                             screen:'Validée'
                         }
                     )}
-                    titleStyle={{ color:'#42a3aa'}}
+                    titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                 />
             </View>
             <View>
-                <Text h4>{title}</Text>
+                <Text style={{ fontFamily:'Nunito-Black', fontSize:22}}>{title}</Text>
             </View> 
         </View>
     )

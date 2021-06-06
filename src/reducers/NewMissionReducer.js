@@ -17,7 +17,8 @@ import {
     BAGGAGE_IMAGE3_CHANGED,
     BAGGAGE_IMAGE4_CHANGED,
     CREATE_NEW_MISSION,
-    UPDATE_AND_EXISTING_MISSION
+    UPDATE_AND_EXISTING_MISSION,
+    CONVEYANCE_CHANGED,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -39,6 +40,7 @@ const INITIAL_STATE = {
     baggageImage2:'',
     baggageImage3:'',
     baggageImage4:'',
+    transportation:'',
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -61,10 +63,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state , selectedMonth: action.payload } 
         case START_YEAR_CHANGED :
             return { ...state , selectedYear: action.payload }
-        case MISSION_TYPE_CHANGED: 
+        case MISSION_TYPE_CHANGED:  
             return { ...state, missionType: action.payload }
         case DESCRIPTION_CHANGED:
-            return { ...state, description: action.payload };
+            return { ...state, description: action.payload }; 
         case VOLUME_BAGGAGE_CHANGED:
             return { ...state, luggageVolume: action.payload };
         case BAGGAGE_TYPE_CHANGED:
@@ -82,6 +84,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state };
         case UPDATE_AND_EXISTING_MISSION:
             return { ...state }
+        case CONVEYANCE_CHANGED:
+            return { ...state, transportation: action.payload }
         default:
             return state;
     }

@@ -46,7 +46,7 @@ const RejectedMissionScreen = (props) => {
                 title="Retour"
                 type="clear"
                 onPress={() => props.navigation.navigate('NavTab')}
-                titleStyle={{ color:'#42a3aa'}}
+                titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black',}}
             />
             <View />
         </View>

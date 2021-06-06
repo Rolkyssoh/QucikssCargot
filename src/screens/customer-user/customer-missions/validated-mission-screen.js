@@ -45,7 +45,7 @@ const ValidateMissionScreen = (props) => {
                 title="Retour"
                 type="clear"
                 onPress={() => props.navigation.navigate('NavTab')}
-                titleStyle={{ color:'#42a3aa'}}
+                titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
             />
             <IconArrow name="arrowright" color='#42a3aa' size={30} />
         </View>

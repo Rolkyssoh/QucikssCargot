@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import { customNavigate } from '../components/navigations/CustomNavigation';
 import {
     TITLE_CHANGED,
     DESTINATION_CHANGED,
@@ -22,6 +23,7 @@ import {
     BAGGAGE_IMAGE2_CHANGED,
     BAGGAGE_IMAGE3_CHANGED,
     BAGGAGE_IMAGE4_CHANGED,
+    CONVEYANCE_CHANGED,
 } from './types';
 
 export const titleChanged = (title) => {
@@ -141,8 +143,15 @@ export const baggageImage4Changed = (baggageImage4) => {
     }
 };
 
+export const transportationChanged = (conveyance) => {
+    return {
+        type: CONVEYANCE_CHANGED,
+        payload: conveyance
+    }
+}
+
 export const createNewMission = ({title, destination, depature, selectedHours, selectedMinutes, selectedDay, selectedDate, selectedMonth, selectedYear, 
-    missionType, description, luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, userId} ) => {
+    missionType, description, luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, userId, transportation} ) => {
     const date = new Date()
     const missionDate = date.getDate() + "/" + (date.getMonth() + 1)+"/"+date.getFullYear()
     const missionHour = date.getHours()+":"+date.getMinutes();
@@ -169,7 +178,8 @@ export const createNewMission = ({title, destination, depature, selectedHours, s
            started_at:'',
            ended_at:'',
            mission_description:description,
-           user_id: userId
+           user_id: userId,
+           vehicle_type: transportation
         })
         .then((snapshot)=>{
             console.log('user added!!', snapshot);
@@ -187,6 +197,12 @@ export const createNewMission = ({title, destination, depature, selectedHours, s
                 { baggageImage2 && uploadBaggageImage(baggageImage2, snapshot.path, snapshot.id) };
                 { baggageImage3 && uploadBaggageImage(baggageImage3, snapshot.path, snapshot.id) };
                 { baggageImage4 && uploadBaggageImage(baggageImage4, snapshot.path, snapshot.id) };
+                customNavigate(
+                    'Customer',
+                    {
+                        screen: 'En attente'
+                    }
+                )
             })
             .catch((error)=> {
                 console.log('erreor while add baggage : ', error)
@@ -198,7 +214,7 @@ export const createNewMission = ({title, destination, depature, selectedHours, s
     }
 };
 
-export const updatingMission = ({title, destination, depature, description,selectedHours, selectedMinutes, selectedDay, selectedDate, 
+export const updatingMission = ({title, destination, depature, description,selectedHours, selectedMinutes, selectedDay, selectedDate, transportation,
     selectedMonth, selectedYear, luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, missionId, documentMissionId}) => {
         return async (dispatch) => {
             const date = new Date()

@@ -29,17 +29,20 @@ const UserProfileComponent = ({infosCurrentUser, doPress, disconnectUser}) => {
             </View>
             <View style={styles.username_view}>
                 { infosCurrentUser && 
-                    <Text h3>
+                    <Text style={{ fontFamily:'Nunito-Black', fontSize:30 }}>
                         {infosCurrentUser.username}
                     </Text> 
                 } 
             </View>
             <View style={styles.divide_view} /> 
             <View style={styles.phone_view}>
-                <Text style={styles.text_style}>
-                    Phone number: {infosCurrentUser.userPhoneNumber}
+                <View style={{ flexDirection:'row'}}>
+                    <Text style={styles.text_style}>
+                        Phone number:
                     </Text>
-                <Text>Aide</Text>
+                    <Text style={{ fontFamily:'Nunito-Regular'}}> {infosCurrentUser.userPhoneNumber}</Text>
+                </View>
+                <Text style={styles.text_style}>Aide</Text>
             </View>
             <View style={styles.divide_view} />
             <View style={styles.deconnexion_view}>
@@ -49,14 +52,14 @@ const UserProfileComponent = ({infosCurrentUser, doPress, disconnectUser}) => {
                     title="Se déconnecter"
                     type="clear"
                     onPress={disconnectUser}
-                    titleStyle={{ color:'#42a3aa'}}
+                    titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     // onPress={()=>props.navigation.navigate('Customer')}
                 />
             </View>
             <View style={styles.divide_view} />
             <View style={styles.cgv_view}>
-                <Text>Conditions générales</Text>
-                <Text>Version de l'application </Text>
+                <Text style={{ fontFamily:'Nunito-Regular'}}>Conditions générales</Text>
+                <Text style={{ fontFamily:'Nunito-Regular'}}>Version de l'application </Text>
             </View>
 
         </View>
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     text_style:{
-        marginBottom:15
+        marginBottom:15,
+        fontFamily:'Nunito-Black'
     }
 
 })

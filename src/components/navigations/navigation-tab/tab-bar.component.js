@@ -21,7 +21,7 @@ const TabBarHome = ({state, navigation}) => {
             <View style={styles.container}>
                 {
                     routes.map((route, index) => ( 
-                        <TabHome 
+                        <TabHome  
                             tab={route} 
                             icon={route.params.icon}
                             color={renderColor(route.name)}

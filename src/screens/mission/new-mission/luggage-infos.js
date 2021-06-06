@@ -18,7 +18,7 @@ const LuggageInfos = (props) => {
     const clearInputFields = () => {
         props.volumeChanged('');
         props.baggageTypeChanged('');
-        props.navigation.navigate('Drawer')
+        props.navigation.navigate('Home')
     }
 
     return(
@@ -30,6 +30,7 @@ const LuggageInfos = (props) => {
                         placeholder="Volume approximatif"
                         value={props.luggageVolume}
                         onChangeText={onVolumeChange}
+                        inputStyle={styles.inputs_styles}
                     />
                     <Input  
                         placeholder="Nature Bagage"
@@ -43,11 +44,11 @@ const LuggageInfos = (props) => {
                         title="Ajouter images"
                         type="clear"
                         onPress={() => props.navigation.navigate("ImgLuggage") }
-                        titleStyle={{ color:'#42a3aa'}}
-                    />
+                        titleStyle={{ color:'#42a3aa',fontFamily:'Nunito-Black'}}
+                    /> 
                 </View>
                 <View style={styles.text_view}> 
-                    <Text>
+                    <Text style={{ fontFamily:'Nunito-Black' }}>
                         Conseil: Les missions avec images attirent plus l'attention
                     </Text>
                 </View> 
@@ -70,6 +71,9 @@ const styles = StyleSheet.create({
     },
     input_view:{
         flex:3
+    },
+    inputs_styles:{
+        fontFamily:'Nunito-Regular'
     },
     text_view:{
         flex:2

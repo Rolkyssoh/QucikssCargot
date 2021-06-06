@@ -12,7 +12,7 @@ const NavigationHome = () => {
             <Tab.Screen 
                 name="Home" 
                 component={HomeScreen}
-                initialParams={{ icon: 'home'}}
+                initialParams={{ icon: 'home'}} 
             /> 
             <Tab.Screen 
                 name="Profile" 

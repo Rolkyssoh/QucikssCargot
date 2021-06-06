@@ -23,14 +23,14 @@ const HomeScreen = (props) => {
     // },[])
 
     return(
-        <View style={styles.home_container}>
+        <View style={styles.home_container}> 
             <View style={styles.view_title}>
-                <Text style={{ color:'#42a3aa'}} h2>Quicksse</Text>
+                <Text style={{ color:'#42a3aa', fontFamily:'Nunito-Black', fontSize:35}}>Quicksse</Text>
             </View>
             <View style={styles.boxes_first_view}>
-                <Text h4>Choisissez le vehicule qui correspond à votre mission</Text>
+                <Text style={{ fontFamily:'Nunito-Black', fontSize:22}}>Choisissez le vehicule qui correspond à votre mission</Text>
                 <View style={styles.boxes_second_view}> 
-                    <Medium name="Petit Camion" />
+                    <Medium name="Camionnette" />
                     <Medium name="Tricycle" />
                 </View>
                 <View style={{ borderWidth:0.5, borderColor:'white', width:'100%', marginVertical:40}} />
@@ -38,7 +38,7 @@ const HomeScreen = (props) => {
                     title="Mes missions" 
                     type="outline"
                     onPress={() => props.navigation.navigate('Customer')}
-                    titleStyle={{ color:'black', fontStyle:'normal', fontWeight:'bold',zIndex:-1 }}
+                    titleStyle={{ color:'black',fontFamily:'Nunito-Black', fontSize:20 }}
                     buttonStyle={{ borderRadius:20}}
                     containerStyle={styles.boxes_thirt_view}
                 />

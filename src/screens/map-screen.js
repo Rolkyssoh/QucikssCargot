@@ -13,7 +13,7 @@ const MapScreen = ({navigation, route}) => {
 
     return(
         <View style={styles.map_container}>
-            <MapView
+            {/* <MapView
                 // provider={PROVIDER_GOOGLE}
                 style={{ height:'100%'}} 
               initialRegion={{
@@ -22,7 +22,7 @@ const MapScreen = ({navigation, route}) => {
                 latitudeDelta: 0.09,
                 longitudeDelta: 0.921,
               }}
-            ></MapView>
+            ></MapView> */}
             <View style={styles.forwar_items}>
                 <TouchableOpacity
                     style={styles.close_button}
@@ -40,11 +40,11 @@ const MapScreen = ({navigation, route}) => {
                 {/* </View> */}
             </View>
             <View style={styles.item_select}>
-                <Text>Element du bas</Text>
                 <Button 
                     title="Créer mission" 
                     type="clear"
                     onPress={() => navigation.navigate('ManageMission')}
+                    titleStyle={{ color:'#42a3aa'}}
                 />
             </View>
         </View>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         flex:1,
         // alignItems:'center'
         // height:'100%'
+        backgroundColor:'#d5dde0',
     },
     forwar_items:{
         position:'absolute',

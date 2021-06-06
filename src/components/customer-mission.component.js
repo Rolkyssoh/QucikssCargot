@@ -69,7 +69,7 @@ const CustomerMissionComponent = (props) => {
                 { baggageImage && <Image source={{ uri: baggageImage }} style={styles.image_style} /> }   
             </View> 
             <View style={styles.view_title_style}>
-                {missionItem && <Text style={{ fontWeight:'bold'}}>{missionItem.mission_description}</Text>}
+                {missionItem && <Text style={{ fontFamily:'Nunito-Black'}}>{missionItem.mission_title}</Text>}
             </View>
         </TouchableOpacity>
     )

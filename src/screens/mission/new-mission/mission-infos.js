@@ -25,7 +25,8 @@ import {
     baggageImage1Changed, 
     baggageImage2Changed, 
     baggageImage3Changed, 
-    baggageImage4Changed
+    baggageImage4Changed,
+    transportationChanged
 } from '../../../actions';
 
 const MissionInfos = (props) => {
@@ -33,14 +34,15 @@ const MissionInfos = (props) => {
     const [documentMissionId, setDocumentMissionId] = useState()
     const [value, setValue] = useState('instantanée')
 
-    const [date, setDate] = useState(new Date());
+    const [dateChosen, setDateChosen] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
     const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
+        const currentDate = selectedDate || dateChosen;
         setShow(Platform.OS === 'ios');
-        setDate(currentDate);
+        console.log({currentDate})
+        setDateChosen(currentDate);
         props.hoursChanged(currentDate.getHours())
         props.minutesChanged(currentDate.getMinutes())
         props.startDayChanged(currentDate.getDay())
@@ -65,8 +67,10 @@ const MissionInfos = (props) => {
     useEffect(() => {
         console.log('id user dans mission infos: ', props.userId)
         console.log('params reçu dans missioniNFOS: ', props.route)
-
-        if(props.route.params){
+        if(props.route.params.moyen){
+            props.transportationChanged(props.route.params.moyen)
+        }
+        if(props.route.params.missionId){
             //get mission infos
             getMissionInfosForUpdate(props.route.params.missionId)
         }
@@ -172,18 +176,18 @@ const MissionInfos = (props) => {
 
     const doCreateNewMission = () => {
         const { title, destination,depature, selectedHours, selectedMinutes, selectedDay, selectedDate, selectedMonth, selectedYear, 
-            missionType, description, luggageVolume, baggageType, baggageImage1,baggageImage2, baggageImage3, baggageImage4, userId} = props;
+            missionType, description, luggageVolume, baggageType, baggageImage1,baggageImage2, baggageImage3, baggageImage4, userId, transportation} = props;
         
 
-        if(props.route.params){ 
+        if(props.route.params.missionId){ 
             const missionId = props.route.params.missionId;
             //Pour la modification
             props.updatingMission({title, destination, depature, selectedHours, selectedMinutes,selectedDay, selectedDate, selectedMonth, selectedYear,
-                 description, luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4,missionId, documentMissionId})
+                 description, luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4,missionId, documentMissionId, transportation})
         } else {
             //Pour la création
             props.createNewMission({title, destination, depature, selectedHours, selectedMinutes, selectedDay, selectedDate, selectedMonth, selectedYear,
-                missionType,description, luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4, userId});
+                missionType,description, luggageVolume, baggageType , baggageImage1, baggageImage2, baggageImage3, baggageImage4, userId, transportation});
                 props.titleChanged('');
                 props.destinationChanged('');
                 props.depatureChanged('');
@@ -200,56 +204,70 @@ const MissionInfos = (props) => {
         props.descriptionChanged('');
         props.volumeChanged('');
         props.baggageTypeChanged('');
-        props.navigation.navigate('Drawer')
+        props.navigation.navigate('Home')
+    }
+
+    const setDisabled = () => {
+        console.log('setDiasbled appelé')
+        if(props.title=='' || props.destination =='' || props.depature ==''|| props.description=='' 
+        || props.missionType=='' || props.luggageVolume=='' || props.baggageType=='' || props.selectedHours==0 ){
+            return true
+        } else {
+            return false
+        }
     }
 
 
     return(
         <View style={styles.mission_infos_container}>
             <NewMissionHeader 
-                title={ props.route.params ? "Modifier la Mission" : "Infos nouvelle mission"} 
+                title={ props.route.params.missionId ? "Modifier la Mission" : "Infos nouvelle mission"} 
                 doNav={clearInputFieldsMission}  
             />
-            <View style={styles.content_style}>
+            <View style={styles.content_style}> 
                 <View style={styles.input_view}>
                     <Input 
                         placeholder="Titre de la mission"
                         value={props.title}
                         onChangeText={onTitleChange}
+                        inputStyle={styles.inputs_styles}
                     />
                     <Input  
                         placeholder="Destination"
                         value={props.destination}
                         onChangeText={onDestinationChange}
+                        inputStyle={styles.inputs_styles}
                     />
                     <Input 
                         placeholder="Lieu de départ"
                         value={props.depature}
                         onChangeText={onDepatureChange}
+                        inputStyle={styles.inputs_styles}
                     />
                     <Input 
                         placeholder="Description"
                         value={props.description}
                         onChangeText={onDescriptionChange}
+                        inputStyle={styles.inputs_styles}
                     />
                     <View>
-                        <Text style={{ alignSelf:'center'}}>Type de la mission</Text>
+                        <Text style={{ alignSelf:'center', fontFamily:'Nunito-Black'}}>Type de la mission</Text>
                         <RadioButton.Group onValueChange={onMissionTypeChange} value={props.missionType}>
                             <View style={{ flexDirection:'row', justifyContent:'space-around', marginBottom:20}}> 
                                 <View style={{ alignItems:'center', flexDirection:'row'}}>
-                                  <Text>Instantanée</Text>
+                                  <Text style={styles.inputs_styles}>Instantanée</Text>
                                   <RadioButton value="instantanée" />
                                 </View>
                                 <View style={{ alignItems:'center', flexDirection:'row'}}>
-                                  <Text>Programmée</Text>
+                                  <Text style={styles.inputs_styles}>Programmée</Text>
                                   <RadioButton value="programmée" />
                                 </View>
                             </View>
                         </RadioButton.Group>
                     </View>
                     <View style={{ alignItems:'center'}}>
-                        { props.missionType == 'programmée' && <Text>Date et heure de départ</Text>}
-                        { props.missionType == 'instantanée' && <Text>Heure de départ</Text> }
+                        { props.missionType == 'programmée' && <Text style={{ fontFamily:'Nunito-Black'}}>Date et heure de départ</Text>}
+                        { props.missionType == 'instantanée' && <Text style={{ fontFamily: 'Nunito-Black'}}>Heure de départ</Text> }
                     </View>
                     <View style={{ flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
                         { props.missionType == 'programmée' && 
@@ -258,9 +276,9 @@ const MissionInfos = (props) => {
                                   onPress={showDatepicker} 
                                   title="Choisir la date"
                                   type="clear"
-                                  titleStyle={{ color:'#42a3aa'}}
+                                  titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                               />
-                              <Text>{props.selectedDate}/{props.selectedMonth}/{props.selectedYear}</Text>
+                              <Text style={styles.inputs_styles}>{props.selectedDate}/{props.selectedMonth}/{props.selectedYear}</Text>
                             </View>
                         }
                         <View style={{ alignItems:'center'}}>
@@ -268,14 +286,14 @@ const MissionInfos = (props) => {
                                 onPress={showTimepicker}  
                                 title="Choisir l'heure"
                                 type="clear"
-                                titleStyle={{ color:'#42a3aa'}}
+                                titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                             />
                             <Text>{props.selectedHours}:{props.selectedMinutes}</Text>
                         </View>
                         {show && (
                             <DateTimePicker
                                 testID="dateTimePicker"
-                                value={date}
+                                value={dateChosen}
                                 mode={mode}
                                 is24Hour={true}
                                 display="default"
@@ -289,10 +307,11 @@ const MissionInfos = (props) => {
                         title="valider"
                         type='outline'
                         onPress={doCreateNewMission}
-                        titleStyle={{ color:'#42a3aa'}}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                         buttonStyle={{ borderRadius:20, borderColor:'#42a3aa'}}
                         maximumDate={new Date(2021, 12, 31  )}
                         minimumDate={new Date(2021, 6, 3 )}
+                        disabled={ setDisabled() }
                     />
                 </View>
             </View>
@@ -308,6 +327,9 @@ const styles = StyleSheet.create({
     input_view:{
         padding:10,
         marginBottom:10
+    },
+    inputs_styles:{
+        fontFamily:'Nunito-Regular'
     },
     content_style:{
         flex:5,
@@ -330,6 +352,7 @@ const mapStateToProps = (state) => {
         selectedMonth: state.NewMission.selectedMonth,
         selectedYear: state.NewMission.selectedYear,
         missionType: state.NewMission.missionType,
+        transportation: state.NewMission.transportation,
 
         description: state.NewMission.description,
         luggageVolume: state.NewMission.luggageVolume,
@@ -364,6 +387,7 @@ export default connect(
         baggageImage1Changed, 
         baggageImage2Changed, 
         baggageImage3Changed, 
-        baggageImage4Changed
+        baggageImage4Changed,
+        transportationChanged
     }
     )(MissionInfos)

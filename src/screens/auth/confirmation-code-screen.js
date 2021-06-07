@@ -42,7 +42,7 @@ const ConfirmationCode = (props) => {
     return(
         <View style={styles.container_view}>
             <View style={styles.text_intro_view}>
-                <Text>Saisissez le code à 6 chiffres reçu au numéro {props.phone}</Text>
+                <Text style={{ fontFamily:'Nunito-Regular'}}>Saisissez le code à 6 chiffres reçu au numéro {props.phone}</Text>
             </View>
             <View style={styles.inputs_style_view}>
                 <Input
@@ -52,7 +52,7 @@ const ConfirmationCode = (props) => {
                     value={props.digit1}
                     onChangeText={(e1)=>onDigit1Change(e1)}
                     maxLength={1}
-                    inputStyle={{ paddingHorizontal: 10, }}
+                    inputStyle={styles.inputs_styles}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
                     inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
@@ -64,7 +64,7 @@ const ConfirmationCode = (props) => {
                     value={props.digit2}
                     onChangeText={(e2)=>onDigit2Change(e2)}
                     maxLength={1}
-                    inputStyle={{ paddingHorizontal: 10, }}
+                    inputStyle={styles.inputs_styles}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
                     inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
@@ -76,7 +76,7 @@ const ConfirmationCode = (props) => {
                     value={props.digit3}
                     onChangeText={(e3)=>onDigit3Change(e3)}
                     maxLength={1}
-                    inputStyle={{ paddingHorizontal: 10, }}
+                    inputStyle={styles.inputs_styles}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
                     inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
@@ -88,7 +88,7 @@ const ConfirmationCode = (props) => {
                     value={props.digit4} 
                     onChangeText={(e4)=>onDigit4Change(e4)}
                     maxLength={1}
-                    inputStyle={{ paddingHorizontal: 10, }}
+                    inputStyle={styles.inputs_styles}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
                     inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
@@ -100,7 +100,7 @@ const ConfirmationCode = (props) => {
                     value={props.digit5}
                     onChangeText={(e5)=>onDigit5Change(e5)}
                     maxLength={1}
-                    inputStyle={{ paddingHorizontal: 10, }}
+                    inputStyle={styles.inputs_styles}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
                     inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
@@ -112,7 +112,7 @@ const ConfirmationCode = (props) => {
                     value={props.digit6}
                     onChangeText={(e6)=>onDigit6Change(e6)}
                     maxLength={1}
-                    inputStyle={{ paddingHorizontal: 10, }}
+                    inputStyle={styles.inputs_styles}
                     labelStyle={{ color: 'red', fontSize: 20, }}
                     containerStyle={{ width: 60, height: 60, padding: 5, }}
                     inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
@@ -127,6 +127,7 @@ const ConfirmationCode = (props) => {
                 // buttonStyle={{width:370 }}
                 title="Renvoyer le code"
                 type="clear"
+                titleStyle={{color:'#42a3aa', fontFamily:'Nunito-Black'}}
                 // onPress={doLogin}
             />
             {props.loading && 
@@ -142,6 +143,8 @@ const ConfirmationCode = (props) => {
                     title="Suivant"
                     type="outline"
                     onPress={doCheckCode}
+                    buttonStyle={{ borderRadius:20, borderColor:'#42a3aa',}}
+                    titleStyle={{color:'#42a3aa', fontFamily:'Nunito-Black'}}
                 />
             </View>
         </View>
@@ -160,6 +163,10 @@ const styles = StyleSheet.create({
     },
     inputs_style_view: {
         flexDirection:'row'
+    },
+    inputs_styles:{
+        fontFamily:'Nunito-Regular',
+        paddingHorizontal: 10,
     },
     input_container_style:{
         marginTop: 5,

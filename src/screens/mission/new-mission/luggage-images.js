@@ -1,13 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, View,TouchableOpacity } from 'react-native';
 import { Text, Button } from 'react-native-elements'; 
 import DisplayImage from '../../../components/display-image';
 import NewMissionHeader from '../../../components/new-mission-header';
+import { 
+    baggageImage1Changed, 
+    baggageImage2Changed, 
+    baggageImage3Changed, 
+    baggageImage4Changed,
+} from '../../../actions';
  
-const LuggageImages = ({navigation}) => {
+const LuggageImages = (props) => {
+
+    const leaveScreen = () => {
+        props.baggageImage1Changed('') 
+        props.baggageImage2Changed('') 
+        props.baggageImage3Changed('') 
+        props.baggageImage4Changed('')
+        props.navigation.navigate('Bagage')
+    }
+
     return(
         <View style={styles.luggage_image_contaier}>
-            <NewMissionHeader title="Images du Bagage" doNav={()=>navigation.navigate('Bagage') } />
+            <NewMissionHeader title="Images du Bagage" doNav={leaveScreen} />
             <View style={styles.view_content}>
                 <View style={styles.icon_view}>
                     <Text style={{ fontFamily:'Nunito-Black' }}>Vous pouvez ajouter jusqu'à 4 images</Text>
@@ -28,7 +44,7 @@ const LuggageImages = ({navigation}) => {
                     title="Valider"
                     type='outline'
                     onPress={()=>
-                        navigation.navigate(
+                        props.navigation.navigate( 
                             'Mission'
                         ) 
                     }
@@ -57,7 +73,7 @@ const styles = StyleSheet.create({
     dislay_image_view:{
         flex:3,
         flexDirection:'row',
-        borderColor:'grey',
+        borderColor:'#e3e2e7',
         borderWidth:0.3
     },
     image_view:{
@@ -65,4 +81,9 @@ const styles = StyleSheet.create({
     },
 })
 
-export default LuggageImages
+export default connect(null, {
+    baggageImage1Changed, 
+    baggageImage2Changed, 
+    baggageImage3Changed, 
+    baggageImage4Changed,
+})(LuggageImages)

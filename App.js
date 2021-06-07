@@ -92,6 +92,7 @@ const App = () => {
                 <Stack.Screen 
                   name="ConfirmCode" 
                   component={ConfirmationCode}
+                  options={{ headerShown:false }}
                 />
                 <Stack.Screen 
                   name="AddInfos"

@@ -45,18 +45,18 @@ const CustomImagePicker = ({ drivingLicense, carImage, screenTitle, drivingPictS
     return(
         <View style={styles.container_view}>
             <View style={styles.view_title_style}>
-                <Text h4>{screenTitle}</Text>
+                <Text style={{fontFamily:'Nunito-Black', fontSize:22}}>{screenTitle}</Text>
             </View>
             <View style={styles.view_content_style}>
                 <ImageBackground source={getImage} style={styles.image_background_style}>
                     <TouchableOpacity>
-                        <CameraIcon onPress={choisirImage} name='camera-plus' size={30} color='#fff' />
+                        <CameraIcon onPress={choisirImage} name='camera-plus' size={30} color='#8dc9cb' />
                     </TouchableOpacity>
                 </ImageBackground>
             </View>
             <View style={{ marginTop: 30, flexDirection:'row', justifyContent:'space-between'}}>
-                <IconArrow name="arrowleft" size={30} />
-                { drivingLicense && <IconArrow name="arrowright" size={30} /> }
+                <IconArrow name="arrowleft" size={30} color='#42a3aa' />
+                { drivingLicense && <IconArrow name="arrowright" size={30} color='#42a3aa' /> }
             </View>
         </View>
     )
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         marginBottom:30
     },
     view_content_style:{
-        backgroundColor:'grey',
+        backgroundColor:'#e3e2e7',
         height:'70%',
         width:'100%',
         borderRadius:30,

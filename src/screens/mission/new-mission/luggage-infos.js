@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     input_view:{
         flex:3
-    },
+    }, 
     inputs_styles:{
         fontFamily:'Nunito-Regular'
     },

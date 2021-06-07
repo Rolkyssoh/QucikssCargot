@@ -8,7 +8,19 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconArrow from 'react-native-vector-icons/AntDesign'
 
-import { userNameChanged, userEmailChanged, userNumberChanged, userCityChanged } from '../../../actions'
+import { 
+    userNameChanged, 
+    userEmailChanged, 
+    userNumberChanged, 
+    userCityChanged,
+
+    drivingPictSelected, 
+    vehiclePictureChanged,
+
+    vehicleMatriculeChanged,
+    vehicleMarkChanged,
+    vehicleCapacityChanged,
+    vehicleTypeChanged, } from '../../../actions'
 import CustomHeader from '../../../components/custom-header';
 
 const CarrierInfosScreen = (props) => {
@@ -26,11 +38,28 @@ const CarrierInfosScreen = (props) => {
         props.userCityChanged(city)
     }
 
+    const leaveSignupCarrierScreen = () => {
+        props.userNameChanged('') 
+        props.userEmailChanged('')
+        props.userNumberChanged('')
+        props.userCityChanged('')
+
+        props.drivingPictSelected('')
+        props.vehiclePictureChanged('')
+
+        props.vehicleMatriculeChanged('')
+        props.vehicleMarkChanged('')
+        props.vehicleCapacityChanged('')
+        props.vehicleTypeChanged('')
+        
+        props.navigation.navigate('Login')
+    }
+
     return(
         <>
             <CustomHeader customTitle="Devnir transporteur" />
             <View style={styles.title_view_style}>
-                <Text h4>Carrier Informations</Text>
+                <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>Infos du transporteur</Text>
             </View>
             <View style={styles.carrier_container}>
                 <View style={styles.input_view}>
@@ -42,7 +71,8 @@ const CarrierInfosScreen = (props) => {
                         leftIcon={
                             <FontAwesome name="user" size={20} />
                          }
-                    />
+                         inputStyle={styles.inputs_styles}
+                    /> 
                      <Input 
                         value={props.email}
                         // onChangeText={text => setEmail(text)}
@@ -51,6 +81,7 @@ const CarrierInfosScreen = (props) => {
                         leftIcon={
                             <MaterialCommunityIcons name="email" size={20} />
                         }
+                        inputStyle={styles.inputs_styles}
                     />
                      <Input
                         value={props.phone}
@@ -60,6 +91,7 @@ const CarrierInfosScreen = (props) => {
                         leftIcon={
                             <FontAwesome name="phone" size={20} />
                          }
+                         inputStyle={styles.inputs_styles}
                     />
                      <Input 
                         value={props.city}
@@ -68,6 +100,7 @@ const CarrierInfosScreen = (props) => {
                         leftIcon={
                             <MaterialIcons name="place" size={20} />
                         }
+                        inputStyle={styles.inputs_styles}
                     />
                 </View>
             </View>
@@ -75,14 +108,11 @@ const CarrierInfosScreen = (props) => {
                 <Button 
                     title="Annuler"
                     type="outline"
-                    onPress={()=>props.navigation.navigate('Login')}
+                    onPress={leaveSignupCarrierScreen}
+                    titleStyle={{ color:'#42a3aa',fontFamily:'Nunito-Black'}}
+                    buttonStyle={{ borderRadius:20, borderColor:'#42a3aa',}}
                 />
-                {/* <Button 
-                    title="Valider"
-                    type="outline"
-                    // onPress={doSignup}
-                /> */}
-                <IconArrow name="arrowright" size={30} /> 
+                <IconArrow name="arrowright" size={30} color='#42a3aa' /> 
             </View>
         </>
     )
@@ -102,10 +132,14 @@ const styles = StyleSheet.create({
         // width:'100%',
         padding:40
     },
+    inputs_styles:{
+        fontFamily:'Nunito-Regular'
+    },
     button_view_style:{
         // flex:1
         flexDirection:'row',
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        alignItems:'center'
     }
 })
 
@@ -124,5 +158,13 @@ export default connect(
         userNameChanged, 
         userEmailChanged,
         userNumberChanged,
-        userCityChanged 
+        userCityChanged,
+
+        drivingPictSelected, 
+        vehiclePictureChanged,
+
+        vehicleMatriculeChanged,
+        vehicleMarkChanged,
+        vehicleCapacityChanged,
+        vehicleTypeChanged,
     })(CarrierInfosScreen);

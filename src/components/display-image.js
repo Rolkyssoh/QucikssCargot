@@ -87,8 +87,8 @@ const DisplayImage = (props) => {
         <View style={styles.display_image_container}>
             <ImageBackground source={imageToDisplay()} style={{ width:'100%', height:'100%',justifyContent:'center', alignItems:'center'}}>
                 <TouchableOpacity>
-                    <Ionicons onPress={uploadImage} name="add-circle" size={50} />
-                </TouchableOpacity>
+                    <Ionicons onPress={uploadImage} name="add-circle" size={50} color='#8dc9cb' />
+                </TouchableOpacity> 
             </ImageBackground>
         </View>
     )
@@ -96,7 +96,7 @@ const DisplayImage = (props) => {
 
 const styles = StyleSheet.create({
     display_image_container:{
-        backgroundColor:'gray',
+        backgroundColor:'#e3e2e7',
         alignItems:'center',
         justifyContent:'center',
         flex:1,

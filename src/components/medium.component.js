@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     },
     image_style:{
         height:100, 
-        width:130
+        width:130,
+        // backgroundColor:'#e3e2e7'
     }
 })
 

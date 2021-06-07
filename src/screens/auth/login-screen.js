@@ -23,9 +23,9 @@ const LoginScreen = (props) => {
 
     return(
         <View style={styles.login_container}>
-            <Text h4>
+            <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>
                 Entrez votre numéro de téléphone
-            </Text>
+            </Text> 
             <View style={styles.view_input}>
                 <Text style={styles.text_style}>+212</Text>
                 <Input 
@@ -37,7 +37,7 @@ const LoginScreen = (props) => {
                     onChangeText={(e)=> onPhoneNumberChange(e)}
                     // containerStyle={{backgroundColor:'red',flex:1}}
                     inputContainerStyle={{ marginHorizontal:35,}}
-                    // inputStyle={{backgroundColor:'black'}}
+                    inputStyle={{fontFamily:'Nunito-Regular'}}
                 />
             </View>
             <View style={styles.view_text}>
@@ -49,7 +49,7 @@ const LoginScreen = (props) => {
                     title="Devenir transporteur"
                     type="clear"
                     onPress={() => props.navigation.navigate('CarrierSignup')}
-                    titleStyle={{ color:'#42a3aa'}}
+                    titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     containerStyle={{ top:20}}
                 />
                 { props.loading && 
@@ -60,7 +60,7 @@ const LoginScreen = (props) => {
             </View> 
 
             <View style={styles.button_view}> 
-                <Text>
+                <Text style={{ fontFamily:'Nunito-Regular'}}>
                     Si vous continuez, vous recevrez peut-être un SMS de vérification.
                     Des frais de messagerie SMS et de transfert de données peuvent s'appliquer.
                 </Text>
@@ -70,7 +70,7 @@ const LoginScreen = (props) => {
                     title="Confirmer"
                     type="outline"
                     onPress={doLogin}
-                    titleStyle={{ color:'#42a3aa'}}
+                    titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     buttonStyle={{ borderRadius:20, borderColor:'#42a3aa'}}
                 />
             </View>
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     text_style:{
         fontSize:18,
         top:9,
-        left:40
+        left:40,
+        fontFamily:'Nunito-Regular'
     }
 })
 

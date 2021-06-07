@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         borderRadius:20
     },
     view_image_style:{
-        backgroundColor:'grey', 
+        backgroundColor:'#e3e2e7', 
         width:'100%', 
         height:'74%',
         borderTopEndRadius:20,

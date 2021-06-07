@@ -47,7 +47,7 @@ const DrivingLicenseScreen = () => {
             <CustomImagePicker drivingLicense screenTitle="Image de votre permis de conduire" />
         </>
     )
-}
+} 
 
 const styles = StyleSheet.create({ 
 })

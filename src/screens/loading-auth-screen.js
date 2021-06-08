@@ -11,7 +11,7 @@ const LoadingAuthScreen = (props) => {
  
     useEffect(() => {
         const subscriber = auth().onAuthStateChanged((user)=>{
-            if(user){
+            if(user){ 
                 props.userIdChanged(user._user.uid)
                 props.authStateChanged(user._user)
                 console.log('Dans le loading auth screen le user est:', user._user.uid)

@@ -35,7 +35,7 @@ const CarrierProfileScreen = (props) => {
         props.navigation.navigate('Setting')
     }
 
-    return(
+    return( 
         <>
             { 
                 infosCurrentUser &&  

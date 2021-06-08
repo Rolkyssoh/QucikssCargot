@@ -84,7 +84,7 @@ const App = () => {
                     component={LoadingAuthScreen}
                     options={{ headerShown:false }}
                 />
-                <Stack.Screen 
+                <Stack.Screen  
                     name="Login" 
                     component={LoginScreen}
                     options={{ title:'' }} 

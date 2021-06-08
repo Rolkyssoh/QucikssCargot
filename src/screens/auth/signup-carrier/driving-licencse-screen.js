@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, ImageBackground } from 'react-native';
 import { Text } from 'react-native-elements';
 import CameraIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker'; 
 import CustomImagePicker from '../../../components/images-upload/custom-image-picker';
 import CustomHeader from '../../../components/custom-header';
 // import IconArrow from 'react-native-vector-icons/AntDesign'

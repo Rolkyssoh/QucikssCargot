@@ -23,17 +23,13 @@ const PublishedMissionScreen = () => {
     return( 
         <View style={styles.published_view_container}>
             <View style={{ alignItems:'center'}}>
-                <Text h3>Missions Disponible</Text>
+                <Text style={{ fontFamily:'Nunito-Black', fontSize:28}}>Missions Disponible</Text>
             </View>
             <FlatList 
-                data={missionItems}
+                data={missionItems} 
                 renderItem={({item})=> <MissionItem isCarrier item={item} /> }
                 keyExtractor={(item)=>item.id.toString()}
             />
-            {/* <MissionItem /> 
-            <MissionItem />
-            <MissionItem />
-            <MissionItem /> */}
         </View>
     )
 }
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:'#d5dde0', 
         padding:15,
-        // marginBottom:55
+        // marginBottom:55 
         paddingBottom:71
     },
     view_item_style:{

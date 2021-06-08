@@ -9,55 +9,92 @@ import * as CustomNavigation from './navigations/CustomNavigation';
 const MissionItem = (props) => { 
     const [missionItem, setMissionItem] = useState(null)
     const [missionImage, setMissionImage] = useState()
+    const [idSecondDocBaggage, setIdSecondDocBaggage] = useState()
+    const [infosBaggage, setInfosBaggage] = useState()
 
     useEffect(() => {
-        console.log('dans mission item: ', props.item._data)
+        console.log('dans mission item: ', props.item.id)
         if(props.item){
             setMissionItem(props.item._data)
 
             firestore()
-                .collection('Baggage')
-                .where("mission_id", "==", props.item.id)
+                .collection('Baggage') 
+                .doc('Mission')
+                .collection(props.item.id)
                 .get()
                 .then((response)=>{
-                    console.log('result on getting path image by id mission: ', response.docs[0]._data);
-
-                    storage()
-                        .ref(response.docs[0]._data.baggage_picture)
-                        .list()
-                        .then((result) => {
-                            console.log('image dispo : ', result._items[0].path)
-                            setMissionImage(result._items[0].path)
-                            result.items.forEach(ref => {
-                                console.log('url image : ',ref.path);
-                                // setMissionImage(ref.path)
-                            });
-                        })
-                        .catch((error) => { console.log('erreur lors du chargement de la liste d\'image dans missionItem : ', error)})
+                    console.log('result on getting path image by id mission: ', response.docs[0].id);
+                    setIdSecondDocBaggage(response.docs[0].id)
+                    setInfosBaggage(response.docs[0]._data)
+                    //Get image once
+                    getBaggageImageOnce(props.item.id, response.docs[0].id)
                 })
                 .catch((error)=> { console.log('error while getting path image in missionItem : ', error)})
         }
     },[])
 
+    const getBaggageImageOnce = (idMissionInCollection, itemId) => {
+        firestore()
+        .collection('Baggage')
+        .doc('Mission')
+        .collection(idMissionInCollection)
+        .doc(itemId)
+        .collection('BaggagePicture')
+        .get()
+        .then((result) => { 
+            // console.log('get image once in publish', result.docs[0]._data.imageUrl)
+            setMissionImage(result.docs[0]._data.imageUrl)
+        })
+        .catch((error) => console.log('error while getting image once in published: ', error))
+    }
+
     return(
         <TouchableOpacity 
             style={styles.item_container}
-            onPress={()=> CustomNavigation.customNavigate(
+            onPress={()=> CustomNavigation.customNavigate( 
                     'Details',
-                    {isCarrier:props.isCarrier, isAdmin:props.isAdmin, infos:missionItem, id:props.item.id}
+                    {
+                        isCarrier:props.isCarrier, 
+                        isAdmin:props.isAdmin, 
+                        infosMission:missionItem,
+                        infosBaggage:infosBaggage,
+                        docIdMission: idSecondDocBaggage,
+                        id:props.item.id
+                    }
                 ) 
             }
             // onPress={ () => <MissionDetailComponent /> }
         >
             <View style={styles.item_image}>
                 {/* <Text>Image Item</Text> */}
-                {missionImage && <Image source={{ uri: `${missionImage}`}} style={{ height:120, width:90, borderTopLeftRadius:20, borderBottomLeftRadius:20,}} />}
+                {missionImage && <Image source={{ uri: `${missionImage}`}} style={{ height:'100%', width:90, borderTopLeftRadius:20, borderBottomLeftRadius:20,}} />}
             </View>
             <View style={styles.item_text}>
-                { missionItem && <Text h4>{ missionItem.mission_title }</Text>}
-                { missionItem && <Text>destination : {missionItem.mission_destination}</Text>}
-                <Text>Heure départ : heure</Text>
-                { missionItem && <Text>Type mission : {missionItem.miision_type}</Text>}
+                { missionItem && <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>{ missionItem.mission_title }</Text>}
+                { missionItem &&
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={{ fontFamily:'Nunito-Black'}}>destination : </Text>
+                        <Text style={{ fontFamily:'Nunito-Regular'}}>{missionItem.mission_destination}</Text>
+                    </View>
+                }
+                { missionItem &&
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={{ fontFamily:'Nunito-Black'}}>Heure départ : </Text>
+                        <Text style={{ fontFamily:'Nunito-Regular'}}>{missionItem.depature_time}</Text>
+                    </View>
+                }
+                { missionItem &&
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={{ fontFamily:'Nunito-Black'}}>Type mission  : </Text>
+                        <Text style={{ fontFamily:'Nunito-Regular'}}>{missionItem.mission_type}</Text>
+                    </View>
+                }
+                { missionItem && missionItem.mission_type=='programmée' &&
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={{ fontFamily:'Nunito-Black'}}>Date : </Text>
+                        <Text style={{ fontFamily:'Nunito-Regular'}}>{missionItem.depature_day.substring(missionItem.depature_day.lastIndexOf(' '))}</Text>
+                    </View>
+                }
             </View>
         </TouchableOpacity>
     )
@@ -68,6 +105,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#fff',
         flexDirection:'row',
         width:'100%',
+        // height:10,
         justifyContent:'flex-start',
         marginVertical:10,
         borderColor:'black',
@@ -84,8 +122,8 @@ const styles = StyleSheet.create({
     },
     item_image:{
         width:90,
-        height:120,
-        backgroundColor:'grey',
+        height:150,
+        backgroundColor:'#e3e2e7',
         borderTopLeftRadius:20,
         borderBottomLeftRadius:20,
         alignItems:'center',
@@ -95,7 +133,7 @@ const styles = StyleSheet.create({
     item_text:{
         // backgroundColor:'blue',
         // height:90,
-        flex:1,
+        // flex:1,
         paddingHorizontal:10,
         // paddingVertical:10
         justifyContent:'center',

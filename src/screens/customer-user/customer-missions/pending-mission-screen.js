@@ -31,7 +31,7 @@ const PendingMissionScreen = (props) => {
     return(
         <>
             <CustomHeader customTitle="En attente" />
-            <ScrollView > 
+            <ScrollView >  
                 <View style={styles.container_pending}>
                     {
                         missionPending && missionPending.map((item) => { 

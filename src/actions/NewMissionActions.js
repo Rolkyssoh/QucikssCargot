@@ -157,7 +157,7 @@ export const createNewMission = ({title, destination, depature, selectedHours, s
     const missionHour = date.getHours()+":"+date.getMinutes();
     const depatureDateGive = selectedDay + ', le ' + `${selectedDate}/${selectedMonth}/${selectedYear}`;
     const currentDateMIssion = selectedDay + ', le ' + `${missionDate}`
-
+ 
     return async (dispatch) => {
         dispatch({ type: CREATE_NEW_MISSION });
         console.log('Dans le create new mission!!!')

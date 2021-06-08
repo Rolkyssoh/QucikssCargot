@@ -7,7 +7,7 @@ import UpdateUserInfosReducer from './UpdateUserInfosReducer';
 
 export default combineReducers({
     authCarrier: AuthCarrierRecuder, 
-    loginUsers: LoginUsersReducer,
+    loginUsers: LoginUsersReducer, 
     confirmationCode: CodeConfirmReducer,
     NewMission: NewMissionReducer,
     UpdateUserInfos: UpdateUserInfosReducer,

@@ -85,7 +85,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                             <Text style={{ fontFamily:'Nunito-Regular'}}> { route.params.infosMission.mission_destination} </Text>
                         </View>
                     </View>
-
+ 
                     <View style={{ flexDirection:'row', justifyContent:'center'}}>
                         <Text style={{ fontFamily:'Nunito-Black'}}>Type : </Text>
                         <Text>{ route.params.infosMission.mission_type}</Text>
@@ -107,7 +107,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                         {/* { route.params.infosBaggage && <Text>Type de bagage : {route.params.infosBaggage.baggage_type } </Text>}
                         { route.params.infosBaggage && <Text>Vulume : {route.params.infosBaggage.baggage_volume} </Text>} */}
                     </View>
-                </View>
+                </View> 
             }
                 {/* For Admin */}
             {   route.params.isAdmin &&
@@ -137,15 +137,22 @@ const MissionDetailComponent = ({navigation,route}) => {
                 <View style={styles.button_view}>
                     <Button 
                         title="Retour"
-                        type="clear"
+                        type="clear" 
                         onPress={() =>navigation.navigate("CarrierNav")}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
-                    <Button 
+                    {/* <Button 
                         title="Intéressé"
                         type="clear"
                         onPress={() => navigation.navigate('Rejection')}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                    /> */}
+                    <CustomModalComponent 
+                        pressableTitle="Interessé" 
+                        modalText="Entrez votre proposition"
+                        missionId={route.params.id}
+                        // docIdMission={route.params.docIdMission}
+                        forProposition
                     />
                 </View> 
             }
@@ -167,7 +174,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                                 params: {
                                     missionId: route.params.id  
                                 }
-                                
+                                 
                             }
                         )}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
@@ -183,6 +190,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                         modalText="Voulez-vous vraiment supprimer cette mission?"
                         missionId={route.params.id}
                         docIdMission={route.params.docIdMission}
+                        forDelete
                     />
                 </View>
             }

@@ -29,7 +29,7 @@ const RejectionReason = ({navigation}) => {
                     buttonStyle={styles.button_styles}
                     titleStyle={styles.button_text_styles}
                 />
-            </View>
+            </View> 
         </View>
     )
 }

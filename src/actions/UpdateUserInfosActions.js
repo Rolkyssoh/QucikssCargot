@@ -10,7 +10,7 @@ import {
 
 export const userIdChanged = (userId) => {
     return {
-        type: USER_ID_CHANGED,
+        type: USER_ID_CHANGED, 
         payload: userId
     }
 }

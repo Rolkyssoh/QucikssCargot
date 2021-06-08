@@ -82,7 +82,7 @@ const CarrierInfosScreen = (props) => {
                             <MaterialCommunityIcons name="email" size={20} />
                         }
                         inputStyle={styles.inputs_styles}
-                    />
+                    /> 
                      <Input
                         value={props.phone}
                         onChangeText={onPhoneChange}
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return{
         name: state.authCarrier.name,
-        email: state.authCarrier.email,
+        email: state.authCarrier.email, 
         phone: state.authCarrier.phone,
         city: state.authCarrier.city,
     }

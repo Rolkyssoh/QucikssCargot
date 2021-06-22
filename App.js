@@ -25,6 +25,8 @@ import CarrierProfileNavigation from './src/components/navigations/navigation-ta
 import LoadingAuthScreen from './src/screens/loading-auth-screen';
 import AddInfosScreen from './src/screens/auth/add-infos-screen';
 import CustomerMissions from './src/screens/customer-user/customer-missions';
+import OfferReceivedScreen from './src/screens/customer-user/offer-received-screen';
+import StartMissionScreen from './src/screens/mission/start-mission-screen';
 
 
 const Stack = createStackNavigator()
@@ -84,7 +86,7 @@ const App = () => {
                     component={LoadingAuthScreen}
                     options={{ headerShown:false }}
                 />
-                <Stack.Screen  
+                <Stack.Screen   
                     name="Login" 
                     component={LoginScreen}
                     options={{ title:'' }} 
@@ -143,6 +145,16 @@ const App = () => {
                   name="Details"
                   component={CarrierMissionDetailScreen}
                   options={{ headerShown:false }}
+                />
+                <Stack.Screen 
+                  name="OfferReceived"
+                  component={OfferReceivedScreen}
+                  options={{ title:'' }}
+                />
+                <Stack.Screen 
+                  name="StartMission"
+                  component={StartMissionScreen}
+                  options={{ headerShown:false  }}
                 />
                 <Stack.Screen 
                   name="Rejection"

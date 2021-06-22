@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
             console.log('user de id current en action!!!')
             return { ...state, userId: action.payload };
         case USER_NAME_UPDATED:
-            return { ...state, name: action.payload };
+            return { ...state, name: action.payload }; 
         case USER_EMAIL_UPDATED:
             return { ...state, email: action.payload };
         case USER_CITY_UPDATED:

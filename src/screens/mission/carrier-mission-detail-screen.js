@@ -1,23 +1,65 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native'; 
 import { Text, Button, Image } from 'react-native-elements';
 import CustomButton from '../../components/custom-button'; 
 import CustomHeader from '../../components/custom-header';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import CustomModalComponent from '../../components/custom-modal.component';
 
-const MissionDetailComponent = ({navigation,route}) => {
+const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
     const [missionPictures, setMissionPictures] = useState()
+    const [numberOfOffer, setNumberOfOffer] = useState(0)
 
-    useEffect(() => {
-        console.log('params recue: ', route.params)
+    useEffect(() => { 
+        console.log('params recue: ', route.params) 
+        console.log({idCurrentUser})
+        
         const { id, docIdMission} = route.params
         if(id && docIdMission){
             getMissionImages(id, docIdMission)
         }
+        if(idCurrentUser && route.params.id){
+            countCarrierIsOffer(idCurrentUser, route.params.id)
+        }
+        if(route.params.id){
+            countMissionIsOffer(route.params.id)
+        }
+        // Came from deleted offer
+        // if(idCurrentUser && idMission){
+        //     countCarrierIsOffer(idCurrentUser, idMission)
+        // }
     },[])
+
+    const countMissionIsOffer = (idMission) => {
+        //Count carrier is offer
+        firestore()
+            .collection('Offer')
+            // .where('carrier_id', '==', `${idCarrier}`)
+            .where('mission_id', '==', `${idMission}`)
+            .get()
+            .then((resp) => { 
+                console.log('Count mission is offer', resp.docs.length)
+                setNumberOfOffer(resp.docs.length)
+            })
+            .catch((error) => console.log('error while counting carrier is offer: ', error))
+    }
+
+    const countCarrierIsOffer = (idCarrier, idMission) => {
+        //Count carrier is offer
+        firestore()
+            .collection('Offer')
+            .where('carrier_id', '==', `${idCarrier}`)
+            .where('mission_id', '==', `${idMission}`)
+            .get()
+            .then((resp) => { 
+                console.log('Count carrier is offer', resp.docs.length)
+                setNumberOfOffer(resp.docs.length)
+            })
+            .catch((error) => console.log('error while counting carrier is offer: ', error))
+    }
 
     const getMissionImages = async (missionIdCollection, missionIdDoc) => {
         await firestore()
@@ -45,19 +87,15 @@ const MissionDetailComponent = ({navigation,route}) => {
                           {
                             missionPictures && missionPictures.map((picture) => (
                                 <View key={picture._data.imageUrl} style={[styles.child, { backgroundColor: 'tomato' }]}>
-                                    {/* <Text style={styles.text}>{picture.path}</Text> */}
                                     <Image source={{ uri: picture._data.imageUrl}} style={{ height:'100%', width:'100%'}} />
-                                    {/* <Image source={require('../../../assets/images/mon-logo.jpeg')} style={{ width:'100%', height:'100%'}} /> */}
-                                </View>
-                            // console.log('contenu de picture ', picture._data.imageUrl)
-                            
+                                </View>                            
                             ))
                             
                           }
                         </SwiperFlatList>
                     </View>
-                    <View style={{ padding:10, flex:1, justifyContent:'center' }}>
-                        { route.params.infosMission.mission_destination && 
+                    <View style={{ paddingHorizontal:10, flex:1, justifyContent:'center' }}>
+                        { route.params.infosMission.mission_title && 
                             <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>{route.params.infosMission.mission_title}</Text>
                         }
                     </View>
@@ -98,16 +136,51 @@ const MissionDetailComponent = ({navigation,route}) => {
                     <View>
                         <View style={{ flexDirection:'row', justifyContent:'center'}}>
                             <Text style={{ fontFamily:'Nunito-Black'}}>Type de bagage : </Text>
-                            <Text>{route.params.infosBaggage.baggage_type }</Text>
+                            {route.params.infosBaggage && <Text>{route.params.infosBaggage.baggage_type }</Text>}
                         </View>
                         <View style={{ flexDirection:'row', justifyContent:'center'}}>
                             <Text style={{ fontFamily:'Nunito-Black'}}>Vulume : </Text>
-                            <Text>{route.params.infosBaggage.baggage_volume}</Text>
+                            {route.params.infosBaggage && <Text>{route.params.infosBaggage.baggage_volume}</Text>}
                         </View>
                         {/* { route.params.infosBaggage && <Text>Type de bagage : {route.params.infosBaggage.baggage_type } </Text>}
                         { route.params.infosBaggage && <Text>Vulume : {route.params.infosBaggage.baggage_volume} </Text>} */}
                     </View>
                 </View> 
+            }
+            {/* For received offer */}
+            {   route.params.isCustomer &&
+                <Button 
+                    title={`Proposition(s) reçue (${numberOfOffer})`} 
+                    type="outline"
+                    onPress={() => navigation.navigate(
+                        'OfferReceived',
+                        { 
+                            idMission: route.params.id,
+                            currentCustomerId: idCurrentUser 
+                        }
+                    )}
+                    titleStyle={{ color:'black',fontFamily:'Nunito-Black', fontSize:20 }}
+                    buttonStyle={{ borderColor:'#42a3aa'}}
+                    containerStyle={styles.offer_button_style}
+                />
+            }
+            {/* For offer send */}
+            {   route.params.isCarrier &&
+                <Button 
+                    title={`Mon offre (${numberOfOffer})` } 
+                    type="outline"
+                    onPress={() => navigation.navigate(
+                        'OfferReceived',
+                        { 
+                            idMission: route.params.id,
+                            currentCarrierId: idCurrentUser
+                        }
+                    )}
+                    titleStyle={{ color:'black',fontFamily:'Nunito-Black', fontSize:20 }}
+                    buttonStyle={{ borderColor:'#42a3aa'}}
+                    containerStyle={styles.offer_button_style}
+                    disabled={!numberOfOffer}
+                />
             }
                 {/* For Admin */}
             {   route.params.isAdmin &&
@@ -132,23 +205,18 @@ const MissionDetailComponent = ({navigation,route}) => {
                     />
                 </View>
             }
-                {/* For carrier */} 
+                {/* For carrier */}  
             {   route.params.isCarrier &&
                 <View style={styles.button_view}>
-                    <Button 
+                    <Button  
                         title="Retour"
                         type="clear" 
                         onPress={() =>navigation.navigate("CarrierNav")}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
-                    {/* <Button 
-                        title="Intéressé"
-                        type="clear"
-                        onPress={() => navigation.navigate('Rejection')}
-                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
-                    /> */}
                     <CustomModalComponent 
                         pressableTitle="Interessé" 
+                        isDisabled={numberOfOffer}
                         modalText="Entrez votre proposition"
                         missionId={route.params.id}
                         // docIdMission={route.params.docIdMission}
@@ -184,7 +252,7 @@ const MissionDetailComponent = ({navigation,route}) => {
                         type="clear"
                         onPress={() => navigation.navigate('Rejection')}
                         titleStyle={{ color:'#42a3aa'}}
-                    /> */}
+                    /> */} 
                     <CustomModalComponent 
                         pressableTitle="Supprimer" 
                         modalText="Voulez-vous vraiment supprimer cette mission?"
@@ -211,14 +279,17 @@ const styles = StyleSheet.create({
         backgroundColor:'#d5dde0',
     },
     slider_view:{
-        flex:6,
-        // borderColor:'red',
-        // borderWidth:1
+        flex:5,
     },
     description_view:{
         flex:5,
-        // backgroundColor:'green'
-        padding:20
+        paddingHorizontal:20
+    },
+    offer_button_style:{ 
+        backgroundColor:'#42a3aa',  
+        justifyContent:'center',
+        opacity:0.4
+        
     },
     button_view:{
         flex:1,
@@ -229,8 +300,13 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         borderColor:'#fff',
         borderTopWidth:1
-        // paddingBottom:10
     }
 })
 
-export default MissionDetailComponent
+const mapStateToProps = (state) => {
+    return {
+        idCurrentUser: state.UpdateUserInfos.userId
+    }
+}
+
+export default connect(mapStateToProps)(MissionDetailComponent)

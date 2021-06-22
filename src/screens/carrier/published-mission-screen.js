@@ -29,7 +29,7 @@ const PublishedMissionScreen = () => {
                 data={missionItems} 
                 renderItem={({item})=> <MissionItem isCarrier item={item} /> }
                 keyExtractor={(item)=>item.id.toString()}
-            />
+            /> 
         </View>
     )
 }

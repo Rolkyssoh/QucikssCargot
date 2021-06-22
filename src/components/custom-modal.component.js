@@ -10,9 +10,13 @@ const CustomModalComponent = (props) => {
   const [givenProposition, setGivenProposition] = useState('');
   const [changingModalText, setChangingModalText] = useState(props.modalText)
   const [doLoading, setDoLoading] = useState(false)
+  const [idOffer, setIdOffer] = useState()
 
   useEffect(() => {
-    console.log('valeur du current user: ', props.carrierId)
+    if(props.offerInfos){
+      setGivenProposition(props.offerInfos._data.offer_content)
+      setIdOffer(props.offerInfos.id)
+    }
   },[])
 
     const confirmDeleted = () => {
@@ -29,11 +33,36 @@ const CustomModalComponent = (props) => {
                 isDeleted:true,
                 activated:false,
                 deletedDate: theDate,
-                deletedHours: theHours
+                deletedHours: theHours,
+                validated:false,
+                rejected:false
             })
             .then(() => {
-              console.log('Mission deleted!');
+              console.log('Mission Updated!');
               customNavigate('Customer')
+            });
+        }
+
+        // For Offers
+        if(props.offerDeletedId){
+          console.log('offer to delete:', props.offerDeletedId)
+          firestore()
+            .collection('Offer')
+            .doc(props.offerDeletedId)
+            .delete()
+            .then(() => {
+              console.log('Offer deleted!');
+              setTimeout(() => {
+                setModalVisible(!modalVisible)
+                customNavigate(
+                  'Missions',
+                  // {
+                  //   idCurrentUser: props.carrierId,
+                  //   idMission: props.missionId,
+                  // }
+                )
+              }, 5000)
+              setChangingModalText("Offre Supprimée avec succès!")
             });
         }
     }
@@ -52,7 +81,9 @@ const CustomModalComponent = (props) => {
             offer_hour:offerHour,
             offer_content: givenProposition,
             mission_id:props.missionId,
-            carrier_id:props.carrierId
+            carrier_id:props.carrierId,
+            rejected:false,
+            validated:false
           })
           .then((result) => {
             setDoLoading(false)
@@ -60,6 +91,19 @@ const CustomModalComponent = (props) => {
             // setModalVisible(!modalVisible)
             setGivenProposition('')
             setChangingModalText('Votre proposition a bien été envoyé!')
+            if(props.modalText!="Votre proposition a bien été envoyé!"){
+              setTimeout(() => {
+                setChangingModalText(props.modalText)
+                customNavigate(
+                  'OfferReceived',
+                  {
+                    idMission: props.missionId,
+                    currentCarrierId: props.carrierId
+                  }
+                )
+                setModalVisible(!modalVisible)
+              }, 4000)
+            }
           })
           .catch((error) => {
             setDoLoading(false)
@@ -72,6 +116,29 @@ const CustomModalComponent = (props) => {
       // setGivenProposition('')
       setChangingModalText('Entrez votre proposition')
       setModalVisible(!modalVisible)
+    }
+
+    const doLeaveModification = () => {
+      setModalVisible(!modalVisible)
+    }
+    const doUpdateMyOffer = () => {
+      if(idOffer){
+        firestore()
+          .collection('Offer')
+          .doc(idOffer)
+          .update({
+            offer_content: givenProposition
+          })
+          .then(() => {
+            console.log('Offer Updated!');
+            setTimeout(() => {
+              setModalVisible(!modalVisible)
+              customNavigate('Details')
+            }, 5000)
+            setChangingModalText("Modification effectuée")
+            setGivenProposition('')
+          });
+      }
     }
   
   return (
@@ -88,10 +155,15 @@ const CustomModalComponent = (props) => {
         <View style={styles.centeredModalView}>
           <View style={styles.modalView}>
             <Text 
-              style={[styles.modalText, {color:changingModalText=='Votre proposition a bien été envoyé!'? 'green':'black'}]}>
-                {changingModalText}
+              style={[styles.modalText, {
+                  color:changingModalText=='Votre proposition a bien été envoyé!' || 
+                  changingModalText=='Modification effectuée' || 
+                  changingModalText=='Offre Supprimée avec succès!' ? 'green':'black'
+                }]}
+            >
+              {changingModalText}
               </Text>
-            { props.forDelete &&
+            { props.forDelete || props.forDeleteOffer &&
               <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
                   <Pressable  onPress={confirmDeleted}>
                       <Text style={styles.textStyle}>Oui</Text>
@@ -101,7 +173,7 @@ const CustomModalComponent = (props) => {
                   </Pressable>
               </View>
             }
-            { props.forProposition &&
+            { props.forProposition && 
               <View>
                   <Input
                     value={givenProposition}
@@ -122,15 +194,50 @@ const CustomModalComponent = (props) => {
                 </View>
               </View>
             }
-          </View>
+
+            { props.forOfferModification && 
+              <View>
+                  <Input
+                    value={givenProposition}
+                    onChangeText={(text) => setGivenProposition(text)}
+                    multiline={true}
+                    numberOfLines={4}
+                    inputStyle={{ fontFamily:'Nunito-Regular'}}
+                    inputContainerStyle={styles.input_container_style}
+                  />
+                <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
+                    <Pressable  onPress={doLeaveModification}>
+                        <Text style={styles.textStyle}>Annuler</Text>
+                    </Pressable>
+                    <Pressable onPress={doUpdateMyOffer}>
+                        { !doLoading && <Text style={styles.textStyle}>Valider</Text> }
+                        { doLoading && <ActivityIndicator size='small' color='#42a3aa'/> }
+                    </Pressable>
+                </View>
+              </View>
+            }
+          </View> 
         </View>
       </Modal>
-      <Pressable
-        // style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>{props.pressableTitle}</Text>
-      </Pressable>
+      {!props.forOfferModification && !props.forDeleteOffer && 
+        <Pressable
+          // style={[styles.button, styles.buttonOpen]}
+          disabled={props.isDisabled}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.textStyle}>{props.pressableTitle}</Text>
+        </Pressable>
+      }
+      { props.forOfferModification && 
+        <Pressable onPress={() => setModalVisible(true)} style={{ borderRadius:20 , backgroundColor:'#42a3aa', width:120, height:41,justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontFamily:'Nunito-Black', color:'#fff', fontSize:16}}>{props.pressableTitle}</Text>
+        </Pressable>
+      }
+      { props.forDeleteOffer && 
+        <Pressable onPress={() => setModalVisible(true)} style={{ borderRadius:20 , backgroundColor:'#e3eae9', width:120, height:41,justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontFamily:'Nunito-Black', color:'#fff', fontSize:16}}>{props.pressableTitle}</Text>
+        </Pressable>
+      }
     </View>
   );
 };

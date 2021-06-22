@@ -204,7 +204,8 @@ const MissionInfos = (props) => {
         props.descriptionChanged('');
         props.volumeChanged('');
         props.baggageTypeChanged('');
-        props.navigation.navigate('Home')
+        // props.navigation.navigate('Home')
+        props.navigation.goBack()
     }
 
     const setDisabled = () => {

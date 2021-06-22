@@ -29,7 +29,7 @@ const NewMissionHeader = ({ title, doNav }) => {
 
     // const choisirImage = () => {
     //     console.log('choit de image');
-    //     ImagePicker.openPicker({
+    //     ImagePicker.openPicker({  
     //         compressImageQuality: 0.8,
     //         compressImageMaxWidth: 300,
     //         compressImageMaxHeight: 400,

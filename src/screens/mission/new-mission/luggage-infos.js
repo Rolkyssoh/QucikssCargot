@@ -12,20 +12,21 @@ const LuggageInfos = (props) => {
         props.volumeChanged(luggageVolume) 
     }
     const onBaggageTypeChange = (baggageType) => { 
-        props.baggageTypeChanged(baggageType)
+        props.baggageTypeChanged(baggageType) 
     }
 
     const clearInputFields = () => {
         props.volumeChanged('');
         props.baggageTypeChanged('');
-        props.navigation.navigate('Home')
+        // props.navigation.navigate('Home')
+        props.navigation.goBack()
     }
 
     return(
         <View style={styles.luggage_infos_container}>
             <NewMissionHeader title="Détails du Bagage" doNav={clearInputFields} />
             <View style={styles.content_view}>
-                <View style={styles.input_view}>
+                <View style={styles.input_view}> 
                     <Input  
                         placeholder="Volume approximatif"
                         value={props.luggageVolume}

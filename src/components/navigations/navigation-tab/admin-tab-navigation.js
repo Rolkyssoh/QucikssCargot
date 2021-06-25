@@ -13,18 +13,18 @@ const AdminNavigation = () => {
         <Tab.Navigator tabBar={(props) => <TabBarHome {...props} />}>
             <Tab.Screen 
                 name="Attente" 
-                component={WaitingValidation}
-                initialParams={{ icon: 'home'}}
+                component={WaitingValidation} 
+                initialParams={{ icon: 'hourglass'}}
             />
-            <Tab.Screen 
+            <Tab.Screen  
                 name="Validée"
                 component={MissionValidate}
-                initialParams={{ icon: 'user'}}
+                initialParams={{ icon: 'Safety'}}
             />
             <Tab.Screen 
                 name="Rejetée"
                 component={MissionRejected}
-                initialParams={{ icon: 'user'}}
+                initialParams={{ icon: 'closecircleo'}}
             />
             <Tab.Screen 
                 name="Profile"

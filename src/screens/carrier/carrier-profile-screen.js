@@ -9,7 +9,7 @@ import UserProfileComponent from '../../components/user-profile-component';
 const CarrierProfileScreen = (props) => {
     const [infosCurrentUser, setInfosCurrentUser] = useState()
 
-    useEffect(() =>{
+    useEffect(() =>{ 
         let isCancelled = false
         console.log('Dans le profile screen du carrier : ', props.currentUser)
         firestore()
@@ -32,7 +32,7 @@ const CarrierProfileScreen = (props) => {
     }
 
     const goToSetting = () => {
-        props.navigation.navigate('Setting')
+        props.navigation.navigate('Setting') 
     }
 
     return( 

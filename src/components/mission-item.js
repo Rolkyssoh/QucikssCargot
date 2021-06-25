@@ -51,11 +51,14 @@ const MissionItem = (props) => {
     return(
         <TouchableOpacity 
             style={styles.item_container}
-            onPress={()=> CustomNavigation.customNavigate( 
-                    'Details',
-                    {
+            onPress={()=> CustomNavigation.customNavigate(  
+                    'Details',  
+                    {  
                         isCarrier:props.isCarrier, 
-                        isAdmin:props.isAdmin, 
+                        isAdmin:props.isAdmin,
+                        fromWaiting: props.waitScreen,
+                        fromValidate: props.validateScreen, 
+                        fromRejected: props.rejectedScreen,
                         infosMission:missionItem,
                         infosBaggage:infosBaggage,
                         docIdMission: idSecondDocBaggage,

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import firestore from '@react-native-firebase/firestore'
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { Text, Button } from 'react-native-elements';
@@ -9,11 +10,14 @@ import IconArrow from 'react-native-vector-icons/AntDesign';
 const RejectedMissionScreen = (props) => {
 
     const [missionRejected, setMissionRejected] = useState()
+    const [user_id, setUserId] = useState(props.userId)
 
     useEffect(() => {
         firestore()
             .collection('Mission')
-            .where("activated", "==", false) 
+            .where("activated", "==", false)
+            .where("rejected", "==", true)
+            .where("user_id", "==", user_id)  
             .get()
             .then((resp) => { 
                 console.log('response getting mission: ', resp.docs)
@@ -33,12 +37,12 @@ const RejectedMissionScreen = (props) => {
                     })
                 }
             </View>
-            {/* {
-                missionRejected.length ==0 &&
+            {
+                missionRejected && missionRejected.length <=0 &&
                 <View style={{ alignItems:'center', marginTop:100}}>
-                    <Text>Aucune mission trouvée</Text>
+                    <Text style={{ fontFamily:'Nunito-Black'}}>Aucune mission trouvée!</Text>
                 </View>
-            } */}
+            }
         </ScrollView>
         <View style={styles.view_button_style}>
             <IconArrow name="arrowleft" color='#42a3aa' size={30} />
@@ -72,4 +76,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default RejectedMissionScreen
+const mapStateToProps = (state) => {
+    return{
+        userId: state.UpdateUserInfos.userId,
+    }
+}
+
+export default connect(mapStateToProps)(RejectedMissionScreen)

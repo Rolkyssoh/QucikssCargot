@@ -12,6 +12,7 @@ import CustomModalComponent from '../../components/custom-modal.component';
 const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
     const [missionPictures, setMissionPictures] = useState()
     const [numberOfOffer, setNumberOfOffer] = useState(0)
+    const [load, setLoad] = useState(false)
 
     useEffect(() => { 
         console.log('params recue: ', route.params) 
@@ -74,6 +75,74 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                 setMissionPictures(resp.docs)
             })
             .catch((error) => { console.log('error while getting Mission images : ', error)})
+    }
+
+    const doActivateMission = (missionId) => {
+        console.log({missionId})
+        setLoad(true)
+        firestore()
+            .collection('Mission')
+            .doc(missionId)
+            .update({
+                activated:true
+            })
+            .then(()=> {
+                console.log('Success activation mission')
+                setLoad(false)
+                navigation.navigate(
+                    'AdminNav',
+                    {
+                        screen:'Validée'
+                    }
+                )
+            })
+            .catch((error) => {
+                console.log('error while activate mission', error)
+                setLoad(false)
+            })
+    }
+
+    const doRejectMission = (rejectMissionId) => {
+        setLoad(true)
+        firestore()
+            .collection('Mission')
+            .doc(rejectMissionId)
+            .update({
+                rejected:true
+            })
+            .then(()=> {
+                console.log('Success rejection mission')
+                setLoad(false)
+                navigation.navigate(
+                    'AdminNav',
+                    {
+                        screen:'Rejetée'
+                    }
+                )
+            })
+            .catch((error) => {
+                console.log('error while reject mission', error)
+                setLoad(false)
+            })
+    }
+
+    const doDésactivation = (desactivateMissionId) => {
+        firestore()
+            .collection('Mission')
+            .doc(desactivateMissionId)
+            .update({
+                desactivated:true
+            })
+            .then(()=> {
+                console.log('Success désactivation mission')
+                navigation.navigate(
+                    'AdminNav',
+                    {
+                        screen:'Validée'
+                    }
+                )
+            })
+            .catch((error) => console.log('error while désactivate mission', error))
     }
 
 
@@ -139,7 +208,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                             {route.params.infosBaggage && <Text>{route.params.infosBaggage.baggage_type }</Text>}
                         </View>
                         <View style={{ flexDirection:'row', justifyContent:'center'}}>
-                            <Text style={{ fontFamily:'Nunito-Black'}}>Vulume : </Text>
+                            <Text style={{ fontFamily:'Nunito-Black'}}>Vulume : </Text> 
                             {route.params.infosBaggage && <Text>{route.params.infosBaggage.baggage_volume}</Text>}
                         </View>
                         {/* { route.params.infosBaggage && <Text>Type de bagage : {route.params.infosBaggage.baggage_type } </Text>}
@@ -147,8 +216,8 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                     </View>
                 </View> 
             }
-            {/* For received offer */}
-            {   route.params.isCustomer &&
+            {/* For received offer(Customer) */}
+            {   route.params.isCustomer && route.params.infosMission.activated!=false && 
                 <Button 
                     title={`Proposition(s) reçue (${numberOfOffer})`} 
                     type="outline"
@@ -164,8 +233,8 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                     containerStyle={styles.offer_button_style}
                 />
             }
-            {/* For offer send */}
-            {   route.params.isCarrier &&
+            {/* For offer send(Carrier) */}
+            {   route.params.isCarrier && 
                 <Button 
                     title={`Mon offre (${numberOfOffer})` } 
                     type="outline"
@@ -183,28 +252,63 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                 />
             }
                 {/* For Admin */}
-            {   route.params.isAdmin &&
+            {   route.params.isAdmin && route.params.fromWaiting &&
                 <View style={styles.button_view}>
                     <Button 
-                        customTitle="Retour"
+                        title="Retour"
                         type="clear"
-                        customPress={() =>navigation.navigate("AdminNav")}
+                        onPress={() =>navigation.goBack()} 
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <Button 
-                        customTitle="Valider"
+                        title="Valider"
                         type="clear"
-                        customPress={() => navigation.navigate('Map')}
+                        onPress={() => doActivateMission(route.params.id)}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                        loading={load}
+                    /> 
+                    <Button 
+                        title="Rejeter"
+                        type="clear"
+                        onPress={() => doRejectMission(route.params.id)}
+                        titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                        loading={load}
+                        loadingStyle={{ color:'#42a3aa' }}
+                    />
+                </View>
+            }
+            {   route.params.isAdmin && route.params.fromValidate &&
+                <View style={styles.button_view}>
+                    <Button 
+                        title="Retour"
+                        type="clear"
+                        onPress={() =>navigation.goBack()} 
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <Button 
-                        customTitle="Rejeter"
+                        title="Désactiver"
                         type="clear"
-                        customPress={() => navigation.navigate('Rejection')}
+                        customPress={() => doDésactivation(route.params.id)}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     />
                 </View>
             }
+                {   route.params.isAdmin && route.params.fromRejected &&
+                    <View style={styles.button_view}>
+                        <Button 
+                            title="Retour"
+                            type="clear"
+                            onPress={() =>navigation.goBack()} 
+                            titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                        />
+                        {/* <Button 
+                            title="Désactiver"
+                            type="clear"
+                            customPress={() => navigation.navigate('Rejection')}
+                            titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                        /> */}
+                    </View>
+                }
                 {/* For carrier */}  
             {   route.params.isCarrier &&
                 <View style={styles.button_view}>
@@ -247,12 +351,6 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                         )}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     />
-                    {/* <Button 
-                        title="Suprimer"
-                        type="clear"
-                        onPress={() => navigation.navigate('Rejection')}
-                        titleStyle={{ color:'#42a3aa'}}
-                    /> */} 
                     <CustomModalComponent 
                         pressableTitle="Supprimer" 
                         modalText="Voulez-vous vraiment supprimer cette mission?"

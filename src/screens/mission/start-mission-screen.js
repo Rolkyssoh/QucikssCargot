@@ -124,7 +124,7 @@ const StartMissionScreen = (props) => {
                     containerStyle={{ borderRadius:20, alignSelf:'center' }}
                     buttonStyle={{ backgroundColor:'#42a3aa' }}
                 />
-                }
+                } 
                 {/* {   isCarrierValue == true && missionStatus=='Début confirmé!' &&
                     <View>
                         <Text style={{ fontFamily:'Nunito-Black'}}>Départ : { infosStartedMission.depature_place} </Text>

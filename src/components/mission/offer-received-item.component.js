@@ -15,10 +15,12 @@ const OfferReceivedItemComponent = (props) => {
     const [missionIsOff, setMissionIsOff] = useState(false)
     const [startInfos, setStartInfos] = useState('')
     const [isStarted, setIsStarted] = useState(false)
+    const [idForCarrier, setIdForCarrier] = useState('')
 
     useEffect(() => {
         if(props.infos){
             console.log('dand le item offer: ', props.infos)
+            setIdForCarrier(props.infos._data.carrier_id)
             setOfferInfos(props.infos)
             setIsConfirm(props.infos._data.validated)
             if(isConfirm == false){
@@ -29,7 +31,7 @@ const OfferReceivedItemComponent = (props) => {
                 .doc(props.infos._data.carrier_id)
                 .get()
                 .then((result) => { 
-                    console.log('getting user who send offer:' , result._data)
+                    console.log('getting user who send offer:' , result)
                     setOfferSenderInfos(result._data)
                 })
                 .catch((error) => console.lor('error while getting user who send offer: ', error))
@@ -157,12 +159,12 @@ const OfferReceivedItemComponent = (props) => {
                     <Image style={styles.image_style} />
                 </View>
             }
-
+ 
             <View style={styles.view_for_main_content}>
                 {/* For customer */}
                 {   offerInfos && 
                     <View style={styles.title_and_hour_view}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => customNavigate('CarrierInfos', { idForCarrier })}>
                             {   offerSenderInfos && 
                                 <Text style={{ fontFamily:'Nunito-Black'}}>{offerSenderInfos.username}</Text>
                             }

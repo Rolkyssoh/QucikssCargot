@@ -27,6 +27,7 @@ import AddInfosScreen from './src/screens/auth/add-infos-screen';
 import CustomerMissions from './src/screens/customer-user/customer-missions';
 import OfferReceivedScreen from './src/screens/customer-user/offer-received-screen';
 import StartMissionScreen from './src/screens/mission/start-mission-screen';
+import CarrierInfosScreen from './src/screens/carrier/carrier-infos-screen';
 
 
 const Stack = createStackNavigator()
@@ -165,9 +166,14 @@ const App = () => {
                   name="Awaiting"
                   component={AwaitingScreen}
                 />
+                <Stack.Screen 
+                  name="CarrierInfos"
+                  component={CarrierInfosScreen}
+                  options={{ title:'' }}
+                /> 
               </>
             }
-        </Stack.Navigator>
+        </Stack.Navigator> 
     </NavigationContainer>
   );
 };

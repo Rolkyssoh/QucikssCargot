@@ -10,8 +10,9 @@ const MissionValidate = ({ navigation }) => {
     useEffect(() => {
         firestore()
         .collection('Mission')
-        // .doc()
-        .get()
+        .where("activated", "==", true) 
+        .where("rejected", "==", false)
+        .get() 
         .then((response)=>{
             console.log('result on publishe: ', response.docs);
             setMissionItems(response.docs)
@@ -21,12 +22,12 @@ const MissionValidate = ({ navigation }) => {
 
     return(
         <View style={styles.validate_container}> 
-            <Text h3>Valider mission</Text> 
+            <Text style={{ fontFamily:'Nunito-Black', fontSize:30, color:'#42a3aa'}}>Validée(s)</Text>  
             <View style={styles.items_list}>
                 <FlatList 
                     data={missionItems}
-                    renderItem={({item})=> <MissionItem item={item} isAmiiin /> }
-                    keyExtractor={(item)=>item.id.toString()}
+                    renderItem={({item})=> <MissionItem item={item} isAdmin validateScreen /> }
+                    keyExtractor={(item)=>item.id.toString()} 
                 />
             </View> 
         </View> 

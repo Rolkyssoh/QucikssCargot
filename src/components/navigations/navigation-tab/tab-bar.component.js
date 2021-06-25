@@ -18,7 +18,7 @@ const TabBarHome = ({state, navigation}) => {
 
     return(
         <View style={styles.wrapper}>
-            <View style={styles.container}>
+            <View style={styles.container}> 
                 {
                     routes.map((route, index) => ( 
                         <TabHome  

@@ -56,7 +56,7 @@ const CustomerMissionComponent = (props) => {
             style={styles.view_content_style}
             onPress={() => customNavigate(
                 'Details',
-                { 
+                {  
                     isCustomer: props.isCustomer,  
                     infosMission: missionItem,
                     infosBaggage: baggageInfos,

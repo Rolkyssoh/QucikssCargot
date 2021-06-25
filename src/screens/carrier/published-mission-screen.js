@@ -10,7 +10,8 @@ const PublishedMissionScreen = () => {
     useEffect(() => {
         firestore()
         .collection('Mission')
-        // .doc()
+        .where("activated", "==", true)
+        // .where("desactivated", "==", false)
         .get()
         .then((response)=>{
             console.log('result on publishe: ', response.docs);

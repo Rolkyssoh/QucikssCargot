@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import firestore from '@react-native-firebase/firestore'
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { Text,Button } from 'react-native-elements';
@@ -8,14 +9,16 @@ import IconArrow from 'react-native-vector-icons/AntDesign';
 
 const ValidateMissionScreen = (props) => {
     const [missionValidated, setMissionValidated] = useState()
+    const [user_id, setUserId] = useState(props.userId)
 
     useEffect(() => {
         firestore()
             .collection('Mission')
-            .where("activated", "==", false) 
+            .where("activated", "==", true)
+            .where("user_id", "==", user_id) 
             .get()
             .then((resp) => { 
-                console.log('response getting mission: ', resp.docs)
+                console.log('response getting mission: ', resp.docs.length)
                 setMissionValidated(resp.docs)
             })
             .catch((error) => { console.log('error while getting mission : ', error)})
@@ -25,13 +28,18 @@ const ValidateMissionScreen = (props) => {
         <>
         <CustomHeader customTitle="Validée(s)" />
         <ScrollView >
-            <View style={styles.container_validated}>
+            <View style={styles.container_validated}> 
                 {
                         missionValidated && missionValidated.map((item) => {
                         return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
                     })
                 }
-            </View> 
+            </View>
+            {   missionValidated && missionValidated.length <= 0 &&
+                <View style={{ alignItems:'center', marginTop:100 }}>
+                    <Text style={{fontFamily:'Nunito-Black'}}>Pas de mission valide pour le moment!</Text>
+                </View>
+            }
             {/* {
                 missionValidated.length ==0 &&
                 <View style={{ alignItems:'center', marginTop:100}}>
@@ -68,7 +76,13 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-around'
-    }
+    } 
 })
 
-export default ValidateMissionScreen
+const mapStateToProps = (state) => {
+    return{
+        userId: state.UpdateUserInfos.userId,
+    }
+}
+
+export default connect(mapStateToProps)(ValidateMissionScreen)

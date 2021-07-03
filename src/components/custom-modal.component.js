@@ -39,6 +39,7 @@ const CustomModalComponent = (props) => {
             })
             .then(() => {
               console.log('Mission Updated!');
+              // customNavigate('Details')
               customNavigate('Customer')
             });
         }
@@ -55,7 +56,8 @@ const CustomModalComponent = (props) => {
               setTimeout(() => {
                 setModalVisible(!modalVisible)
                 customNavigate(
-                  'Missions',
+                  // 'Missions',
+                  'Details'
                   // {
                   //   idCurrentUser: props.carrierId,
                   //   idMission: props.missionId,
@@ -140,7 +142,7 @@ const CustomModalComponent = (props) => {
           });
       }
     }
-  
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -154,16 +156,16 @@ const CustomModalComponent = (props) => {
       >
         <View style={styles.centeredModalView}>
           <View style={styles.modalView}>
-            <Text 
+            <Text
               style={[styles.modalText, {
-                  color:changingModalText=='Votre proposition a bien été envoyé!' || 
-                  changingModalText=='Modification effectuée' || 
+                  color:changingModalText=='Votre proposition a bien été envoyé!' ||
+                  changingModalText=='Modification effectuée' ||
                   changingModalText=='Offre Supprimée avec succès!' ? 'green':'black'
                 }]}
             >
               {changingModalText}
               </Text>
-            { props.forDelete || props.forDeleteOffer &&
+            { (props.forDelete || props.forDeleteOffer) &&
               <View style={{ flexDirection:'row', justifyContent:'space-around'}}>
                   <Pressable  onPress={confirmDeleted}>
                       <Text style={styles.textStyle}>Oui</Text>
@@ -173,7 +175,7 @@ const CustomModalComponent = (props) => {
                   </Pressable>
               </View>
             }
-            { props.forProposition && 
+            { props.forProposition &&
               <View>
                   <Input
                     value={givenProposition}
@@ -195,7 +197,7 @@ const CustomModalComponent = (props) => {
               </View>
             }
 
-            { props.forOfferModification && 
+            { props.forOfferModification &&
               <View>
                   <Input
                     value={givenProposition}
@@ -216,10 +218,10 @@ const CustomModalComponent = (props) => {
                 </View>
               </View>
             }
-          </View> 
+          </View>
         </View>
       </Modal>
-      {!props.forOfferModification && !props.forDeleteOffer && 
+      {!props.forOfferModification && !props.forDeleteOffer &&
         <Pressable
           // style={[styles.button, styles.buttonOpen]}
           disabled={props.isDisabled}
@@ -228,12 +230,12 @@ const CustomModalComponent = (props) => {
           <Text style={styles.textStyle}>{props.pressableTitle}</Text>
         </Pressable>
       }
-      { props.forOfferModification && 
+      { props.forOfferModification &&
         <Pressable onPress={() => setModalVisible(true)} style={{ borderRadius:20 , backgroundColor:'#42a3aa', width:120, height:41,justifyContent:'center', alignItems:'center'}}>
           <Text style={{fontFamily:'Nunito-Black', color:'#fff', fontSize:16}}>{props.pressableTitle}</Text>
         </Pressable>
       }
-      { props.forDeleteOffer && 
+      { props.forDeleteOffer &&
         <Pressable onPress={() => setModalVisible(true)} style={{ borderRadius:20 , backgroundColor:'#e3eae9', width:120, height:41,justifyContent:'center', alignItems:'center'}}>
           <Text style={{fontFamily:'Nunito-Black', color:'#fff', fontSize:16}}>{props.pressableTitle}</Text>
         </Pressable>
@@ -271,7 +273,7 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   buttonClose: {
-    backgroundColor: "#2196F3", 
+    backgroundColor: "#2196F3",
   },
   textStyle: {
     color: "#42a3aa",
@@ -286,9 +288,9 @@ const styles = StyleSheet.create({
     fontFamily:'Nunito-Black',
   },
   input_container_style:{
-    backgroundColor:'#e3e2e7', 
-    borderColor:'#014248', 
-    borderWidth:0.5, 
+    backgroundColor:'#e3e2e7',
+    borderColor:'#014248',
+    borderWidth:0.5,
     paddingHorizontal:5,
     width:300,
     borderRadius:5

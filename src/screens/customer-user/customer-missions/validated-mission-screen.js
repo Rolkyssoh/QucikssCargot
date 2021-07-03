@@ -7,6 +7,7 @@ import CustomerMissionComponent from '../../../components/customer-mission.compo
 import CustomHeader from '../../../components/custom-header';
 import IconArrow from 'react-native-vector-icons/AntDesign';
 
+
 const ValidateMissionScreen = (props) => {
     const [missionValidated, setMissionValidated] = useState()
     const [user_id, setUserId] = useState(props.userId)
@@ -15,6 +16,7 @@ const ValidateMissionScreen = (props) => {
         firestore()
             .collection('Mission')
             .where("activated", "==", true)
+            // .where("started_at", "==", "")
             .where("user_id", "==", user_id) 
             .get()
             .then((resp) => { 

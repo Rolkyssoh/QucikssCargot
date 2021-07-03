@@ -74,7 +74,6 @@ const StartMissionScreen = (props) => {
                 .then(()=> {
                     console.log('stated mission is confirm')
                     setMissionStatus('Début confirmé!')
-                    setMissionIsEnd(currentHoure)
                     // customNavigate(
                     //     'StartMission',
                     //     { missionIdForStart }
@@ -153,7 +152,7 @@ const StartMissionScreen = (props) => {
                     </View>
                 }
                 {/* Terminer la mission */}
-                {   isCarrierValue == false && missionIsEnd =="" &&
+                {   isCarrierValue == false && missionStatus=='Début confirmé!' &&
                     <Button 
                         title="Mission terminé"
                         type="solid"

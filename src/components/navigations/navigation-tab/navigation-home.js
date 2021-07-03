@@ -11,7 +11,7 @@ const NavigationHome = () => {
         <Tab.Navigator tabBar={(props) => <TabBarHome {...props} />}>
             <Tab.Screen 
                 name="Home" 
-                component={HomeScreen}
+                component={HomeScreen} 
                 initialParams={{ icon: 'home'}} 
             /> 
             <Tab.Screen 

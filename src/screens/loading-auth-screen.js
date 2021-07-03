@@ -10,35 +10,42 @@ const LoadingAuthScreen = (props) => {
     const [loading, setLoading] = useState(true)
  
     useEffect(() => {
-        const subscriber = auth().onAuthStateChanged((user)=>{
-            if(user){ 
-                props.userIdChanged(user._user.uid)
-                props.authStateChanged(user._user)
-                console.log('Dans le loading auth screen le user est:', user._user.uid)
-                firestore()
-                    .collection('Users')
-                    .where("userPhoneNumber", "==", user._user.phoneNumber)
-                    .get()
-                    .then((response) =>{
-                        setLoading(false)
-                        console.log('verif de correspondence profil: ', response.docs[0]._data)
-                        response.docs[0]._data.activated ?
-                            response.docs[0]._data.isAdmin ?
-                                props.navigation.navigate('AdminNav')
-                                :response.docs[0]._data.isCarrier ?
-                                    props.navigation.navigate('CarrierNav')
-                                    : response.docs[0]._data.username =='' ? 
-                                        props.navigation.navigate('AddInfos')
-                                        :props.navigation.navigate('NavTab') 
-                        : props.navigation.navigate('Awaiting')
-                    })
-            }
-            if(!user){
-                props.navigation.navigate('Login')
-            }
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            const subscriberAuth = auth().onAuthStateChanged((user)=>{
+                if(user){
+                    props.userIdChanged(user._user.uid)
+                    props.authStateChanged(user._user)
+                    console.log('Dans le loading auth screen le user est:', user._user.uid)
+                    firestore()
+                        .collection('Users')
+                        .where("userPhoneNumber", "==", user._user.phoneNumber)
+                        .get()
+                        .then((response) =>{
+                            setLoading(false)
+                            console.log('verif de correspondence profil: ', response.docs[0]._data)
+                            response.docs[0]._data.activated ?
+                                response.docs[0]._data.isAdmin ?
+                                    props.navigation.navigate('AdminNav')
+                                    :response.docs[0]._data.isCarrier ?
+                                        props.navigation.navigate('CarrierNav')
+                                        : response.docs[0]._data.username =='' ?  
+                                            props.navigation.navigate('AddInfos')
+                                            :props.navigation.navigate('NavTab') 
+                            : props.navigation.navigate('Awaiting')
+                        })
+                }
+                if(!user){
+                    // props.navigation.navigate('Login')
+                    props.navigation.navigate('Welcome')
+                }
+            });
+            return subscriberAuth
         });
-        return subscriber
-    },[])
+
+        return() => {
+            unsubscribe;
+        }
+    },[props.navigation])
 
     return(
         <View style={styles.container_loading_screen}>

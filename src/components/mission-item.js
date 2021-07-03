@@ -53,7 +53,7 @@ const MissionItem = (props) => {
             style={styles.item_container}
             onPress={()=> CustomNavigation.customNavigate(  
                     'Details',  
-                    {  
+                    {   
                         isCarrier:props.isCarrier, 
                         isAdmin:props.isAdmin,
                         fromWaiting: props.waitScreen,

@@ -10,7 +10,8 @@ const CarrierProfileScreen = (props) => {
     const [infosCurrentUser, setInfosCurrentUser] = useState()
 
     useEffect(() =>{ 
-        let isCancelled = false
+        let isCancelled = false;
+        
         console.log('Dans le profile screen du carrier : ', props.currentUser)
         firestore()
         .collection('Users')
@@ -22,7 +23,8 @@ const CarrierProfileScreen = (props) => {
             setInfosCurrentUser(response._docs[0]._data)
         })
         .catch((error) => { console.log('error while getting infos current user: ', error)})
-        return () => {
+
+        return () => { 
             isCancelled = true;
           };
     },[])

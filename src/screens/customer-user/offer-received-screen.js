@@ -20,6 +20,7 @@ const OfferReceivedScreen = (props) => {
                 .collection('Offer')
                 // .where('validated', '==', false)
                 .where('mission_id', '==', `${idMission}`)
+                .where('rejected', '==', false)
                 .get()
                 .then((resp) => { 
                     console.log('get offer', resp.docs.length)
@@ -46,6 +47,10 @@ const OfferReceivedScreen = (props) => {
         }
     },[])
 
+    const previousScreen = () => {
+        props.navigation.goBack()
+    }
+
     return( 
         <ScrollView style={styles.container_offer_receiver}>
             {   offerItems && offerItems.length<=0 &&
@@ -61,13 +66,13 @@ const OfferReceivedScreen = (props) => {
             }
             {   loadingIndicator &&
                 <View style={{ marginTop:'80%'}}>
-                    <ActivityIndicator size="large" color='#42a3aa' />
+                    <ActivityIndicator size="large" color='#42a3aa' /> 
                 </View>
             }
             {/* For customer */}
             {
                 offerItems && offerItems.map((item) => {
-                    return <OfferReceivedItemComponent key={item.id.toString()} infos={item} />
+                    return <OfferReceivedItemComponent key={item.id.toString()} infos={item} goback={previousScreen} />
                 })
             }
             {/* For carrier */}

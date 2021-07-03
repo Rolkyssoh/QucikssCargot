@@ -24,7 +24,7 @@ const AdminProfile = (props) => {
         .catch((error) => { console.log('error while getting infos current user: ', error)})
         return () => {
             isCancelled = true;
-          };
+        };
     },[])
 
     const doLogOut = () => {

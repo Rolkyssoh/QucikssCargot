@@ -6,7 +6,7 @@ import MissionValidate from '../../../screens/admin/mission-validate';
 import MissionRejected from '../../../screens/admin/mission-rejected';
 import AdminProfile from '../../../screens/admin/admin-profile';
  
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator() 
 
 const AdminNavigation = () => { 
     return(

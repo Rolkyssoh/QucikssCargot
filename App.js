@@ -41,7 +41,13 @@ const App = () => {
   return (
     <NavigationContainer ref={navigationRef} >
         <Stack.Navigator initialRouteName="Welcome">
-            { 
+            <Stack.Screen 
+              name="LoadingAuth"
+              component={LoadingAuthScreen}
+              options={{ headerShown:false }}
+            />
+
+            {  
               !auth().currentUser ?
               <>
                 <Stack.Screen 
@@ -57,17 +63,18 @@ const App = () => {
                 <Stack.Screen 
                   name="ConfirmCode" 
                   component={ConfirmationCode}
+                  options={{headerShown: false}}
                 />
                 <Stack.Screen 
                   name="CarrierSignup"
                   component={CarrierSignupScreen}
                   options={{ headerShown:false }}
                 />
-                <Stack.Screen 
+                {/* <Stack.Screen 
                     name="LoadingAuth"
                     component={LoadingAuthScreen}
                     options={{ headerShown:false }}
-                />
+                /> */}
                 <Stack.Screen 
                     name="NavTab"
                     component={NavigationHome}
@@ -82,11 +89,11 @@ const App = () => {
                   component={AddInfosScreen}
                   options={{ headerShown:false }}
                 /> */}
-                <Stack.Screen 
+                {/* <Stack.Screen 
                     name="LoadingAuth"
                     component={LoadingAuthScreen}
                     options={{ headerShown:false }}
-                />
+                /> */}
                 <Stack.Screen   
                     name="Login" 
                     component={LoginScreen}
@@ -165,6 +172,7 @@ const App = () => {
                 <Stack.Screen 
                   name="Awaiting"
                   component={AwaitingScreen}
+                  options={{ headerShown:false }}
                 />
                 <Stack.Screen 
                   name="CarrierInfos"

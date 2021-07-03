@@ -11,6 +11,7 @@ import {
     digit6Changed,
     confirmCode,
 } from '../../actions';
+import CustomHeader from '../../components/custom-header';
 
 const ConfirmationCode = (props) => {
 
@@ -36,118 +37,121 @@ const ConfirmationCode = (props) => {
     const doCheckCode = () => {
         const {digit1, digit2, digit3, digit4, digit5, digit6, receivedCode} = props;
         const enteredCode = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
-        props.confirmCode({receivedCode,enteredCode})
+        props.confirmCode({receivedCode,enteredCode}) 
     }
 
     return(
-        <View style={styles.container_view}>
-            <View style={styles.text_intro_view}>
-                <Text style={{ fontFamily:'Nunito-Regular'}}>Saisissez le code à 6 chiffres reçu au numéro {props.phone}</Text>
-            </View>
-            <View style={styles.inputs_style_view}>
-                <Input
-                    name='digit1'
-                    placeholder='0'
-                    keyboardType="phone-pad"
-                    value={props.digit1}
-                    onChangeText={(e1)=>onDigit1Change(e1)}
-                    maxLength={1}
-                    inputStyle={styles.inputs_styles}
-                    labelStyle={{ color: 'red', fontSize: 20, }}
-                    containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
-                />
-                <Input
-                    name='digit2'
-                    placeholder='0'
-                    keyboardType="phone-pad"
-                    value={props.digit2}
-                    onChangeText={(e2)=>onDigit2Change(e2)}
-                    maxLength={1}
-                    inputStyle={styles.inputs_styles}
-                    labelStyle={{ color: 'red', fontSize: 20, }}
-                    containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
-                />
-                <Input
-                    name='digit3'
-                    placeholder='0'
-                    keyboardType="phone-pad"
-                    value={props.digit3}
-                    onChangeText={(e3)=>onDigit3Change(e3)}
-                    maxLength={1}
-                    inputStyle={styles.inputs_styles}
-                    labelStyle={{ color: 'red', fontSize: 20, }}
-                    containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
-                />
-                <Input
-                    name='digit4'
-                    placeholder='0'
-                    keyboardType="phone-pad"
-                    value={props.digit4} 
-                    onChangeText={(e4)=>onDigit4Change(e4)}
-                    maxLength={1}
-                    inputStyle={styles.inputs_styles}
-                    labelStyle={{ color: 'red', fontSize: 20, }}
-                    containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
-                />
-                <Input
-                    name='digit5'
-                    placeholder='0'
-                    keyboardType="phone-pad"
-                    value={props.digit5}
-                    onChangeText={(e5)=>onDigit5Change(e5)}
-                    maxLength={1}
-                    inputStyle={styles.inputs_styles}
-                    labelStyle={{ color: 'red', fontSize: 20, }}
-                    containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
-                />
-                <Input
-                    name='digit6'
-                    placeholder='0'
-                    keyboardType="phone-pad"
-                    value={props.digit6}
-                    onChangeText={(e6)=>onDigit6Change(e6)}
-                    maxLength={1}
-                    inputStyle={styles.inputs_styles}
-                    labelStyle={{ color: 'red', fontSize: 20, }}
-                    containerStyle={{ width: 60, height: 60, padding: 5, }}
-                    inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
-                />
-            </View>
-            {/* display the error */}
-            <View style={styles.error_view_style}>
-                <Text style={{color:'red'}}>{props.displayError}</Text>
-            </View>
-            <Button
-                containerStyle={{alignSelf:'flex-start'}}
-                // buttonStyle={{width:370 }}
-                title="Renvoyer le code"
-                type="clear"
-                titleStyle={{color:'#42a3aa', fontFamily:'Nunito-Black'}}
-                // onPress={doLogin}
-            />
-            {props.loading && 
-                <View style={{ alignItems:'center', top:150 }}>
-                    <ActivityIndicator size="large" color='black' />
+        // <CustomHeader customTitle="Rejetée(s)" />
+        <>
+            <CustomHeader customTitle="code de confirmation" />
+            <View style={styles.container_view}>
+                <View style={styles.text_intro_view}>
+                    <Text style={{ fontFamily:'Nunito-Regular'}}>Saisissez le code à 6 chiffres reçu au numéro {props.phone}</Text>
                 </View>
-            }
-           
-            <View style={styles.validation_button_view}>            
+                <View style={styles.inputs_style_view}>
+                    <Input
+                        name='digit1'
+                        placeholder='0'
+                        keyboardType="phone-pad"
+                        value={props.digit1}
+                        onChangeText={(e1)=>onDigit1Change(e1)}
+                        maxLength={1}
+                        inputStyle={styles.inputs_styles}
+                        labelStyle={{ color: 'red', fontSize: 20, }}
+                        containerStyle={{ width: 60, height: 60, padding: 5, }}
+                        inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
+                    />
+                    <Input
+                        name='digit2'
+                        placeholder='0'
+                        keyboardType="phone-pad"
+                        value={props.digit2}
+                        onChangeText={(e2)=>onDigit2Change(e2)}
+                        maxLength={1}
+                        inputStyle={styles.inputs_styles}
+                        labelStyle={{ color: 'red', fontSize: 20, }}
+                        containerStyle={{ width: 60, height: 60, padding: 5, }}
+                        inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
+                    />
+                    <Input
+                        name='digit3'
+                        placeholder='0'
+                        keyboardType="phone-pad"
+                        value={props.digit3}
+                        onChangeText={(e3)=>onDigit3Change(e3)}
+                        maxLength={1}
+                        inputStyle={styles.inputs_styles}
+                        labelStyle={{ color: 'red', fontSize: 20, }}
+                        containerStyle={{ width: 60, height: 60, padding: 5, }}
+                        inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
+                    />
+                    <Input
+                        name='digit4'
+                        placeholder='0'
+                        keyboardType="phone-pad"
+                        value={props.digit4} 
+                        onChangeText={(e4)=>onDigit4Change(e4)}
+                        maxLength={1}
+                        inputStyle={styles.inputs_styles}
+                        labelStyle={{ color: 'red', fontSize: 20, }}
+                        containerStyle={{ width: 60, height: 60, padding: 5, }}
+                        inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
+                    />
+                    <Input
+                        name='digit5'
+                        placeholder='0'
+                        keyboardType="phone-pad"
+                        value={props.digit5}
+                        onChangeText={(e5)=>onDigit5Change(e5)}
+                        maxLength={1}
+                        inputStyle={styles.inputs_styles}
+                        labelStyle={{ color: 'red', fontSize: 20, }}
+                        containerStyle={{ width: 60, height: 60, padding: 5, }}
+                        inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
+                    />
+                    <Input
+                        name='digit6'
+                        placeholder='0'
+                        keyboardType="phone-pad"
+                        value={props.digit6}
+                        onChangeText={(e6)=>onDigit6Change(e6)}
+                        maxLength={1}
+                        inputStyle={styles.inputs_styles}
+                        labelStyle={{ color: 'red', fontSize: 20, }}
+                        containerStyle={{ width: 60, height: 60, padding: 5, }}
+                        inputContainerStyle={[styles.input_container_style, { borderBottomColor:`${ props.displayError ? 'red':'black'}`}]}
+                    />
+                </View>
+                {/* display the error */}
+                <View style={styles.error_view_style}>
+                    <Text style={{color:'red'}}>{props.displayError}</Text>
+                </View>
                 <Button
-                    // containerStyle={{alignSelf:'flex-end'}}
+                    containerStyle={{alignSelf:'flex-start'}}
                     // buttonStyle={{width:370 }}
-                    title="Suivant"
-                    type="outline"
-                    onPress={doCheckCode}
-                    buttonStyle={{ borderRadius:20, borderColor:'#42a3aa',}}
+                    title="Renvoyer le code"
+                    type="clear"
                     titleStyle={{color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                    // onPress={doLogin}
                 />
+                {props.loading && 
+                    <View style={{ alignItems:'center', top:150 }}>
+                        <ActivityIndicator size="large" color='black' />
+                    </View>
+                }
+                <View style={styles.validation_button_view}>            
+                    <Button
+                        // containerStyle={{alignSelf:'flex-end'}}
+                        // buttonStyle={{width:370 }}
+                        title="Suivant"
+                        type="outline"
+                        onPress={doCheckCode}
+                        buttonStyle={{ borderRadius:20, borderColor:'#42a3aa',}}
+                        titleStyle={{color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                    />
+                </View>
             </View>
-        </View>
+        </>
     )
 }
 

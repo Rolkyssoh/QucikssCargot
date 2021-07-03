@@ -11,8 +11,8 @@ import UserProfileComponent from '../../components/user-profile-component';
 const ProfileScreen = (props) => {
     const [infosCurrentUser, setInfosCurrentUser] = useState()
 
-    useEffect(() =>{
-        let isCancelled = false;
+    useEffect(() =>{  
+        let isCancelled = false; 
         if(props.currentUser){ 
             firestore()
             .collection('Users')
@@ -28,7 +28,7 @@ const ProfileScreen = (props) => {
         }
         return () => {
             isCancelled = true;
-          };
+        };
     },[])
 
     const doLogOut = () => {

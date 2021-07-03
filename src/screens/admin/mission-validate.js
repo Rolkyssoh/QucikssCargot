@@ -6,11 +6,11 @@ import MissionItem from '../../components/mission-item';
 
 const MissionValidate = ({ navigation }) => {
     const [missionItems, setMissionItems] = useState(null)
-
+ 
     useEffect(() => {
         firestore()
         .collection('Mission')
-        .where("activated", "==", true) 
+        .where("activated", "==", true)  
         .where("rejected", "==", false)
         .get() 
         .then((response)=>{

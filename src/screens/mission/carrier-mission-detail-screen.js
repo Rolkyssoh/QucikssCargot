@@ -22,24 +22,58 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
         if(id && docIdMission){
             getMissionImages(id, docIdMission)
         }
-        if(idCurrentUser && route.params.id){
-            countCarrierIsOffer(idCurrentUser, route.params.id)
-        }
-        if(route.params.id){
-            countMissionIsOffer(route.params.id)
-        }
+        // if(route.params.id){
+        //     countMissionIsOffer(route.params.id)
+        //     missionStartIsReady(route.params.id)
+        // }
         // Came from deleted offer
         // if(idCurrentUser && idMission){
         //     countCarrierIsOffer(idCurrentUser, idMission)
         // }
-    },[])
+        // Subscribe for the focus Listener
+        const unsubscribe = navigation.addListener('focus', () => {
+            // For carrier
+            if(idCurrentUser && route.params.id){
+                countCarrierIsOffer(idCurrentUser, route.params.id)
+            }
+            // For customer
+            if(route.params.id && idCurrentUser){
+                countMissionIsOffer(route.params.id, idCurrentUser)
+                missionStartIsReady(route.params.id)
+            }
+        });
+        return() => {
+            unsubscribe;
+        }
+    },[navigation]) 
 
-    const countMissionIsOffer = (idMission) => {
+    const missionStartIsReady = (idMission) => {
+        firestore()
+            .collection('Mission')
+            .doc(idMission)
+            // .where('notified_customer', '==', true)
+            .get()
+            .then((result) => {
+                console.log('nav to start screen!!', result._data)
+                if(result._data.notified_customer){
+                    navigation.navigate(
+                        'StartMission',
+                        { missionIdForStart: idMission }
+                    )
+                }
+            })
+            .catch((error) => console.log('error while nav to start screen!!!', error))
+            
+    }
+
+    const countMissionIsOffer = (idMission, idCarrier) => {
         //Count carrier is offer
+        console.log({idMission})
         firestore()
             .collection('Offer')
-            // .where('carrier_id', '==', `${idCarrier}`)
+            .where('carrier_id', '==', `${idCarrier}`)
             .where('mission_id', '==', `${idMission}`)
+            // .where('rejected', '==', false)
             .get()
             .then((resp) => { 
                 console.log('Count mission is offer', resp.docs.length)
@@ -53,7 +87,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
         firestore()
             .collection('Offer')
             .where('carrier_id', '==', `${idCarrier}`)
-            .where('mission_id', '==', `${idMission}`)
+            .where('mission_id', '==', `${idMission}`) 
             .get()
             .then((resp) => { 
                 console.log('Count carrier is offer', resp.docs.length)
@@ -92,7 +126,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                 navigation.navigate(
                     'AdminNav',
                     {
-                        screen:'Validée'
+                        screen:'Validée' 
                     }
                 )
             })
@@ -355,7 +389,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                         pressableTitle="Supprimer" 
                         modalText="Voulez-vous vraiment supprimer cette mission?"
                         missionId={route.params.id}
-                        docIdMission={route.params.docIdMission}
+                        docIdMission={route.params.docIdMission} 
                         forDelete
                     />
                 </View>

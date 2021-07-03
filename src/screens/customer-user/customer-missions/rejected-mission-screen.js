@@ -12,18 +12,24 @@ const RejectedMissionScreen = (props) => {
     const [missionRejected, setMissionRejected] = useState()
     const [user_id, setUserId] = useState(props.userId)
 
-    useEffect(() => {
+    useEffect(() => { 
+        let isCancelled = false;
         firestore()
             .collection('Mission')
             .where("activated", "==", false)
             .where("rejected", "==", true)
-            .where("user_id", "==", user_id)  
+            .where("user_id", "==", user_id) 
+            .where("started_at","==", "") 
             .get()
             .then((resp) => { 
                 console.log('response getting mission: ', resp.docs)
                 setMissionRejected(resp.docs)
             })
             .catch((error) => { console.log('error while getting mission : ', error)})
+        
+        return () => {
+            isCancelled = true;
+        };
     },[])
 
     return(

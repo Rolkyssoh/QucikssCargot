@@ -60,8 +60,7 @@ const OfferReceivedItemComponent = (props) => {
     },[])
 
     const doConfirmation = (offerId) => {
-        console.log({offerId})
-        if(offerId){
+        if(offerId && isConfirm==false){
             firestore()
                 .collection('Offer')
                 .doc(offerId)
@@ -87,6 +86,7 @@ const OfferReceivedItemComponent = (props) => {
                 })
                 .then(()=> {
                     console.log('offer rejected')
+                    props.goback()
                 })
                 .catch((error) => console.log('error while reject offer', error))
         }
@@ -123,7 +123,7 @@ const OfferReceivedItemComponent = (props) => {
                             console.log('les mm minutes') 
                             firestore()
                                 .collection('Mission')
-                                .doc(missionIdForStart)
+                                .doc(missionIdForStart) 
                                 .update({
                                     // started_at:currentHoure
                                     notified_customer:true
@@ -287,11 +287,11 @@ const OfferReceivedItemComponent = (props) => {
                         />
                     }
                 </View>
-                <View style={{ alignItems:'center', marginTop:100}}>
-                    {
-                        <Text style={{ fontFamily:'Nunito-Black'}}>{startInfos}</Text>
-                    }
-                </View>
+                {   startInfos != '' &&
+                    <View style={{ alignItems:'center', marginTop:20}}>
+                            <Text style={{ fontFamily:'Nunito-Black', color:'brown'}}>{startInfos}</Text>
+                    </View>
+                }
             </View>
         </View>
     )

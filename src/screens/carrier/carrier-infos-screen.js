@@ -3,7 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import { StyleSheet, View } from 'react-native';
 import { Text, Image } from 'react-native-elements';
 
-const CarrierInfosScreen = (props) => {
+const CarrierInfosScreen = (props) => { 
     const [carrierInfos, setCarrierInfos] = useState()
 
     useEffect(() => {
@@ -31,10 +31,35 @@ const CarrierInfosScreen = (props) => {
             </View>
             {   carrierInfos &&
                 <View>
-                    <Text>Ville : {carrierInfos.userCity} </Text>
-                    <Text>Marque du véhicule : </Text>
-                    <Text>Type de véhicule : </Text>
-                    <Text>Capacité : </Text>
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={styles.first_text_style}>Ville : </Text>
+                        <Text style={styles.second_text_style}>{carrierInfos.userCity} </Text>
+                    </View>
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={styles.first_text_style}>Marque du véhicule : </Text>
+                        <Text style={styles.second_text_style}>Marque </Text>
+                    </View>
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={styles.first_text_style}>Type de véhicule : </Text>
+                        <Text style={styles.second_text_style}>Type </Text>
+                    </View>
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={styles.first_text_style}>Capacité : </Text>
+                        <Text style={styles.second_text_style}>Cap</Text>
+                    </View>
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={styles.first_text_style}>Mission effectuée(s) : </Text>
+                        <Text style={styles.second_text_style}>Mission</Text>
+                    </View>
+                    <View style={{ flexDirection:'row'}}>
+                        <Text style={styles.first_text_style}>Note générale : </Text>
+                        <Text style={styles.second_text_style}>Note </Text>
+                    </View>
+                    
+                    
+                    
+                    
+                    
                 </View>
             }
         </View>
@@ -47,6 +72,12 @@ const styles = StyleSheet.create({
         backgroundColor:'#d5dde0',
         // alignItems:'center'
         padding:15
+    },
+    first_text_style:{
+        fontFamily:'Nunito-Black'
+    },
+    second_text_style:{
+        fontFamily:'Nunito-Regular'
     }
 })
 

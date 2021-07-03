@@ -8,16 +8,24 @@ const PublishedMissionScreen = () => {
     const [missionItems, setMissionItems] = useState(null)
 
     useEffect(() => {
+        let isCancelled = false
+        
         firestore()
         .collection('Mission')
         .where("activated", "==", true)
-        // .where("desactivated", "==", false)
+        .where("rejected", "==", false)
+        .where("started_at", "==", "") 
+        // .where("desactivated", "==", false) 
         .get()
         .then((response)=>{
-            console.log('result on publishe: ', response.docs);
+            console.log('result on publishe: ', response.docs.length);
             setMissionItems(response.docs)
         })
         .catch((error)=> { console.log('error while getting publish mission : ', error)})
+
+        return () => {
+            isCancelled = true;
+        };
     },[])
 
 
@@ -26,7 +34,12 @@ const PublishedMissionScreen = () => {
             <View style={{ alignItems:'center'}}>
                 <Text style={{ fontFamily:'Nunito-Black', fontSize:28}}>Missions Disponible</Text>
             </View>
-            <FlatList 
+            { missionItems && missionItems.length <= 0 &&
+                <View style={{ alignItems:'center', marginTop:150 }}>
+                    <Text style={{ fontFamily:'Nunito-Black'}}>Aucune mission trouvée</Text>
+                </View>
+            }
+            <FlatList  
                 data={missionItems} 
                 renderItem={({item})=> <MissionItem isCarrier item={item} /> }
                 keyExtractor={(item)=>item.id.toString()}

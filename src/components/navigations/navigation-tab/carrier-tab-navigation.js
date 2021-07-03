@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarHome from './tab-bar.component';
 import PublishedMissionScreen from '../../../screens/carrier/published-mission-screen';
@@ -6,7 +6,15 @@ import CarrierProfileScreen from '../../../screens/carrier/carrier-profile-scree
  
 const CarrierTab = createBottomTabNavigator()
 
-const CarrierProfileNavigation = () => { 
+const   CarrierProfileNavigation = () => { 
+
+    useEffect(() =>{
+        let isCancelled = false;
+        return () => {
+            isCancelled = true;
+        };
+    },[]) 
+
     return( 
         <CarrierTab.Navigator tabBar={(props) => <TabBarHome {...props} />}>
             <CarrierTab.Screen 

@@ -22,14 +22,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
         if(id && docIdMission){
             getMissionImages(id, docIdMission)
         }
-        // if(route.params.id){
-        //     countMissionIsOffer(route.params.id)
-        //     missionStartIsReady(route.params.id)
-        // }
-        // Came from deleted offer
-        // if(idCurrentUser && idMission){
-        //     countCarrierIsOffer(idCurrentUser, idMission)
-        // }
+
         // Subscribe for the focus Listener
         const unsubscribe = navigation.addListener('focus', () => {
             // For carrier

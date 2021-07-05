@@ -63,7 +63,7 @@ const CustomModalComponent = (props) => {
                   //   idMission: props.missionId,
                   // }
                 )
-              }, 5000)
+              }, 2000)
               setChangingModalText("Offre Supprimée avec succès!")
             });
         }
@@ -104,7 +104,7 @@ const CustomModalComponent = (props) => {
                   }
                 )
                 setModalVisible(!modalVisible)
-              }, 4000)
+              }, 3000)
             }
           })
           .catch((error) => {
@@ -136,7 +136,7 @@ const CustomModalComponent = (props) => {
             setTimeout(() => {
               setModalVisible(!modalVisible)
               customNavigate('Details')
-            }, 5000)
+            }, 3000)
             setChangingModalText("Modification effectuée")
             setGivenProposition('')
           });

@@ -4,29 +4,39 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { Text } from 'react-native-elements';
 import MissionItem from '../../components/mission-item';
 
-const PublishedMissionScreen = () => {
+const PublishedMissionScreen = (props) => {
     const [missionItems, setMissionItems] = useState(null)
 
     useEffect(() => {
-        let isCancelled = false
-        
-        firestore()
-        .collection('Mission')
-        .where("activated", "==", true)
-        .where("rejected", "==", false)
-        .where("started_at", "==", "") 
-        // .where("desactivated", "==", false) 
-        .get()
-        .then((response)=>{
-            console.log('result on publishe: ', response.docs.length);
-            setMissionItems(response.docs)
-        })
-        .catch((error)=> { console.log('error while getting publish mission : ', error)})
+        let isUnmount = false
 
-        return () => {
-            isCancelled = true;
-        };
-    },[])
+        // return () => {
+        //     isUnmount = true;
+        // }
+
+        // Subscribe for the focus Listener
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            firestore()
+                .collection('Mission')
+                .where("activated", "==", true)
+                .where("rejected", "==", false)
+                .where("started_at", "==", "") 
+                // .where("desactivated", "==", false) 
+                .get()
+                .then((response)=>{
+                    console.log('result on publishe: ', response.docs.length);
+                    if(!isUnmount){
+                        setMissionItems(response.docs)
+                    }
+                })
+                .catch((error)=> { console.log('error while getting publish mission : ', error)})
+        });
+
+        return() => {
+            unsubscribe;
+            isUnmount = true;
+        }
+    },[props.navigation])
 
 
     return( 
@@ -38,7 +48,7 @@ const PublishedMissionScreen = () => {
                 <View style={{ alignItems:'center', marginTop:150 }}>
                     <Text style={{ fontFamily:'Nunito-Black'}}>Aucune mission trouvée</Text>
                 </View>
-            }
+            } 
             <FlatList  
                 data={missionItems} 
                 renderItem={({item})=> <MissionItem isCarrier item={item} /> }

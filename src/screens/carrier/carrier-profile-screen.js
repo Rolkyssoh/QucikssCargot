@@ -14,15 +14,15 @@ const CarrierProfileScreen = (props) => {
         
         console.log('Dans le profile screen du carrier : ', props.currentUser)
         firestore()
-        .collection('Users')
-        .where("userPhoneNumber", "==", props.currentUser.phoneNumber)
-        .where("isCarrier", "==", true)
-        .get() 
-        .then((response) => {
-            console.log('infos du curren user(carrier): ', response._docs[0]._data)
-            setInfosCurrentUser(response._docs[0]._data)
-        })
-        .catch((error) => { console.log('error while getting infos current user: ', error)})
+            .collection('Users')
+            .where("userPhoneNumber", "==", props.currentUser.phoneNumber)
+            .where("isCarrier", "==", true)
+            .get()  
+            .then((response) => {
+                console.log('infos du curren user(carrier): ', response._docs[0]._data)
+                setInfosCurrentUser(response._docs[0]._data)
+            })
+            .catch((error) => { console.log('error while getting infos current user: ', error)})
 
         return () => { 
             isCancelled = true;

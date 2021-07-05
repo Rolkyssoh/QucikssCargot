@@ -39,14 +39,14 @@ const PendingMissionScreen = (props) => {
                             return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
                         })
                     }
-                    
+                     
                 </View> 
-                {/* {
-                    missionPending.length ==0 &&
+                {
+                    missionPending && missionPending.length ==0 &&
                     <View style={{ alignItems:'center', marginTop:100}}>
-                        <Text>Aucune mission trouvée</Text>
+                        <Text style={{ fontFamily:'Nunito-Black'}}>Pas de mission en attente pour le moment!</Text>
                     </View>
-                } */}
+                }
             </ScrollView>
             <View style={styles.view_button_style}>
                 <View />

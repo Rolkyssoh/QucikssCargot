@@ -49,7 +49,7 @@ const App = () => {
 
             {  
               !auth().currentUser ?
-              <>
+              (<>
                 <Stack.Screen 
                   name="Welcome" 
                   component={WelcomeScreen} 
@@ -81,9 +81,9 @@ const App = () => {
                     // options={{ title:'' }}
                     options={{ headerShown:false }}
                 />
-              </>
+              </>)
               :
-              <> 
+              (<> 
                 {/* <Stack.Screen 
                   name="AddInfos"
                   component={AddInfosScreen}
@@ -94,11 +94,11 @@ const App = () => {
                     component={LoadingAuthScreen}
                     options={{ headerShown:false }}
                 /> */}
-                <Stack.Screen   
+                {/* <Stack.Screen   
                     name="Login" 
                     component={LoginScreen}
                     options={{ title:'' }} 
-                />
+                /> */}
                 <Stack.Screen 
                   name="ConfirmCode" 
                   component={ConfirmationCode}
@@ -179,7 +179,7 @@ const App = () => {
                   component={CarrierInfosScreen}
                   options={{ title:'' }}
                 /> 
-              </>
+              </>)
             }
         </Stack.Navigator> 
     </NavigationContainer>

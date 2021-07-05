@@ -13,7 +13,10 @@ const MissionItem = (props) => {
     const [infosBaggage, setInfosBaggage] = useState()
 
     useEffect(() => {
+        let isUnmount = false
+
         console.log('dans mission item: ', props.item.id)
+        
         if(props.item){
             setMissionItem(props.item._data)
 
@@ -24,12 +27,18 @@ const MissionItem = (props) => {
                 .get()
                 .then((response)=>{
                     console.log('result on getting path image by id mission: ', response.docs[0].id);
-                    setIdSecondDocBaggage(response.docs[0].id)
-                    setInfosBaggage(response.docs[0]._data)
-                    //Get image once
-                    getBaggageImageOnce(props.item.id, response.docs[0].id)
+                    if(!isUnmount){
+                        setIdSecondDocBaggage(response.docs[0].id)
+                        setInfosBaggage(response.docs[0]._data)
+                        //Get image once
+                        getBaggageImageOnce(props.item.id, response.docs[0].id)
+                    }
                 })
                 .catch((error)=> { console.log('error while getting path image in missionItem : ', error)})
+        }
+
+        return () => {
+            isUnmount = true
         }
     },[])
 

@@ -48,7 +48,7 @@ const RejectedMissionScreen = (props) => {
                 <View style={{ alignItems:'center', marginTop:100}}>
                     <Text style={{ fontFamily:'Nunito-Black'}}>Aucune mission trouvée!</Text>
                 </View>
-            }
+            } 
         </ScrollView>
         <View style={styles.view_button_style}>
             <IconArrow name="arrowleft" color='#42a3aa' size={30} />

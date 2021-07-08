@@ -64,7 +64,7 @@ const App = (props) => {
             /> */}
             {  
               !isSignedIn ?
-              (<>
+              (<> 
                 <Stack.Screen 
                   name="LoadingAuth"
                   component={LoadingAuthScreen}

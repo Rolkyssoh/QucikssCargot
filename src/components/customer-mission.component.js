@@ -53,7 +53,7 @@ const CustomerMissionComponent = (props) => {
 
     return(  
         <TouchableOpacity 
-            style={styles.view_content_style}
+            style={styles.view_content_style} 
             onPress={() => customNavigate(
                 'Details',
                 {  

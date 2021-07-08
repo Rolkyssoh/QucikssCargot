@@ -5,6 +5,7 @@ import PendingMissionScreen from './pending-mission-screen';
 import ValidateMissionScreen from './validated-mission-screen';
 import RejectedMissionScreen from './rejected-mission-screen';
 import MaterialTabBar from '../../../components/navigations/material-tab.component';
+import DoneMissionScreen from './done-mission-screen';
 
 const MissionTab =createMaterialTopTabNavigator()
 
@@ -25,6 +26,10 @@ const CustomerMissions = () => {
             <MissionTab.Screen 
                 name="Rejetée"
                 component={RejectedMissionScreen}
+            />
+            <MissionTab.Screen 
+                name="Effectué"
+                component={DoneMissionScreen}
             />
         </MissionTab.Navigator>
     )

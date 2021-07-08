@@ -1,69 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import firestore from '@react-native-firebase/firestore'
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Text, Image, Button } from 'react-native-elements';
-import CustomerMissionComponent from '../../../components/customer-mission.component';
+import { Text, Button } from 'react-native-elements';
 import CustomHeader from '../../../components/custom-header';
 import IconArrow from 'react-native-vector-icons/AntDesign';
+import CustomerMissionComponent from '../../../components/customer-mission.component';
 
-const PendingMissionScreen = (props) => {
-    const [missionPending, setMissionPending] = useState()
+const DoneMissionScreen = (props) => {
+    const[missionDone, setMissionDone]=useState()
     const [user_id, setUserId] = useState(props.userId)
 
-    useEffect(() => { 
-        console.log('valeu de user id : ', props.userId)
-        // if(props.userId){
-        //     setUserId(props.userId) 
-        // }
+    useEffect(() => {
         firestore()
             .collection('Mission')
             .where("activated", "==", false)  
-            .where("rejected", "==", false)
+            .where("ended_at", "!=", "")
             .where("user_id", "==", user_id) 
             .get()
             .then((resp) => { 
-                console.log('response getting mission: ', resp.docs)
-                setMissionPending(resp.docs)
+                console.log('response getting mission done: ', resp.docs)
+                setMissionDone(resp.docs)
             })
-            .catch((error) => { console.log('error while getting mission : ', error)})
+            .catch((error) => { console.log('error while getting mission Done: ', error)})
     },[])
-
     return(
-        <> 
-            <CustomHeader customTitle="En attente" />
-            <ScrollView >  
-                <View style={styles.container_pending}> 
+        <>
+            <CustomHeader customTitle="Effectuée(s)" />
+            <ScrollView>
+                <View style={styles.container_done_screen}>
                     {
-                        missionPending && missionPending.map((item) => { 
+                        missionDone && missionDone.map((item) => {
                             return <CustomerMissionComponent key={item.id.toString()} missions={item} isCustomer />
                         })
                     }
-                     
-                </View> 
+                </View>
                 {
-                    missionPending && missionPending.length ==0 &&
+                    missionDone && missionDone.length ==0 &&
                     <View style={{ alignItems:'center', marginTop:100}}>
-                        <Text style={{ fontFamily:'Nunito-Black'}}>Pas de mission en attente pour le moment!</Text>
+                        <Text style={{ fontFamily:'Nunito-Black'}}>Aucune mission effectuées pour le moment!</Text>
                     </View>
                 }
             </ScrollView>
             <View style={styles.view_button_style}>
-                {/* <View /> */}
+                <IconArrow name="arrowleft" color='#42a3aa' size={30} />
                 <Button 
                     title="Retour"
                     type="clear"
                     onPress={() => props.navigation.navigate('NavTab')}
                     titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black',}}
                 />
-                <IconArrow name="arrowright" color='#42a3aa' size={30} />
+                {/* <View /> */}
             </View>
         </>
     )
 }
 
 const styles = StyleSheet.create({
-    container_pending:{
+    container_done_screen:{
         flex:1, 
         flexWrap:'wrap',
         flexDirection:'row',
@@ -87,4 +81,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(PendingMissionScreen)
+export default connect(mapStateToProps)(DoneMissionScreen)

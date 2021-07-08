@@ -90,7 +90,8 @@ const StartMissionScreen = (props) => {
             .collection('Mission')
             .doc(idMissionToEnd)
             .update({
-                ended_at:currentHoure
+                ended_at:currentHoure,
+                activated:false
             })
             .then(()=> {
                 console.log('stated mission is confirm')
@@ -115,14 +116,14 @@ const StartMissionScreen = (props) => {
                 }
                 {   isCarrierValue == true && missionIsEnd !="" &&
                     <Button 
-                    title="Ok"
-                    type="solid"
-                    // {...isConfirm && {icon:<FontAwesomeCheck name='check' size={25} color='#fff' />}}
-                    // onPress={() => doConfirmStartMission(props.route.params.missionIdForStart)}
-                    titleStyle={{ fontFamily:'Nunito-Black'}}
-                    containerStyle={{ borderRadius:20, alignSelf:'center' }}
-                    buttonStyle={{ backgroundColor:'#42a3aa' }}
-                />
+                        title="Ok"
+                        type="solid"
+                        // {...isConfirm && {icon:<FontAwesomeCheck name='check' size={25} color='#fff' />}}
+                        // onPress={() => doConfirmStartMission(props.route.params.missionIdForStart)}
+                        titleStyle={{ fontFamily:'Nunito-Black'}}
+                        containerStyle={{ borderRadius:20, alignSelf:'center' }}
+                        buttonStyle={{ backgroundColor:'#42a3aa' }}
+                    />
                 } 
                 {/* {   isCarrierValue == true && missionStatus=='Début confirmé!' &&
                     <View>

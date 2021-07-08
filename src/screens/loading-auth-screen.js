@@ -40,7 +40,7 @@ const LoadingAuthScreen = (props) => {
                 }
             });
             return subscriberAuth
-        // });
+        // }); 
 
         // return() => {
         //     unsubscribe;

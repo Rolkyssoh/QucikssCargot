@@ -4,14 +4,14 @@ import TabHome from './tab.component';
 
 // const {width} = Dimensions.get('screen')
 
-const TabBarHome = ({state, navigation}) => {
-    const [selected, setSelected] = useState('Home');
+const TabBarHome = ({state, navigation, customer, carrier}) => {
+    const [selected, setSelected] = useState( customer ? 'Home': 'Missions');
     const {routes} = state;
     const renderColor = (currentTab) => (currentTab === selected ? '#42a3aa': 'black');
 
     const handlePress = (activeTab, index) =>{
         if(state.index !== index){
-            setSelected(activeTab);
+            setSelected(activeTab); 
             navigation.navigate(activeTab)
         }
     } 

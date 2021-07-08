@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { Text } from 'react-native-elements';
 import MissionItem from '../../components/mission-item';
+import IonIcons from 'react-native-vector-icons/Ionicons';
 
 const PublishedMissionScreen = (props) => {
     const [missionItems, setMissionItems] = useState(null)
@@ -24,11 +25,11 @@ const PublishedMissionScreen = (props) => {
                 // .where("desactivated", "==", false) 
                 .get()
                 .then((response)=>{
-                    console.log('result on publishe: ', response.docs.length);
+                    console.log('result on publishe: ', response.docs);
                     if(!isUnmount){
                         setMissionItems(response.docs)
                     }
-                })
+                }) 
                 .catch((error)=> { console.log('error while getting publish mission : ', error)})
         });
 
@@ -43,6 +44,13 @@ const PublishedMissionScreen = (props) => {
         <View style={styles.published_view_container}>
             <View style={{ alignItems:'center'}}>
                 <Text style={{ fontFamily:'Nunito-Black', fontSize:28}}>Missions Disponible</Text>
+                <View style={{ alignSelf:'flex-start'}}>
+                    <IonIcons 
+                        name="cloud-done" 
+                        size={40} color='#42a3aa'
+                        onPress={()=>props.navigation.navigate('CarrierExec')}
+                    />
+                </View>
             </View>
             { missionItems && missionItems.length <= 0 &&
                 <View style={{ alignItems:'center', marginTop:150 }}>
@@ -53,7 +61,7 @@ const PublishedMissionScreen = (props) => {
                 data={missionItems} 
                 renderItem={({item})=> <MissionItem isCarrier item={item} /> }
                 keyExtractor={(item)=>item.id.toString()}
-            /> 
+            />
         </View>
     )
 }

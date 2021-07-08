@@ -11,7 +11,7 @@ const TabHome = ({tab, icon, color, onPress}) => {
         </TouchableOpacity>
     )
 }
-
+ 
 const styles = StyleSheet.create({
     container:{
         flex:1,

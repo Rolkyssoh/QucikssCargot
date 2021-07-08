@@ -136,9 +136,9 @@ const isAccountActivated = (userId) => {
         .get()
         .then((documentSnapshot) => {
             console.log('resultat de retourné:', documentSnapshot._data);
-            if(auth().currentUser){
-                customNavigate('LoadingAuth')
-            }
+            // if(auth().currentUser){ 
+            //     customNavigate('LoadingAuth')
+            // }
 
             // documentSnapshot._data.activated ?
             //     // on vérifie si c'est un admin

@@ -5,6 +5,7 @@ import { Text, Button, Image } from 'react-native-elements';
 import FontAwesomeCheck from 'react-native-vector-icons/FontAwesome'
 import CustomModalComponent from '../custom-modal.component';
 import { customNavigate } from '../navigations/CustomNavigation';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const OfferReceivedItemComponent = (props) => {
     const [offerInfos, setOfferInfos] = useState()
@@ -156,7 +157,10 @@ const OfferReceivedItemComponent = (props) => {
         <View style={styles.container_offer_item}>
             {   offerInfos &&
                 <View style={styles.view_image_style}>
-                    <Image style={styles.image_style} />
+                    {/* <Image style={styles.image_style} /> */}
+                    <View style={styles.image_avatar_style}>
+                        <Entypo name="user" size={69} color="#fff" />
+                    </View>
                 </View>
             }
  
@@ -171,7 +175,7 @@ const OfferReceivedItemComponent = (props) => {
                         </TouchableOpacity>
                         <Text style={styles.regular_text_style}>{offerInfos._data.offer_hour}</Text>
                     </View>
-                }
+                } 
                 {/* For carrier */}
                 {   infosMyOffer && 
                     <View style={styles.title_and_hour_view}>
@@ -305,11 +309,13 @@ const styles = StyleSheet.create({
     view_image_style:{
         width:'25%',
     },
-    image_style:{
+    image_avatar_style:{
         width:'100%', 
         height:96, 
-        backgroundColor:'yellow', 
-        borderRadius:60
+        backgroundColor:'gray', 
+        borderRadius:60,
+        alignItems:'center',
+        justifyContent:'center'
     },
     view_for_main_content:{
         flexDirection:'column', 

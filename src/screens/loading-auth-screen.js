@@ -10,7 +10,7 @@ const LoadingAuthScreen = (props) => {
     const [loading, setLoading] = useState(true)
  
     useEffect(() => {
-        // const unsubscribe = props.navigation.addListener('focus', () => {
+        // const unsubscribe = props.navigation.addListener('focus', () => { 
             const subscriberAuth = auth().onAuthStateChanged((user)=>{
                 if(user){
                     props.userIdChanged(user._user.uid) 

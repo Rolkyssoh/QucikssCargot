@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import firestore from '@react-native-firebase/firestore'; 
 import { StyleSheet } from 'react-native'; 
 import { View } from 'react-native';
-import { Text,Button } from 'react-native-elements';  
+import { Text,Button } from 'react-native-elements';   
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { loggedOut } from '../../actions';
 import UserProfileComponent from '../../components/user-profile-component';

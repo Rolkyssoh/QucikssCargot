@@ -15,7 +15,7 @@ const MissionItem = (props) => {
     useEffect(() => {
         let isUnmount = false
 
-        console.log('dans mission item: ', props.item.id)
+        console.log('dans mission item: ', props.item)
         
         if(props.item){
             setMissionItem(props.item._data)
@@ -63,6 +63,7 @@ const MissionItem = (props) => {
             onPress={()=> CustomNavigation.customNavigate(  
                     'Details',  
                     {   
+                        isExecute: props.Executed,
                         isCarrier:props.isCarrier, 
                         isAdmin:props.isAdmin,
                         fromWaiting: props.waitScreen,

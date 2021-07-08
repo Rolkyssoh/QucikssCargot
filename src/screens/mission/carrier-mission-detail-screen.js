@@ -342,7 +342,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                     <Button  
                         title="Retour"
                         type="clear" 
-                        onPress={() =>navigation.navigate("CarrierNav")}
+                        onPress={() =>navigation.goBack()}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <CustomModalComponent 
@@ -355,12 +355,22 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                     />
                 </View> 
             }
+            {   route.params.isExecute &&
+                <View style={styles.button_view}>
+                <Button  
+                    title="Retour"
+                    type="clear" 
+                    onPress={() =>navigation.goBack()}
+                    titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                />
+            </View> 
+            }
             {   route.params.isCustomer &&
                 <View style={styles.button_view}>
                     <Button 
                         title="Retour"
                         type="clear"
-                        onPress={() =>navigation.navigate("Customer")}
+                        onPress={() =>navigation.goBack()}
                         titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
                     /> 
                     <Button 

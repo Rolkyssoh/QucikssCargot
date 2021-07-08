@@ -29,6 +29,7 @@ import CustomerMissions from './src/screens/customer-user/customer-missions';
 import OfferReceivedScreen from './src/screens/customer-user/offer-received-screen';
 import StartMissionScreen from './src/screens/mission/start-mission-screen';
 import CarrierInfosScreen from './src/screens/carrier/carrier-infos-screen';
+import CarrierExecutedMissionScreen from './src/screens/carrier/carrier-executed-mission-screen';
 
 
 const Stack = createStackNavigator()
@@ -82,11 +83,11 @@ const App = (props) => {
                 />
                 <Stack.Screen 
                   name="ConfirmCode" 
-                  component={ConfirmationCode}
+                  component={ConfirmationCode} 
                   options={{headerShown: false}}
                 />
                 <Stack.Screen 
-                  name="CarrierSignup"
+                  name="CarrierSignup" 
                   component={CarrierSignupScreen}
                   options={{ headerShown:false }}
                 />
@@ -158,7 +159,7 @@ const App = (props) => {
                   component={OfferReceivedScreen}
                   options={{ title:'' }}
                 />
-                <Stack.Screen 
+                <Stack.Screen  
                   name="StartMission"
                   component={StartMissionScreen}
                   options={{ headerShown:false  }}
@@ -172,7 +173,12 @@ const App = (props) => {
                   name="CarrierInfos"
                   component={CarrierInfosScreen}
                   options={{ title:'' }}
-                /> 
+                />
+                <Stack.Screen 
+                  name="CarrierExec"
+                  component={CarrierExecutedMissionScreen}
+                  options={{ headerShown:false}}
+                />
               </>)
             }
         </Stack.Navigator> 

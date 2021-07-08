@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import ImagePicker from 'react-native-image-crop-picker';
 import { StyleSheet, View } from 'react-native';
 import { Text, Image, Button } from 'react-native-elements';
-import CustomButton from './custom-button'; 
+import CustomButton from './custom-button';  
 import * as CustomNavigation from './navigations/CustomNavigation';
 import Entypo from 'react-native-vector-icons/Entypo';
 

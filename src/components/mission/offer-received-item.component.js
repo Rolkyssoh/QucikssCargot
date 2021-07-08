@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Button, Image } from 'react-native-elements';
 import FontAwesomeCheck from 'react-native-vector-icons/FontAwesome'
@@ -17,6 +18,8 @@ const OfferReceivedItemComponent = (props) => {
     const [startInfos, setStartInfos] = useState('')
     const [isStarted, setIsStarted] = useState(false)
     const [idForCarrier, setIdForCarrier] = useState('')
+    const [carrierPicture, setCarrierPicture] = useState('')
+    const carrierImage = carrierPicture == '' ? '' : { uri: carrierPicture }
 
     useEffect(() => {
         if(props.infos){
@@ -26,13 +29,17 @@ const OfferReceivedItemComponent = (props) => {
             setIsConfirm(props.infos._data.validated)
             if(isConfirm == false){
                 setMissionIsOff(true)
-            }    
+            }
+
             firestore()
                 .collection('Users')
                 .doc(props.infos._data.carrier_id)
                 .get()
                 .then((result) => { 
                     console.log('getting user who send offer:' , result)
+                    if(result._data.photoURL){
+                        downloadImage(result._data.photoURL)
+                    }
                     setOfferSenderInfos(result._data)
                 })
                 .catch((error) => console.lor('error while getting user who send offer: ', error))
@@ -59,6 +66,18 @@ const OfferReceivedItemComponent = (props) => {
                 .catch((error) => console.lor('error while getting mission who have offer: ', error))
         }
     },[])
+
+    const downloadImage = async (theRef) => {
+        console.log('valeur de url photo profile : ')
+        await storage()
+            .ref(theRef)
+            .getDownloadURL()
+            .then(url => {
+                console.log('conentu de url : ', url);
+                setCarrierPicture(url)
+            })
+            .catch(error => console.log('erreur de url : ', error));
+    }
 
     const doConfirmation = (offerId) => {
         if(offerId && isConfirm==false){
@@ -158,9 +177,14 @@ const OfferReceivedItemComponent = (props) => {
             {   offerInfos &&
                 <View style={styles.view_image_style}>
                     {/* <Image style={styles.image_style} /> */}
-                    <View style={styles.image_avatar_style}>
-                        <Entypo name="user" size={69} color="#fff" />
-                    </View>
+                    {   carrierImage =='' &&
+                        <View style={styles.image_avatar_style}>
+                            <Entypo name="user" size={69} color="#fff" />
+                        </View>
+                    }
+                    {   carrierImage !='' &&
+                        <Image source={carrierImage} style={styles.image_Image_style} />
+                    }
                 </View>
             }
  
@@ -178,7 +202,7 @@ const OfferReceivedItemComponent = (props) => {
                 } 
                 {/* For carrier */}
                 {   infosMyOffer && 
-                    <View style={styles.title_and_hour_view}>
+                    <View style={styles.title_and_hour_view}> 
                         <View>
                             {   infosMission && infosMyOffer._data.rejected == false && infosMyOffer._data.validated == false &&
                                 <Text style={{fontFamily:'Nunito-Black', color:'orange'}}>En attente</Text>
@@ -304,10 +328,22 @@ const OfferReceivedItemComponent = (props) => {
 const styles = StyleSheet.create({
     container_offer_item:{
         flexDirection:'row', 
-        padding:15
+        padding:15,
+        // borderWidth:1,
+        // borderColor:'red',
+        alignItems:'center'
+
     },
     view_image_style:{
         width:'25%',
+        // height:96
+    },
+    image_Image_style:{
+        width:'100%', 
+        height:100, 
+        borderRadius:60,
+        alignItems:'center',
+        justifyContent:'center'
     },
     image_avatar_style:{
         width:'100%', 

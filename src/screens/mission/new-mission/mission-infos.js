@@ -234,7 +234,7 @@ const MissionInfos = (props) => {
                         inputStyle={styles.inputs_styles}
                     />
                     <Input  
-                        placeholder="Destination"
+                        placeholder="Destination" 
                         value={props.destination}
                         onChangeText={onDestinationChange}
                         inputStyle={styles.inputs_styles}

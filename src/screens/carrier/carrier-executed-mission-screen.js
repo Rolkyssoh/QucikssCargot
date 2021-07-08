@@ -9,7 +9,7 @@ import MissionItem from '../../components/mission-item';
 const CarrierExecutedMissionScreen = (props) => {
     const [executedMission, setExecutedMission] = useState([])
     const [theCarrierId, setTheCarrierId] = useState(props.userId)
-    const [notMissionExec, setNotMissionExec] = useState([]) 
+    // const [notMissionExec, setNotMissionExec] = useState([]) 
 
     useEffect(() => {
         console.log('the carrier id in exec : ', props.userId)
@@ -20,7 +20,7 @@ const CarrierExecutedMissionScreen = (props) => {
             // .where("ended_at", "!=", "")
             .get()
             .then((resp) => { 
-                setNotMissionExec(resp._docs)
+                // setNotMissionExec(resp._docs)
                 if(resp._docs.length>0){
                     firestore()
                         .collection('Mission')
@@ -30,7 +30,7 @@ const CarrierExecutedMissionScreen = (props) => {
                             console.log('response getting mission exec: ', result)
                             if(result._data.ended_at != ""){
                                 setExecutedMission([result])
-                                setNotMissionExec([])
+                                // setNotMissionExec([])
                                 
                             }
                         })
@@ -46,7 +46,7 @@ const CarrierExecutedMissionScreen = (props) => {
             {/* <ScrollView> */}
                 <View style={styles.carrier_exec_container}>
                     {
-                        notMissionExec && notMissionExec.length<=0 && executedMission.length==0 &&
+                        executedMission && executedMission.length<=0 &&
                         <View style={{ alignItems:'center',marginTop:100}}>
                             <Text style={{ fontFamily:'Nunito-Black'}}>Vous n'avez exécuté aucune mission pour le moment!</Text>
                         </View>

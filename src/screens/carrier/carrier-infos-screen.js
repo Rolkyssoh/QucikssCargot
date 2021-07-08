@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import { StyleSheet, View } from 'react-native';
 import { Text, Image } from 'react-native-elements';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const CarrierInfosScreen = (props) => { 
     const [carrierInfos, setCarrierInfos] = useState()
+    const [carrierPhoto, setCarrierPhoto] = useState('')
+    const carrierProfileImage = carrierPhoto == '' ? '' : { uri: carrierPhoto }
 
     useEffect(() => {
         console.log('dansle carrierInfosscreen: ', props.route.params.idForCarrier)
+        if(carrierPhoto!=''){
+            console.log({carrierPhoto})
+        }
         if(props.route.params) {
             firestore()
                 .collection('Users')
@@ -16,17 +23,38 @@ const CarrierInfosScreen = (props) => {
                 .then((response) => {
                     console.log('result gettint infos carrier: ', response._data)
                     setCarrierInfos(response._data)
+                    if(response._data.photoURL){
+                        downloadImage(response._data.photoURL)
+                    }
                 })
                 .catch((error) => console.log('error getting infos carrier : ', error))
         }
     },[])
 
+    const downloadImage = async (theRef) => {
+        console.log('valeur de url photo profile : ')
+        await storage()
+            .ref(theRef)
+            .getDownloadURL()
+            .then(url => {
+                console.log('conentu de url : ', url);
+                setCarrierPhoto(url)
+            })
+            .catch(error => console.log('erreur de url : ', error));
+    }
+
     return(
         <View style={styles.carrier_infos_container}>
             <View style={{ alignItems:'center'}}>
-                <Image 
-                    style={{ height:90, width:90, borderRadius:50, marginTop: 20}}
-                />
+                <View style={{ height:90, width:90,  marginTop: 20, borderRadius:50, justifyContent:'center', alignItems:'center'}}>
+                    {   carrierPhoto !='' &&
+                        <Image source={carrierProfileImage} style={{ height:90, width:90, borderRadius:50, }} />
+                    }
+                    {   carrierPhoto =='' &&
+                        <Entypo name="user" size={65} color="#fff" />
+                    }
+                </View>
+
                 { carrierInfos &&  <Text style={{fontFamily:'Nunito-Black'}}>{carrierInfos.username}</Text>}
             </View>
             {   carrierInfos &&

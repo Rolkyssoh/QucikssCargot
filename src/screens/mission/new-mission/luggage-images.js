@@ -28,10 +28,10 @@ const LuggageImages = (props) => {
                 <View style={styles.icon_view}>
                     <Text style={{ fontFamily:'Nunito-Black' }}>Vous pouvez ajouter jusqu'à 4 images</Text>
                 </View> 
-                <View style={styles.dislay_image_view} >  
+                <View style={styles.dislay_image_view} >   
                     <View style={styles.image_view}>
                         <DisplayImage imgOne />
-                        <DisplayImage img2 /> 
+                        <DisplayImage img2 />  
                     </View>
                     <View style={styles.image_view}>
                         <DisplayImage img3 />

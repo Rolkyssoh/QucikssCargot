@@ -58,13 +58,13 @@ const OfferReceivedScreen = (props) => {
                     <Text style={{ fontFamily:'Nunito-Black'}}> Aucune offre pour le moment! </Text>
                 </View>
             }
-            {   offerItems && offerItems.length!=0 &&
+            {/* {   offerItems && offerItems.length!=0 &&
                 <View style={{ flexDirection:'row', justifyContent:'space-between', paddingHorizontal:15, paddingTop:10}}>
                     <Text>Offres </Text>
                     <Text>Voir tout</Text>
                 </View>
-            }
-            {   loadingIndicator &&
+            } */}
+            {   loadingIndicator && 
                 <View style={{ marginTop:'80%'}}>
                     <ActivityIndicator size="large" color='#42a3aa' /> 
                 </View>

@@ -30,7 +30,7 @@ const CarrierProfileScreen = (props) => {
     },[])
 
     const doLogOut = () => {
-        props.loggedOut()
+        props.loggedOut() 
     }
 
     const goToSetting = () => {

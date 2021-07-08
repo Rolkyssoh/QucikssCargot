@@ -47,7 +47,7 @@ const App = (props) => {
       setIsSignedIn(true)
     } else {
       setIsSignedIn(false)
-    }
+    } 
 
   // return() => {
   //     unsubscribe;

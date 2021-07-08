@@ -89,7 +89,7 @@ const DisplayImage = (props) => {
                 <TouchableOpacity>
                     <Ionicons onPress={uploadImage} name="add-circle" size={50} color='#8dc9cb' />
                 </TouchableOpacity> 
-            </ImageBackground>
+            </ImageBackground> 
         </View>
     )
 } 

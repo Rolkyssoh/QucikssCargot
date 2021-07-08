@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { Provider } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Provider, connect } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -32,24 +33,43 @@ import CarrierInfosScreen from './src/screens/carrier/carrier-infos-screen';
 
 const Stack = createStackNavigator()
 
-const App = () => { 
+const App = (props) => {
+  const [isSignedIn, setIsSignedIn] = useState()
 
   useEffect(() => {
-    console.log('in the app end point: ', auth().currentUser)
-  })
+    // if(props.)
+    console.log('in app component: ', props)
+    console.log('the props reducer : ', props.currentUser)
+    
+    // const unsubscribe = props.navigation.addListener('focus', () => {
+    if(props.currentUser){
+      setIsSignedIn(true)
+    } else {
+      setIsSignedIn(false)
+    }
+
+  // return() => {
+  //     unsubscribe;
+  // } props.theStore.confirmationCode.currentUser
+
+  },[props.currentUser])
 
   return (
     <NavigationContainer ref={navigationRef} >
         <Stack.Navigator initialRouteName="Welcome">
-            <Stack.Screen 
+            {/* <Stack.Screen 
               name="LoadingAuth"
               component={LoadingAuthScreen}
               options={{ headerShown:false }}
-            />
-
+            /> */}
             {  
-              !auth().currentUser ?
+              !isSignedIn ?
               (<>
+                <Stack.Screen 
+                  name="LoadingAuth"
+                  component={LoadingAuthScreen}
+                  options={{ headerShown:false }}
+                />
                 <Stack.Screen 
                   name="Welcome" 
                   component={WelcomeScreen} 
@@ -70,43 +90,22 @@ const App = () => {
                   component={CarrierSignupScreen}
                   options={{ headerShown:false }}
                 />
-                {/* <Stack.Screen 
-                    name="LoadingAuth"
-                    component={LoadingAuthScreen}
-                    options={{ headerShown:false }}
-                /> */}
-                <Stack.Screen 
-                    name="NavTab"
-                    component={NavigationHome}
-                    // options={{ title:'' }}
-                    options={{ headerShown:false }}
-                />
               </>)
               :
-              (<> 
-                {/* <Stack.Screen 
-                  name="AddInfos"
-                  component={AddInfosScreen}
-                  options={{ headerShown:false }}
-                /> */}
-                {/* <Stack.Screen 
+              (<>
+                <Stack.Screen 
                     name="LoadingAuth"
                     component={LoadingAuthScreen}
                     options={{ headerShown:false }}
-                /> */}
-                {/* <Stack.Screen   
-                    name="Login" 
-                    component={LoginScreen}
-                    options={{ title:'' }} 
-                /> */}
-                <Stack.Screen 
-                  name="ConfirmCode" 
-                  component={ConfirmationCode}
-                  options={{ headerShown:false }}
                 />
                 <Stack.Screen 
                   name="AddInfos"
                   component={AddInfosScreen}
+                  options={{ headerShown:false }}
+                />
+                <Stack.Screen 
+                  name="Awaiting"
+                  component={AwaitingScreen}
                   options={{ headerShown:false }}
                 />
                 <Stack.Screen 
@@ -120,7 +119,7 @@ const App = () => {
                   component={SettingScreen} 
                 />
                 <Stack.Screen 
-                  name="Drawer"
+                  name="Drawer" 
                   component={NavigationDrawerMap}
                   options={{ headerShown:false }}
                 />
@@ -170,11 +169,6 @@ const App = () => {
                   options={{ headerShown:false}}
                 />
                 <Stack.Screen 
-                  name="Awaiting"
-                  component={AwaitingScreen}
-                  options={{ headerShown:false }}
-                />
-                <Stack.Screen 
                   name="CarrierInfos"
                   component={CarrierInfosScreen}
                   options={{ title:'' }}
@@ -186,11 +180,19 @@ const App = () => {
   );
 };
 
+const mapStateToProps = (state) =>{
+  return{
+      currentUser: state.confirmationCode.currentUser
+  }
+}
+
+const AppConnected = connect(mapStateToProps)(App)
+
 export default () => {
   const store = createStore(reducers, {}, applyMiddleware(ReduxThunk))
   return(
     <Provider store={store}>
-      <App />
+      <AppConnected />
     </Provider>
   )
 } ;

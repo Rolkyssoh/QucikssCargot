@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { Text } from 'react-native-elements';
 import { userIdChanged,authStateChanged } from '../actions';
 
-const LoadingAuthScreen = (props) => {
+const NotConnectLoadingScreen = (props) => {
     const [loading, setLoading] = useState(true)
  
     useEffect(() => {
@@ -36,15 +35,10 @@ const LoadingAuthScreen = (props) => {
                 }
                 if(!user){
                     // props.navigation.navigate('Login')
-                    props.navigation.navigate('Welcome')
+                    props.navigation.navigate('Login')
                 }
             });
             return subscriberAuth
-        // });
-
-        // return() => {
-        //     unsubscribe;
-        // }
     },[])
 
     return(
@@ -63,4 +57,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(null, { userIdChanged,authStateChanged })(LoadingAuthScreen)
+export default connect(null, { userIdChanged,authStateChanged })(NotConnectLoadingScreen)

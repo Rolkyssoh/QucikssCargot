@@ -51,9 +51,9 @@ export const digit6Changed = (digit6) => {
         payload: digit6
     };
 };
-
+ 
 export const authStateChanged = (user) => {
-    return {
+    return { 
         type: USER_IS_CONNECTED,
         payload: user
     };
@@ -61,12 +61,12 @@ export const authStateChanged = (user) => {
  
 export const loggedOut = () => {
     return(dispatch) => {
-        dispatch({ type: USER_LOGGED_OUT });
+        dispatch({ type: USER_LOGGED_OUT }); 
         auth()
-        .signOut()
+        .signOut() 
         .then(() => {
             console.log('user signed out!!!')
-            customNavigate('LoadingAuth')
+            // customNavigate('LoadingAuth')
         })
         .catch((error) => console.log('error while user sign out!', error))
     }
@@ -126,7 +126,7 @@ const addNewUser = (userId,phoneNum) => {
             customNavigate('NavTab')
         })
         .catch((error) => { console.log('error while adding new user: ', error)})
-};
+}; 
  
 const isAccountActivated = (userId) => {
     console.log('dans le isAccountActivated : ', userId)
@@ -136,19 +136,23 @@ const isAccountActivated = (userId) => {
         .get()
         .then((documentSnapshot) => {
             console.log('resultat de retourné:', documentSnapshot._data);
-            documentSnapshot._data.activated ?
-                // on vérifie si c'est un admin
-                documentSnapshot._data.isAdmin ? 
-                    //si c'est un admin on redirige vers la partie admin
-                    customNavigate('AdminNav')
-                // sinon on vérifie si c'est un transporteur
-                : documentSnapshot._data.isCarrier ?
-                        //si c'est un transporteur on le redirige vers son compte
-                        customNavigate('CarrierNav')
-                   //sinon redirige vers le client
-                  : customNavigate('NavTab')  
-            //compte pas encore activé
-            : customNavigate('Awaiting') 
+            if(auth().currentUser){
+                customNavigate('LoadingAuth')
+            }
+
+            // documentSnapshot._data.activated ?
+            //     // on vérifie si c'est un admin
+            //     documentSnapshot._data.isAdmin ? 
+            //         //si c'est un admin on redirige vers la partie admin
+            //         customNavigate('AdminNav')
+            //     // sinon on vérifie si c'est un transporteur
+            //     : documentSnapshot._data.isCarrier ?
+            //             //si c'est un transporteur on le redirige vers son compte
+            //             customNavigate('CarrierNav')
+            //        //sinon redirige vers le client
+            //       : customNavigate('NavTab')  
+            // //compte pas encore activé
+            // : customNavigate('Awaiting') 
         })
         .catch((error)=>{ console.log('error while check activation:',error)})
 }

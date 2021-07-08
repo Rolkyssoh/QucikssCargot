@@ -11,6 +11,7 @@ import {
     USER_IS_CONNECTED,
     USER_LOGGED_OUT,
 } from '../actions/types';
+import auth from '@react-native-firebase/auth';
 
 const INITIAL_STATE = {
     digit1: '',
@@ -21,7 +22,7 @@ const INITIAL_STATE = {
     digit6: '',
     userDatas: null,
     loading: false,
-    currentUser:null,
+    currentUser:auth().currentUser,
     displayError:''
 }
 

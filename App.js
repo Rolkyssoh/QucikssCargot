@@ -30,6 +30,7 @@ import OfferReceivedScreen from './src/screens/customer-user/offer-received-scre
 import StartMissionScreen from './src/screens/mission/start-mission-screen';
 import CarrierInfosScreen from './src/screens/carrier/carrier-infos-screen';
 import CarrierExecutedMissionScreen from './src/screens/carrier/carrier-executed-mission-screen';
+import carrierInProgressMissionScreen from './src/screens/carrier/carrier-in-progress-mission-screen';
 
 
 const Stack = createStackNavigator()
@@ -177,6 +178,11 @@ const App = (props) => {
                 <Stack.Screen 
                   name="CarrierExec"
                   component={CarrierExecutedMissionScreen}
+                  options={{ headerShown:false}}
+                />
+                <Stack.Screen 
+                  name="CarrierInProgressMission"
+                  component={carrierInProgressMissionScreen}
                   options={{ headerShown:false}}
                 />
               </>)

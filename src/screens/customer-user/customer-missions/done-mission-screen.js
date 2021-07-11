@@ -9,20 +9,22 @@ import CustomerMissionComponent from '../../../components/customer-mission.compo
 
 const DoneMissionScreen = (props) => {
     const[missionDone, setMissionDone]=useState()
-    const [user_id, setUserId] = useState(props.userId)
+    const [customer_id, setCustomerId] = useState(props.userId)
 
     useEffect(() => {
+
         firestore()
             .collection('Mission')
-            .where("user_id", "==", user_id)
-            // .where("activated", "==", false)  
-            .where("ended_at", "!=", "") 
+            // .where("activated", "==", false)   
+            // .where("rejected", "==", false)
+            .where("ended_at", "!=", "")
+            .where("user_id", "==", customer_id) 
             .get()
             .then((resp) => { 
                 console.log('response getting mission done: ', resp.docs)
                 setMissionDone(resp.docs)
             })
-            .catch((error) => { console.log('error while getting mission Done: ', error)})
+            .catch((error) => { console.log('error while getting mission Done: ', error.message)} )
     },[])
     return(
         <>

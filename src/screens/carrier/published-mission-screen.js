@@ -4,6 +4,7 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { Text } from 'react-native-elements';
 import MissionItem from '../../components/mission-item';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const PublishedMissionScreen = (props) => {
     const [missionItems, setMissionItems] = useState(null)
@@ -21,7 +22,7 @@ const PublishedMissionScreen = (props) => {
                 .collection('Mission')
                 .where("activated", "==", true)
                 .where("rejected", "==", false) 
-                // .where("started_at", "==", "") 
+                .where("started_at", "==", "") 
                 // .where("desactivated", "==", false) 
                 .get()
                 .then((response)=>{
@@ -39,16 +40,22 @@ const PublishedMissionScreen = (props) => {
         }
     },[props.navigation])
 
-
+ 
     return( 
         <View style={styles.published_view_container}>
-            <View style={{ alignItems:'center'}}>
-                <Text style={{ fontFamily:'Nunito-Black', fontSize:28}}>Missions Disponible</Text>
-                <View style={{ alignSelf:'flex-start'}}>
+            <View >
+                <Text style={{ fontFamily:'Nunito-Black', fontSize:28, alignSelf:'center'}}>Missions Disponible</Text>
+                <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
                     <IonIcons 
-                        name="cloud-done" 
+                        name="checkmark-done-circle-outline" 
                         size={40} color='#42a3aa'
                         onPress={()=>props.navigation.navigate('CarrierExec')}
+                    />
+                    <MaterialCommunityIcons 
+                        name="progress-check" 
+                        size={40} 
+                        color='#42a3aa' 
+                        onPress={()=>props.navigation.navigate('CarrierInProgressMission')}
                     />
                 </View>
             </View>

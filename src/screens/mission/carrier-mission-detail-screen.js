@@ -192,7 +192,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                     </View>
                     <View style={{ paddingHorizontal:10, flex:1, justifyContent:'center' }}>
                         { route.params.infosMission.mission_title && 
-                            <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>{route.params.infosMission.mission_title}</Text>
+                            <Text style={{ fontSize:22, fontFamily:'Nunito-Black', color:'#fff'}}>{route.params.infosMission.mission_title}</Text>
                         }
                     </View>
                 </View>
@@ -226,7 +226,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                     </View>
                     
                     <View style={{ marginVertical:25}}>
-                        <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>Description</Text>
+                        <Text style={{ fontSize:22, fontFamily:'Nunito-Black', color:'#fff'}}>Description</Text>
                         <Text style={{fontFamily:'Nunito-Regular'}}>{route.params.infosMission.mission_description}</Text>
                     </View>
                     <View>

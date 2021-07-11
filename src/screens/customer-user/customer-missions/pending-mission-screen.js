@@ -14,7 +14,7 @@ const PendingMissionScreen = (props) => {
     useEffect(() => { 
         console.log('valeu de user id : ', props.userId)
         // if(props.userId){
-        //     setUserId(props.userId) 
+        //     setUserId(props.userId)  
         // }
         firestore()
             .collection('Mission')

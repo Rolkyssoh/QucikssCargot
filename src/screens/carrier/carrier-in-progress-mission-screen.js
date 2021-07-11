@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import firestore from '@react-native-firebase/firestore'
-import { StyleSheet, View, ScrollView, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator} from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import CustomHeader from '../../components/custom-header';
 import MissionItem from '../../components/mission-item';
 import ExecutedMissionComponent from '../../components/mission/executed-mission-component';
 
 const CarrierExecutedMissionScreen = (props) => {
-    const [executedMission, setExecutedMission] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [inProgressMission, setInProgressMission] = useState([])
     const [theCarrierId, setTheCarrierId] = useState(props.userId)
     // const [notMissionExec, setNotMissionExec] = useState([]) 
 
     useEffect(() => {
         setIsLoading(true)
-        console.log('the carrier id in exec : ', props.userId)
         firestore()
             .collection('Offer')
             .where("carrier_id", "==", theCarrierId) 
             .where("validated", "==", true)  
-            // .where("ended_at", "!=", "")
             .get()
             .then((resp) => {
                 setIsLoading(false)
@@ -31,30 +29,29 @@ const CarrierExecutedMissionScreen = (props) => {
                         .doc(resp._docs[0]._data.mission_id)
                         .get()
                         .then((result) => { 
-                            console.log('response getting mission exec: ', result.id)
+                            console.log('response getting mission in progress: ', result.id)
                             setIsLoading(false)
-                            if(result._data.ended_at != ""){
-                                setExecutedMission([result])
+                            if(result._data.started_at != ""){
+                                setInProgressMission([result])                     
                             }
                         })
                         .catch((error) => { 
-                            console.log('error while getting carrier: ', error)
-                            etIsLoading(false)
+                            console.log('error while getting in progress mission: ', error)
+                            setIsLoading(false)
                         })
                 }
             })
-            .catch((error) => { console.log('error while getting carrier: ', error)}) 
+            .catch((error) => { console.log('error while getting carrier offer validated: ', error)}) 
     },[])
 
     return(
         <>
             {   !isLoading &&
-                    <ExecutedMissionComponent 
-                        theHeaderTitle="Exécutée(s)"
-                        noMissionMessage="Vous n'avez exécuté aucune mission pour le moment!"
-                        theDatas={executedMission}
-                        // theIdDatas={}s
-                    />
+                <ExecutedMissionComponent 
+                    theHeaderTitle="En Cours"
+                    noMissionMessage="Vous n'avez aucune mission en cours pour le moment!"
+                    theDatas={inProgressMission}
+                />
             }
             {   isLoading &&
                 <View style={{ marginTop:250}}>

@@ -12,7 +12,7 @@ const DisplayImage = (props) => {
     // const getImage3 = props.img2 ? { uri: props.baggageImage3 } : { uri: props.baggageImage4 }
     
     // useEffect(() => {
-    //     imageToDisplay()
+    //     imageToDisplay() 
     // })
 
     const imageToDisplay = () => {

@@ -72,7 +72,7 @@ const OfferReceivedScreen = (props) => {
             {/* For customer */}
             {
                 offerItems && offerItems.map((item) => {
-                    return <OfferReceivedItemComponent key={item.id.toString()} infos={item} goback={previousScreen} />
+                    return <OfferReceivedItemComponent key={item.id.toString()} disabled={offerItems.some(_=>!_._data.validated)} infos={item} goback={previousScreen} />
                 })
             }
             {/* For carrier */}

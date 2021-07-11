@@ -157,7 +157,7 @@ const MissionInfos = (props) => {
     const onTitleChange = (title) => {
         props.titleChanged(title)
     }
-
+ 
     const onDestinationChange = (destination) => {
         props.destinationChanged(destination)
     }

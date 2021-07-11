@@ -20,8 +20,8 @@ const PublishedMissionScreen = (props) => {
             firestore()
                 .collection('Mission')
                 .where("activated", "==", true)
-                .where("rejected", "==", false)
-                .where("started_at", "==", "") 
+                .where("rejected", "==", false) 
+                // .where("started_at", "==", "") 
                 // .where("desactivated", "==", false) 
                 .get()
                 .then((response)=>{

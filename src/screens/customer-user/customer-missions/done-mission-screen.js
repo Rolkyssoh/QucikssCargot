@@ -14,9 +14,9 @@ const DoneMissionScreen = (props) => {
     useEffect(() => {
         firestore()
             .collection('Mission')
-            .where("activated", "==", false)  
-            .where("ended_at", "!=", "")
-            .where("user_id", "==", user_id) 
+            .where("user_id", "==", user_id)
+            // .where("activated", "==", false)  
+            .where("ended_at", "!=", "") 
             .get()
             .then((resp) => { 
                 console.log('response getting mission done: ', resp.docs)

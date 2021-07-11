@@ -18,8 +18,9 @@ const PendingMissionScreen = (props) => {
         // }
         firestore()
             .collection('Mission')
-            .where("activated", "==", false)  
+            .where("activated", "==", false)   
             .where("rejected", "==", false)
+            .where("ended_at", "==", "")
             .where("user_id", "==", user_id) 
             .get()
             .then((resp) => { 

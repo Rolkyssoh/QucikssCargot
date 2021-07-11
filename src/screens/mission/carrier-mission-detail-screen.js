@@ -48,7 +48,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
             .get()
             .then((result) => {
                 console.log('nav to start screen!!', result._data)
-                if(result._data.notified_customer){
+                if(result._data.notified_customer || result._data.notified_carrier){
                     navigation.navigate(
                         'StartMission',
                         { missionIdForStart: idMission }

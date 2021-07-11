@@ -112,7 +112,7 @@ const OfferReceivedItemComponent = (props) => {
         }
     }
 
-    const doStartMission = (missionIdForStart) => {
+    const doStartMission = (missionIdForStart, userType) => {
         const date = new Date()
         const currentDay = date.getDate() + "/" + (date.getMonth() + 1)+"/"+date.getFullYear()
         const currentHoure = date.getHours()+":"+date.getMinutes();
@@ -123,39 +123,59 @@ const OfferReceivedItemComponent = (props) => {
             .doc(missionIdForStart)
             .get()
             .then((response) => { 
-                console.log('getting mission infos for start:' , response._data.depature_time)
-                const{ depature_day, depature_time } = response._data
+                console.log('getting mission infos for start:' , response._data.user_id)
+                const{ depature_day, depature_time, user_id } = response._data
                 const theDate = depature_day.substring(depature_day.lastIndexOf(' ') + 1)
                 const theMinutes = depature_time.substring(depature_time.indexOf(':') + 1)
                 const theHour = depature_time.substring(0, depature_time.lastIndexOf(':'))
 
                 console.log({currentDay,theDate,currentHoure, theMinutes, theHour })
 
-                if(currentDay == theDate){
+                if(theDate == currentDay){
                     console.log('les mm')
-                    if(date.getHours() == theHour){
+                    if(date.getHours == theHour){
                         console.log('La mm heur') 
                         if(date.getMinutes() >= theMinutes){
                             //La mission peux débuter ici
                             // le transporteur lance mais le client doit confirmer avant 
                             // que la mission ne débute, donc ici on vas envoyer une 
                             // notification au client afin qu'il confirme le début
-                            console.log('les mm minutes') 
-                            firestore()
-                                .collection('Mission')
-                                .doc(missionIdForStart) 
-                                .update({
-                                    // started_at:currentHoure
-                                    notified_customer:true
-                                })
-                                .then(()=> {
-                                    console.log('mission notified_customer updated')
-                                    customNavigate(
-                                        'StartMission',
-                                        { missionIdForStart }
-                                    )
-                                })
-                                .catch((error) => console.log('error while reject offer', error))
+                            console.log('les mm minutes')
+                            if(userType=='fromCarrier'){
+                                firestore()
+                                    .collection('Mission')
+                                    .doc(missionIdForStart) 
+                                    .update({
+                                        // started_at:currentHoure
+                                        notified_customer:true
+                                    })
+                                    .then(()=> {
+                                        console.log('mission notified_customer updated')
+                                        customNavigate(
+                                            'StartMission',
+                                            { missionIdForStart }
+                                        )
+                                    })
+                                    .catch((error) => console.log('error while reject offer', error))
+                            }
+
+                            if(userType=='fromCustomer'){
+                                firestore()
+                                    .collection('Mission')
+                                    .doc(missionIdForStart) 
+                                    .update({
+                                        // started_at:currentHoure
+                                        notified_carrier:true
+                                    })
+                                    .then(()=> {
+                                        console.log('mission notified_carrier updated')
+                                        customNavigate(
+                                            'StartMission',
+                                            { missionIdForStart }
+                                        )
+                                    })
+                                    .catch((error) => console.log('error while reject offer', error))
+                            }
                         } else{
                             console.log('Pas les mm minutes')
                             setStartInfos(`Pas encore disponible; début prévu aujoud'hui à ${depature_time}`)
@@ -243,7 +263,7 @@ const OfferReceivedItemComponent = (props) => {
                             titleStyle={{ fontFamily:'Nunito-Black'}}
                             containerStyle={styles.button_container_style}
                             buttonStyle={{ backgroundColor:'#42a3aa' }}
-                            // disabled={missionIsOff}
+                            disabled={!isConfirm && props.disabled}
                             // disabledTitleStyle={{title:"prisss"}}
                         />
                     }
@@ -263,7 +283,7 @@ const OfferReceivedItemComponent = (props) => {
                             title="Lancer la mission"
                             type="solid"
                             // {...isConfirm && {icon:<FontAwesomeCheck name='check' size={25} color='#fff' />}}
-                            onPress={() => doStartMission(infosMyOffer._data.mission_id )}
+                            onPress={() => doStartMission(infosMyOffer._data.mission_id, 'fromCarrier' )}
                             titleStyle={{ fontFamily:'Nunito-Black'}}
                             containerStyle={{ borderRadius:20, alignSelf:'center' }}
                             buttonStyle={{ backgroundColor:'#42a3aa' }}
@@ -280,14 +300,14 @@ const OfferReceivedItemComponent = (props) => {
                             titleStyle={{ fontFamily:'Nunito-Black'}}
                             containerStyle={styles.button_container_style}
                             buttonStyle={{ backgroundColor:'#e3eae9' }}
-                            // disabled={isConfirm}
+                            disabled={!isConfirm && props.disabled}
                         /> 
                     }
                     {   offerInfos && isConfirm &&
                         <Button 
                             title="Débuter"
                             type="solid"
-                            onPress={() => doStartMission(offerInfos._data.mission_id)}
+                            onPress={() => doStartMission(offerInfos._data.mission_id, 'fromCustomer')}
                             titleStyle={{ fontFamily:'Nunito-Black'}}
                             containerStyle={styles.button_container_style}
                             buttonStyle={{ backgroundColor:'#e3eae9' }}

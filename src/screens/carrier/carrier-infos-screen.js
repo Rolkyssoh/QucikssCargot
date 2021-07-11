@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+import storage from '@react-native-firebase/storage'; 
 import { StyleSheet, View } from 'react-native';
 import { Text, Image } from 'react-native-elements';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -40,7 +40,7 @@ const CarrierInfosScreen = (props) => {
                 console.log('conentu de url : ', url);
                 setCarrierPhoto(url)
             })
-            .catch(error => console.log('erreur de url : ', error));
+            .catch(error => console.log('erreur de url : ', error)); 
     }
 
     return(

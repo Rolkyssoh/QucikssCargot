@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
 import { StyleSheet, View } from 'react-native';
 import { Text, Image, Button } from 'react-native-elements';
 import CustomButton from './custom-button';  
 import * as CustomNavigation from './navigations/CustomNavigation';
 import Entypo from 'react-native-vector-icons/Entypo';
-
+ 
 const NewMissionHeader = ({ title, doNav }) => {
     // const [profilePicture, setProfilePicture] = useState('')
     const [userCurrent, setUserCurrent] = useState()
+    const [userImage, setUserImage]= useState('')
+    const userProfileImage = userImage == '' ? '' : { uri: userImage }
 
     useEffect(() => {
         console.log('Dans le header mission: ', auth().currentUser._user.phoneNumber)
@@ -22,10 +24,25 @@ const NewMissionHeader = ({ title, doNav }) => {
                 .then((resp) => { 
                     console.log('response getting in new mission heaser : ', resp.docs[0]._data)
                     setUserCurrent(resp.docs[0]._data)
+                    if(resp.docs[0]._data.photoURL){
+                        downloadImage(resp.docs[0]._data.photoURL)
+                    }
                 })
                 .catch((error) => { console.log('error while getting user current infos : ', error)})
         }
     },[])
+
+    const downloadImage = async (theRef) => {
+        console.log('valeur de url photo profile : ')
+        await storage()
+            .ref(theRef)
+            .getDownloadURL()
+            .then(url => {
+                console.log('conentu de url : ', url);
+                setUserImage(url)
+            })
+            .catch(error => console.log('erreur de url : ', error)); 
+    }
 
     // const choisirImage = () => {
     //     console.log('choit de image');
@@ -52,10 +69,10 @@ const NewMissionHeader = ({ title, doNav }) => {
                 />
                 <View style={styles.userinfos_view}> 
                     <View style={styles.avatar_view}>
-                        {/* {   profilePicture === '' ? */}
-                                <Entypo name="user" size={32} color="#fff" />
-                        {/* //         : <Image source={{uri: profilePicture}} /> */}
-                        {/* // } */}
+                        {   userProfileImage == '' ?
+                            <Entypo name="user" size={32} color="black" />
+                            : <Image source={userProfileImage} style={{ height:45, width:45, borderRadius:30 }} /> 
+                        } 
                     </View>
                     {userCurrent && <Text style={{ fontFamily:'Nunito-Black' }}>{userCurrent.username}</Text>}
                 </View>
@@ -93,7 +110,7 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     avatar_view:{
-        backgroundColor:'grey',
+        // backgroundColor:'grey',
         height:45,
         width:45,
         borderRadius:30,

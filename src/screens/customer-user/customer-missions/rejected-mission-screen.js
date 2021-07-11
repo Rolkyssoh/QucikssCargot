@@ -6,7 +6,7 @@ import { Text, Button } from 'react-native-elements';
 import CustomerMissionComponent from '../../../components/customer-mission.component';
 import CustomHeader from '../../../components/custom-header';
 import IconArrow from 'react-native-vector-icons/AntDesign';
-
+ 
 const RejectedMissionScreen = (props) => {
 
     const [missionRejected, setMissionRejected] = useState()
@@ -20,6 +20,7 @@ const RejectedMissionScreen = (props) => {
             .where("rejected", "==", true)
             .where("user_id", "==", user_id) 
             .where("started_at","==", "") 
+            .where("ended_at","==", "")
             .get()
             .then((resp) => { 
                 console.log('response getting mission: ', resp.docs)

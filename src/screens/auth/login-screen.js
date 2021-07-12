@@ -32,7 +32,7 @@ const LoginScreen = (props) => {
                     placeholder="0643826612"
                     keyboardType="phone-pad"
                     dataDetectorTypes="phoneNumber"
-                    value={props.phone}
+                    value={props.phone} 
                     // maxLength={10}
                     onChangeText={(e)=> onPhoneNumberChange(e)}
                     // containerStyle={{backgroundColor:'red',flex:1}}

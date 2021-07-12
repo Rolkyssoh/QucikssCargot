@@ -8,6 +8,13 @@ const OfferReceivedScreen = (props) => {
     const [offerItems, setOfferItems] = useState()
     const [myOfferItems, setMyOfferItems] = useState()
     const [loadingIndicator, setLoadingIndicator] = useState(false)
+    const [isDisabled, setIsdisabled] = useState(false)
+
+    useEffect(() => {
+        if(offerItems){
+            setIsdisabled(offerItems.some(_=>!_._data.validated))
+        }
+    },[offerItems])
 
     useEffect(() => {
         console.log('mission recu', props.route.params)
@@ -72,7 +79,7 @@ const OfferReceivedScreen = (props) => {
             {/* For customer */}
             {
                 offerItems && offerItems.map((item) => {
-                    return <OfferReceivedItemComponent key={item.id.toString()} disabled={offerItems.some(_=>!_._data.validated)} infos={item} goback={previousScreen} />
+                    return <OfferReceivedItemComponent key={item.id.toString()} disabled={isDisabled} infos={item} goback={previousScreen} />
                 })
             }
             {/* For carrier */}

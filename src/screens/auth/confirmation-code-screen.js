@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useRef } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
@@ -14,24 +14,51 @@ import {
 import CustomHeader from '../../components/custom-header';
 
 const ConfirmationCode = (props) => {
-
+    const inputDigit1 = useRef()
+    const inputDigit2 = useRef()
+    const inputDigit3 = useRef()
+    const inputDigit4 = useRef()
+    const inputDigit5 = useRef()
+    const inputDigit6 = useRef()
+    
     const onDigit1Change = (digit1) => {
         props.digit1Changed(digit1)
+        if(digit1===''){}
+        else{
+            inputDigit2.current.focus()
+        }
     }
     const onDigit2Change = (digit2) => {
         props.digit2Changed(digit2)
+        if(digit2===''){inputDigit1.current.focus()}
+        else{
+            inputDigit3.current.focus()
+        }
     }
     const onDigit3Change = (digit3) => {
         props.digit3Changed(digit3)
+        if(digit3===''){inputDigit2.current.focus()}
+        else{
+            inputDigit4.current.focus()
+        }
     }
     const onDigit4Change = (digit4) => {
         props.digit4Changed(digit4) 
+        if(digit4===''){inputDigit3.current.focus()}
+        else{
+            inputDigit5.current.focus()
+        }
     }
     const onDigit5Change = (digit5) => {
         props.digit5Changed(digit5)
+        if(digit5===''){inputDigit4.current.focus()}
+        else{
+            inputDigit6.current.focus()
+        }
     }
     const onDigit6Change = (digit6) => {
         props.digit6Changed(digit6)
+        if(digit6===''){inputDigit5.current.focus()}
     }
 
     const doCheckCode = () => {
@@ -51,6 +78,7 @@ const ConfirmationCode = (props) => {
                 <View style={styles.inputs_style_view}>
                     <Input
                         name='digit1'
+                        ref={inputDigit1}
                         placeholder='0'
                         keyboardType="phone-pad"
                         value={props.digit1}
@@ -63,6 +91,7 @@ const ConfirmationCode = (props) => {
                     />
                     <Input
                         name='digit2'
+                        ref={inputDigit2}
                         placeholder='0'
                         keyboardType="phone-pad"
                         value={props.digit2}
@@ -75,6 +104,7 @@ const ConfirmationCode = (props) => {
                     />
                     <Input
                         name='digit3'
+                        ref={inputDigit3}
                         placeholder='0'
                         keyboardType="phone-pad"
                         value={props.digit3}
@@ -87,6 +117,7 @@ const ConfirmationCode = (props) => {
                     />
                     <Input
                         name='digit4'
+                        ref={inputDigit4}
                         placeholder='0'
                         keyboardType="phone-pad"
                         value={props.digit4} 
@@ -99,6 +130,7 @@ const ConfirmationCode = (props) => {
                     />
                     <Input
                         name='digit5'
+                        ref={inputDigit5}
                         placeholder='0'
                         keyboardType="phone-pad"
                         value={props.digit5}
@@ -111,6 +143,7 @@ const ConfirmationCode = (props) => {
                     />
                     <Input
                         name='digit6'
+                        ref={inputDigit6}
                         placeholder='0'
                         keyboardType="phone-pad"
                         value={props.digit6}

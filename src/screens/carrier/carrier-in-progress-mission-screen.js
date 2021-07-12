@@ -38,7 +38,7 @@ const CarrierExecutedMissionScreen = (props) => {
                         .catch((error) => { 
                             console.log('error while getting in progress mission: ', error)
                             setIsLoading(false)
-                        })
+                        })              
                 }
             })
             .catch((error) => { console.log('error while getting carrier offer validated: ', error)}) 

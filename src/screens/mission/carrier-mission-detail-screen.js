@@ -12,6 +12,7 @@ import CustomModalComponent from '../../components/custom-modal.component';
 const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
     const [missionPictures, setMissionPictures] = useState()
     const [numberOfOffer, setNumberOfOffer] = useState(0)
+    const [numberMissionOffer, setNumberMissionOffer]=useState(0)
     const [load, setLoad] = useState(false)
 
     useEffect(() => { 
@@ -30,8 +31,8 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                 countCarrierIsOffer(idCurrentUser, route.params.id)
             }
             // For customer
-            if(route.params.id && idCurrentUser){
-                countMissionIsOffer(route.params.id, idCurrentUser)
+            if(route.params.id){
+                countMissionIsOffer(route.params.id)
                 missionStartIsReady(route.params.id)
             }
         });
@@ -59,18 +60,18 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
             
     }
 
-    const countMissionIsOffer = (idMission, idCarrier) => {
+    const countMissionIsOffer = (idMission) => {
         //Count carrier is offer
         console.log({idMission})
         firestore()
             .collection('Offer')
-            .where('carrier_id', '==', `${idCarrier}`)
+            // .where('carrier_id', '==', `${idCarrier}`)
             .where('mission_id', '==', `${idMission}`)
             // .where('rejected', '==', false)
             .get()
             .then((resp) => { 
                 console.log('Count mission is offer', resp.docs.length)
-                setNumberOfOffer(resp.docs.length)
+                setNumberMissionOffer(resp.docs.length)
             })
             .catch((error) => console.log('error while counting carrier is offer: ', error))
     }
@@ -195,7 +196,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
                             <Text style={{ fontSize:22, fontFamily:'Nunito-Black', color:'#fff'}}>{route.params.infosMission.mission_title}</Text>
                         }
                     </View>
-                </View>
+                </View> 
             }
             {   route.params.infosMission && 
                 <View style={styles.description_view}> 
@@ -246,7 +247,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
             {/* For received offer(Customer) */}
             {   route.params.isCustomer && route.params.infosMission.activated!=false && 
                 <Button 
-                    title={`Proposition(s) reçue (${numberOfOffer})`} 
+                    title={`Proposition(s) reçue (${numberMissionOffer})`} 
                     type="outline"
                     onPress={() => navigation.navigate(
                         'OfferReceived',

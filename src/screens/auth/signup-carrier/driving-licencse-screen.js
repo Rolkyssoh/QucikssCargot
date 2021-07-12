@@ -42,10 +42,10 @@ const DrivingLicenseScreen = () => {
     };
 
     return(
-        <>
+        <View style={{ flex:1 }}>
             <CustomHeader customTitle="Devenir transporteur" />
             <CustomImagePicker drivingLicense screenTitle="Image de votre permis de conduire" />
-        </>
+        </View>
     )
 } 
 

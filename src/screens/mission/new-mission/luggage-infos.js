@@ -28,7 +28,7 @@ const LuggageInfos = (props) => {
             <View style={styles.content_view}>
                 <View style={styles.input_view}> 
                     <Input  
-                        placeholder="Volume approximatif"
+                        placeholder="Volume approximatif" 
                         value={props.luggageVolume}
                         onChangeText={onVolumeChange}
                         inputStyle={styles.inputs_styles}

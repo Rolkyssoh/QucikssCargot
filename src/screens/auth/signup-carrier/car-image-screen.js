@@ -7,11 +7,11 @@ import CustomImagePicker from '../../../components/images-upload/custom-image-pi
 
 const CarImageScreen = () => {
     return(
-        <>  
+        <View style={{ flex:1 }}>  
             <CustomHeader customTitle="Devenir transporteur" />
             <CustomImagePicker carImage screenTitle="Image de votre voiture" /> 
             {/* <View><Text>testetet</Text></View> */}
-        </>
+        </View>
     )
 }
 

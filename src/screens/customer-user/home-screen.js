@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     view_title:{
         marginTop:30,
-        marginBottom:70
+        marginBottom:50
     },
     boxes_first_view:{
         justifyContent:'center',
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         shadowOffset:{height:10, width:10}, 
     },
     boxes_thirt_view:{ 
-        marginTop:70,
+        marginTop:'3%',
         // marginVertical:50,  
         backgroundColor:'#42a3aa',  
         width:300,

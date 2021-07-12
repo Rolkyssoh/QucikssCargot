@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     },
     view_for_main_content:{
         flexDirection:'column', 
-        width:'75%', 
+        width:'100%', 
         paddingLeft:10,
     },
     title_and_hour_view:{
@@ -389,8 +389,11 @@ const styles = StyleSheet.create({
         paddingBottom:10
     },
     buttons_view:{
+        flex:1,
         flexDirection:'row', 
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        // borderColor:'red',
+        // borderWidth:1
     },
     button_container_style:{
         width:'45%', 

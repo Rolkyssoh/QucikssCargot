@@ -89,7 +89,7 @@ const UserProfileComponent = ({infosCurrentUser, doPress, disconnectUser, curren
         <View style={styles.profile_container}>
             <View style={styles.settin_view_style}>
                 <Ionicons  
-                    onPress={doPress} 
+                    // onPress={doPress} 
                     name="settings-outline" 
                     size={25} 
                     color='#000'

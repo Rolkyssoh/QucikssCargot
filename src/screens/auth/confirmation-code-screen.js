@@ -69,7 +69,7 @@ const ConfirmationCode = (props) => {
 
     return(
         // <CustomHeader customTitle="Rejetée(s)" />
-        <>
+        <View style={{flex:1}}>
             <CustomHeader customTitle="code de confirmation" />
             <View style={styles.container_view}>
                 <View style={styles.text_intro_view}>
@@ -184,7 +184,7 @@ const ConfirmationCode = (props) => {
                     />
                 </View>
             </View>
-        </>
+        </View>
     )
 }
 
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
     container_view:{
         flex:1,
         backgroundColor:'white',
+        alignItems:'center',
         paddingHorizontal:20,
         paddingBottom:20
     },

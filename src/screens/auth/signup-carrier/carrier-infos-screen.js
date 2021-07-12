@@ -56,7 +56,7 @@ const CarrierInfosScreen = (props) => {
     }
 
     return(
-        <>
+        <View style={{ flex:1 }}>
             <CustomHeader customTitle="Devnir transporteur" />
             <View style={styles.title_view_style}>
                 <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>Infos du transporteur</Text>
@@ -114,7 +114,7 @@ const CarrierInfosScreen = (props) => {
                 />
                 <IconArrow name="arrowright" size={30} color='#42a3aa' /> 
             </View>
-        </>
+        </View>
     )
 };
 
@@ -122,15 +122,16 @@ const styles = StyleSheet.create({
     title_view_style:{
         // flex:1
         alignItems:'center',
-        marginVertical:40
+        marginVertical:30
     },
     carrier_container:{
         // alignItems:'center'
-        marginBottom:40
+        marginBottom:30
     },
     input_view:{
         // width:'100%',
-        padding:40
+        paddingHorizontal:40,
+        paddingVertical:10
     },
     inputs_styles:{
         fontFamily:'Nunito-Regular'

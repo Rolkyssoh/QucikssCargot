@@ -37,7 +37,7 @@ const CarInfosScreen = (props) => {
     }
 
     return(
-        <>
+        <View style={{ flex:1 }}>
             <CustomHeader customTitle="Devenir transporteur" />
             <View style={styles.view_title_style}>
                 <Text style={{ fontSize:22, fontFamily:'Nunito-Black'}}>Infos du Véhicule</Text>  
@@ -87,21 +87,22 @@ const CarInfosScreen = (props) => {
                 }
                 <IconArrow name="arrowright" size={30} color='#42a3aa' />
             </View>
-        </>
+        </View>
     )
 };
  
 const styles = StyleSheet.create({
-    view_title_style:{
+    view_title_style:{ 
         alignItems:'center',
-        marginVertical:40
+        marginVertical:30
     },
     car_container:{
-        marginBottom:40
+        marginBottom:30
     },
     view_input:{
         // width:'100%',
-        padding:40
+        paddingHorizontal:40,
+        paddingVertical:10
     },
     inputs_styles:{
         fontFamily:'Nunito-Regular'

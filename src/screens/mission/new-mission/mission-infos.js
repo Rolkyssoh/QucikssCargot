@@ -3,7 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RadioButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import NewMissionHeader from '../../../components/new-mission-header'; 
 import { 
@@ -220,6 +220,7 @@ const MissionInfos = (props) => {
 
 
     return(
+        <ScrollView style={{backgroundColor:'#fff'}}>
         <View style={styles.mission_infos_container}>
             <NewMissionHeader 
                 title={ props.route.params.missionId ? "Modifier la Mission" : "Infos nouvelle mission"} 
@@ -317,6 +318,7 @@ const MissionInfos = (props) => {
                 </View>
             </View>
         </View>
+        </ScrollView>
     )
 }
 

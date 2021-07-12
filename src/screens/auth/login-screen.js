@@ -65,7 +65,7 @@ const LoginScreen = (props) => {
                     Des frais de messagerie SMS et de transfert de données peuvent s'appliquer.
                 </Text>
                 <Button
-                    containerStyle={{width:370, paddingVertical:15,}}
+                    containerStyle={{width:'100%', paddingVertical:15,}}
                     // buttonStyle={{width:370 }}
                     title="Confirmer"
                     type="outline"
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     login_container:{
         flex:1,
         alignItems:'center',
-        // padding: 15,
+        padding: 15,
     },
     view_input:{
         flex:1,
@@ -92,14 +92,15 @@ const styles = StyleSheet.create({
         // backgroundColor:'blue',
     },
     view_text: {
-        top:135, 
+        top:135,  
         position:'absolute'
     },
     button_view:{
         flex:1, 
         alignItems:'center', 
         justifyContent:'flex-end', 
-        width:370 
+        width:'85%'
+        
     },
     text_style:{
         fontSize:18,

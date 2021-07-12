@@ -112,7 +112,7 @@ const App = (props) => {
                 />
                 <Stack.Screen 
                     name="NavTab"
-                    component={NavigationHome}
+                    component={NavigationHome} 
                     // options={{ title:'' }}
                     options={{ headerShown:false }}
                 />

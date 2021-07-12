@@ -8,17 +8,23 @@ const MissionValidate = ({ navigation }) => {
     const [missionItems, setMissionItems] = useState(null)
  
     useEffect(() => {
-        firestore()
-        .collection('Mission')
-        .where("activated", "==", true)  
-        .where("rejected", "==", false)
-        .get() 
-        .then((response)=>{
-            console.log('result on publishe: ', response.docs);
-            setMissionItems(response.docs)
-        })
-        .catch((error)=> { console.log('error while getting publish mission : ', error)})
-    },[])
+
+        const unsubscribe = navigation.addListener('focus', () => {
+            firestore()
+                .collection('Mission')
+                .where("activated", "==", true)  
+                .where("rejected", "==", false)
+                .get() 
+                .then((response)=>{
+                    console.log('result on publishe: ', response.docs);
+                    setMissionItems(response.docs)
+                })
+                .catch((error)=> { console.log('error while getting publish mission : ', error)})
+        });
+        return() => {
+            unsubscribe;
+        }
+    },[navigation])
 
     return(
         <View style={styles.validate_container}> 

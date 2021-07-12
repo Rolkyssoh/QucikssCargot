@@ -179,7 +179,7 @@ const StartMissionScreen = (props) => {
                 {/* Terminer la mission */}
                 {   isCarrierValue == false && statusMissionForCarrier=='Début confirmé!' && missionIsEnd =="" &&
                     <Button 
-                        title="Mission terminé"
+                        title="Mettre fin à la mission"
                         type="solid"
                         // {...isConfirm && {icon:<FontAwesomeCheck name='check' size={25} color='#fff' />}}
                         onPress={() => doEndedMission(props.route.params.missionIdForStart)}
@@ -201,7 +201,7 @@ const StartMissionScreen = (props) => {
                         <Button 
                             title="Valider"
                             type="solid"
-                            // onPress={() => doEndedMission(props.route.params.missionIdForStart)}
+                            onPress={() => props.navigation.navigate('Customer', { screen:'Validée'})}
                             titleStyle={{ fontFamily:'Nunito-Black'}}
                             containerStyle={{ borderRadius:20, alignSelf:'center', marginTop:20 }}
                             buttonStyle={{ backgroundColor:'#42a3aa' }}

@@ -14,24 +14,28 @@ const RejectedMissionScreen = (props) => {
 
     useEffect(() => { 
         let isCancelled = false;
-        firestore()
-            .collection('Mission')
-            .where("activated", "==", false)
-            .where("rejected", "==", true)
-            .where("user_id", "==", user_id) 
-            .where("started_at","==", "") 
-            .where("ended_at","==", "")
-            .get()
-            .then((resp) => { 
-                console.log('response getting mission: ', resp.docs)
-                setMissionRejected(resp.docs)
-            })
-            .catch((error) => { console.log('error while getting mission : ', error)})
-        
-        return () => {
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            firestore()
+                .collection('Mission')
+                .where("activated", "==", false)
+                .where("rejected", "==", true)
+                .where("user_id", "==", user_id) 
+                .where("started_at","==", "") 
+                .where("ended_at","==", "")
+                .get()
+                .then((resp) => { 
+                    console.log('response getting mission: ', resp.docs)
+                    if(!isCancelled){
+                        setMissionRejected(resp.docs)
+                    }
+                })
+                .catch((error) => { console.log('error while getting mission : ', error)})
+        });
+        return() => {
+            unsubscribe;
             isCancelled = true;
-        };
-    },[])
+        }
+    },[props.navigation])
 
     return(
         <>

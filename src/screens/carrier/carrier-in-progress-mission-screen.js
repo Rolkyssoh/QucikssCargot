@@ -22,6 +22,7 @@ const CarrierExecutedMissionScreen = (props) => {
             .get()
             .then((resp) => {
                 setIsLoading(false)
+                console.log({resp})
                 if(resp._docs.length>0){
                     setIsLoading(true)
                     firestore()
@@ -29,9 +30,10 @@ const CarrierExecutedMissionScreen = (props) => {
                         .doc(resp._docs[0]._data.mission_id)
                         .get()
                         .then((result) => { 
-                            console.log('response getting mission in progress: ', result.id)
-                            setIsLoading(false)
-                            if(result._data.started_at != ""){
+                            console.log('response getting mission in progress: ', result)
+                            setIsLoading(false) 
+                            if(result._data.started_at != "" && result._data.ended_at == ""){
+                                console.log('the datas :',result._data.started_at )
                                 setInProgressMission([result])                     
                             }
                         })

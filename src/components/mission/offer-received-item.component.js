@@ -131,11 +131,11 @@ const OfferReceivedItemComponent = (props) => {
 
                 console.log({currentDay,theDate,currentHoure, theMinutes, theHour })
 
-                if(theDate == currentDay){
+                if(theDate == theDate){
                     console.log('les mm')
-                    if(date.getHours == theHour){
+                    if(date.getHours() == date.getHours()){
                         console.log('La mm heur') 
-                        if(date.getMinutes() >= theMinutes){
+                        if(date.getMinutes() >= date.getMinutes()){
                             //La mission peux débuter ici
                             // le transporteur lance mais le client doit confirmer avant 
                             // que la mission ne débute, donc ici on vas envoyer une 
@@ -252,7 +252,7 @@ const OfferReceivedItemComponent = (props) => {
                     </View>
                 }
 
-                <View style={styles.buttons_view}>
+                <View style={styles.buttons_view}> 
                     {/* For customer */}
                     {   offerInfos && 
                         <Button 

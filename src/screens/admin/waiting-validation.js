@@ -4,21 +4,27 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { Text } from 'react-native-elements';
 import MissionItem from '../../components/mission-item';
 
-const WaitingValidation = () => {
+const WaitingValidation = (props) => {
     const [missionItems, setMissionItems] = useState(null) 
 
     useEffect(() => {
-        firestore()
-        .collection('Mission')
-        .where("activated", "==", false) 
-        .where("rejected", "==", false)
-        .get() 
-        .then((response)=>{
-            console.log('result on waiting mission: ', response.docs);
-            setMissionItems(response.docs)
-        })
-        .catch((error)=> { console.log('error while getting waiting mission : ', error)})
-    },[])
+
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            firestore()
+                .collection('Mission')
+                .where("activated", "==", false) 
+                .where("rejected", "==", false)
+                .get() 
+                .then((response)=>{
+                    console.log('result on waiting mission: ', response.docs);
+                    setMissionItems(response.docs)
+                })
+                .catch((error)=> { console.log('error while getting waiting mission : ', error)})
+        });
+        return() => {
+            unsubscribe;
+        }
+    },[props.navigation])
 
 
     return(

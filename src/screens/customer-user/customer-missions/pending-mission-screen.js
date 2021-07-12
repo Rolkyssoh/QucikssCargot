@@ -10,25 +10,28 @@ import IconArrow from 'react-native-vector-icons/AntDesign';
 const PendingMissionScreen = (props) => {
     const [missionPending, setMissionPending] = useState()
     const [user_id, setUserId] = useState(props.userId)
-
+ 
     useEffect(() => { 
         console.log('valeu de user id : ', props.userId)
-        // if(props.userId){
-        //     setUserId(props.userId)  
-        // }
-        firestore()
-            .collection('Mission')
-            .where("activated", "==", false)   
-            .where("rejected", "==", false)
-            .where("ended_at", "==", "")
-            .where("user_id", "==", user_id) 
-            .get()
-            .then((resp) => { 
-                console.log('response getting mission: ', resp.docs)
-                setMissionPending(resp.docs)
-            })
-            .catch((error) => { console.log('error while getting mission : ', error)})
-    },[])
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            firestore()
+                .collection('Mission')
+                .where("activated", "==", false)   
+                .where("rejected", "==", false)
+                .where("ended_at", "==", "")
+                .where("user_id", "==", user_id) 
+                .get()
+                .then((resp) => { 
+                    console.log('response getting mission: ', resp.docs)
+                    setMissionPending(resp.docs)
+                })
+                .catch((error) => { console.log('error while getting mission : ', error)})
+        });
+        return() => {
+            unsubscribe;
+        }
+
+    },[props.navigation])
 
     return(
         <> 

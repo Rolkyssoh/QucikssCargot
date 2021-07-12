@@ -13,18 +13,23 @@ const ValidateMissionScreen = (props) => {
     const [user_id, setUserId] = useState(props.userId)
 
     useEffect(() => {
-        firestore()
-            .collection('Mission')
-            .where("activated", "==", true)
-            // .where("started_at", "==", "")
-            .where("user_id", "==", user_id) 
-            .get()
-            .then((resp) => { 
-                console.log('response getting mission: ', resp.docs.length)
-                setMissionValidated(resp.docs)
-            })
-            .catch((error) => { console.log('error while getting mission : ', error)})
-    },[])
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            firestore()
+                .collection('Mission')
+                .where("activated", "==", true)
+                // .where("started_at", "==", "") 
+                .where("user_id", "==", user_id) 
+                .get()
+                .then((resp) => { 
+                    console.log('response getting mission: ', resp.docs.length)
+                    setMissionValidated(resp.docs)
+                })
+                .catch((error) => { console.log('error while getting mission : ', error)})
+        });
+        return() => {
+            unsubscribe;
+        }
+    },[props.navigation])
 
     return(
         <>

@@ -43,28 +43,32 @@ const AddInfosScreen = (props) => {
         <View style={styles.container_add_infos}>
             <CustomHeader customTitle="Bienvenue" />
             <View style={styles.subtitle_style_view}>
-                <Text h4>Completez vos informations</Text>
+                <Text style={{fontFamily:'Nunito-Black', fontSize:23}}>Completez vos informations</Text>
             </View>
             <View style={styles.view_input_style}>
                 <Input
                     placeholder="Entrez votre nom"
                     value={props.name}
                     onChangeText={onUpdateName}
+                    inputStyle={styles.inputs_styles}
                 />
                 <Input
                     placeholder="Entrez votre e-mail"
                     value={props.email}
                     onChangeText={onUpdateEmail}
+                    inputStyle={styles.inputs_styles}
                 />
                 <Input
                     placeholder="Numéro de téléphone"
                     value={auth().currentUser._user.phoneNumber}
                     disabled
+                    inputStyle={styles.inputs_styles}
                 />
                 <Input
-                    placeholder="Entrez votre ville"
+                    placeholder="Entrez votre ville" 
                     value={props.city}
                     onChangeText={onUpdateCity}
+                    inputStyle={styles.inputs_styles}
                 />
             </View>
             <View style={styles.view_button_style}>
@@ -72,6 +76,8 @@ const AddInfosScreen = (props) => {
                     title="Valider"
                     type="outline"
                     onPress={doUpdate}
+                    titleStyle={{ color:'#42a3aa', fontFamily:'Nunito-Black'}}
+                    buttonStyle={{ borderRadius:20, borderColor:'#42a3aa'}}
                 />
             </View>
         </View>
@@ -90,6 +96,9 @@ const styles = StyleSheet.create({
     },
     view_input_style:{
         paddingHorizontal:20
+    },
+    inputs_styles:{
+        fontFamily:'Nunito-Regular'
     },
     view_button_style:{
         alignItems:'center',

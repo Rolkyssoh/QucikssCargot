@@ -4,22 +4,28 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { Text } from 'react-native-elements';
 import MissionItem from '../../components/mission-item';
 
-const MissionRejected = () => {
+const MissionRejected = (props) => {
 
     const [missionItems, setMissionItems] = useState(null) 
 
     useEffect(() => { 
-        firestore()
-        .collection('Mission')
-        .where("activated", "==", false) 
-        .where("rejected", "==", true)
-        .get() 
-        .then((response)=>{
-            console.log('result on rejected mission: ', response.docs);
-            setMissionItems(response.docs)
-        })
-        .catch((error)=> { console.log('error while getting rejected mission : ', error)})
-    },[])
+
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            firestore()
+                .collection('Mission')
+                .where("activated", "==", false) 
+                .where("rejected", "==", true)
+                .get() 
+                .then((response)=>{
+                    console.log('result on rejected mission: ', response.docs);
+                    setMissionItems(response.docs)
+                })
+                .catch((error)=> { console.log('error while getting rejected mission : ', error)})
+        });
+        return() => {
+            unsubscribe;
+        }
+    },[props.navigation])
 
 
     return(

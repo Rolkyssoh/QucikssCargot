@@ -13,7 +13,7 @@ const MissionDetailComponent = ({navigation,route, idCurrentUser}) => {
     const [missionPictures, setMissionPictures] = useState()
     const [numberOfOffer, setNumberOfOffer] = useState(0)
     const [numberMissionOffer, setNumberMissionOffer]=useState(0)
-    const [load, setLoad] = useState(false)
+    const [load, setLoad] = useState(false) 
 
     useEffect(() => { 
         console.log('params recue: ', route.params) 

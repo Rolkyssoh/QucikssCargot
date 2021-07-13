@@ -33,7 +33,7 @@ const LuggageImages = (props) => {
                         <DisplayImage imgOne />
                         <DisplayImage img2 />  
                     </View>
-                    <View style={styles.image_view}>
+                    <View style={styles.image_view}> 
                         <DisplayImage img3 />
                         <DisplayImage img4 />
                     </View>

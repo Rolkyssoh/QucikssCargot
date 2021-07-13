@@ -65,16 +65,19 @@ const MissionInfos = (props) => {
       };
 
     useEffect(() => {
+        let isUnmount = false
         console.log('id user dans mission infos: ', props.userId)
         console.log('params reçu dans missioniNFOS: ', props.route)
-        if(props.route.params.moyen){
+        if(props.route.params.moyen && !isUnmount){
             props.transportationChanged(props.route.params.moyen)
         }
-        if(props.route.params.missionId){
+        if(props.route.params.missionId && !isUnmount){
             //get mission infos
             getMissionInfosForUpdate(props.route.params.missionId)
         }
-
+        return() => {
+            isUnmount = true;
+        }
     },[])
 
     const getMissionInfosForUpdate = async (theMissionId) => {
@@ -220,7 +223,7 @@ const MissionInfos = (props) => {
 
 
     return(
-        <ScrollView style={{backgroundColor:'#fff'}}>
+        <ScrollView style={{backgroundColor:'#fff'}}> 
         <View style={styles.mission_infos_container}>
             <NewMissionHeader 
                 title={ props.route.params.missionId ? "Modifier la Mission" : "Infos nouvelle mission"} 
@@ -350,7 +353,7 @@ const mapStateToProps = (state) => {
 
         selectedHours: state.NewMission.selectedHours,
         selectedMinutes: state.NewMission.selectedMinutes,
-        selectedDay: state.NewMission.selectedDay,
+        selectedDay: state.NewMission.selectedDay, 
         selectedDate: state.NewMission.selectedDate,
         selectedMonth: state.NewMission.selectedMonth,
         selectedYear: state.NewMission.selectedYear,

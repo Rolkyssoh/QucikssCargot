@@ -10,7 +10,7 @@ import ExecutedMissionComponent from '../../components/mission/executed-mission-
 const CarrierExecutedMissionScreen = (props) => {
     const [isLoading, setIsLoading] = useState(false)
     const [inProgressMission, setInProgressMission] = useState([])
-    const [theCarrierId, setTheCarrierId] = useState(props.userId)
+    const [theCarrierId, setTheCarrierId] = useState(props.userId) 
     // const [notMissionExec, setNotMissionExec] = useState([]) 
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const CarrierExecutedMissionScreen = (props) => {
                         .doc(resp._docs[0]._data.mission_id)
                         .get()
                         .then((result) => { 
-                            console.log('response getting mission in progress: ', result)
+                            console.log('response getting mission in progress: ', result) 
                             setIsLoading(false) 
                             if(result._data.started_at != "" && result._data.ended_at == ""){
                                 console.log('the datas :',result._data.started_at )

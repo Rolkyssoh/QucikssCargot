@@ -41,7 +41,7 @@ const LuggageInfos = (props) => {
                     {/* <Input 
                         placeholder="Ajouter images"
                     /> */}
-                    <Button 
+                    <Button  
                         title="Ajouter images"
                         type="clear"
                         onPress={() => props.navigation.navigate("ImgLuggage") }

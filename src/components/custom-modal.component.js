@@ -7,16 +7,20 @@ import { Input } from 'react-native-elements';
 
 const CustomModalComponent = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [givenProposition, setGivenProposition] = useState('');
+  const [givenProposition, setGivenProposition] = useState(''); 
   const [changingModalText, setChangingModalText] = useState(props.modalText)
   const [doLoading, setDoLoading] = useState(false)
   const [idOffer, setIdOffer] = useState()
 
   useEffect(() => {
-    if(props.offerInfos){
+    let isUnmount = false;
+    if(props.offerInfos && !isUnmount){
       setGivenProposition(props.offerInfos._data.offer_content)
       setIdOffer(props.offerInfos.id)
     }
+    return() => {
+      isUnmount = true;
+  }
   },[])
 
     const confirmDeleted = () => {
@@ -125,6 +129,7 @@ const CustomModalComponent = (props) => {
     }
     const doUpdateMyOffer = () => {
       if(idOffer){
+        setDoLoading(true)
         firestore()
           .collection('Offer')
           .doc(idOffer)
@@ -132,11 +137,12 @@ const CustomModalComponent = (props) => {
             offer_content: givenProposition
           })
           .then(() => {
+            setDoLoading(false)
             console.log('Offer Updated!');
             setTimeout(() => {
               setModalVisible(!modalVisible)
               customNavigate('Details')
-            }, 3000)
+            }, 500)
             setChangingModalText("Modification effectuée")
             setGivenProposition('')
           });

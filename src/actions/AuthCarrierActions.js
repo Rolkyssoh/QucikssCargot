@@ -65,7 +65,7 @@ export const vehicleTypeChanged = (type) => {
         type: VEHICLE_TYPE_CHANGED,
         payload: type
     }
-}
+} 
 export const vehicleCapacityChanged = (capacity) => {
     return {
         type: VEHICLE_CAPACITY_CHANGED,
@@ -131,7 +131,7 @@ export const createNewCarrier = ({ name, email, phone, city, matricule, mark, ty
                 vehicleCapacity:capacity, 
                 vehiclePicture:''
             })
-            .then((snapshot)=>{
+            .then((snapshot)=>{ 
                 console.log('user added!!', snapshot._documentPath._parts[1]);
                 uploadImage(drivingPicture, snapshot._documentPath._parts[1]);
                 uploadCarImage(carPicture, snapshot._documentPath._parts[1]);

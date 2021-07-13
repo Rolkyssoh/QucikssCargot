@@ -174,7 +174,7 @@ export const createNewMission = ({title, destination, depature, selectedHours, s
            depature_place:depature,
            //  depature_time:`${selectedHours.hours+':'+selectedHours.minutes}`,
            depature_time: selectedHours+':'+selectedMinutes,
-           depature_day: `${ missionType == 'programmée' ? depatureDateGive : currentDateMIssion }`,
+           depature_day: `${ missionType == "programmée" ? depatureDateGive : currentDateMIssion }`,
            started_at:'',
            ended_at:'',
            mission_description:description,
@@ -214,14 +214,14 @@ export const createNewMission = ({title, destination, depature, selectedHours, s
     }
 };
 
-export const updatingMission = ({title, destination, depature, description,selectedHours, selectedMinutes, selectedDay, selectedDate, transportation,
+export const updatingMission = ({title, destination, depature, description,selectedHours, selectedMinutes, selectedDay, selectedDate, transportation,missionType,
     selectedMonth, selectedYear, luggageVolume, baggageType,baggageImage1, baggageImage2, baggageImage3,baggageImage4, missionId, documentMissionId}) => {
         return async (dispatch) => {
             const date = new Date()
             const missionDateUpdate = date.getDate() + "/" + (date.getMonth() + 1)+"/"+date.getFullYear()
             const missionHourUpdate = date.getHours()+":"+date.getMinutes();
             const depatureDateGive = selectedDay + ', le ' + `${selectedDate}/${selectedMonth}/${selectedYear}`;
-            const currentDateMIssion = selectedDay + ', le ' + `${missionDate}`
+            const currentDateMIssion = selectedDay + ', le ' + `${missionDateUpdate}`
             dispatch ({ type: UPDATE_AND_EXISTING_MISSION});
             console.log({missionId, documentMissionId})
 
@@ -233,12 +233,12 @@ export const updatingMission = ({title, destination, depature, description,selec
                 rejected:false,
                 updatingDay: missionDateUpdate,
                 updatingHour: missionHourUpdate ,
-                mission_type:'',
+                mission_type:missionType,
                 mission_title: title,
                 mission_destination:destination,
                 depature_place:depature,
                 depature_time: selectedHours+':'+selectedMinutes,
-                depature_day: `${ missionType == 'programmée' ? depatureDateGive : currentDateMIssion }`,
+                depature_day: `${ missionType == "programmée" ? depatureDateGive : currentDateMIssion }`,
                 started_at:'',
                 ended_at:'',
                 mission_description:description,
@@ -252,6 +252,12 @@ export const updatingMission = ({title, destination, depature, description,selec
                     .get()
                     .then((resp) => {
                         console.log('response getting Baggage infos in update: ', resp.docs[0].id)
+                        customNavigate(
+                            'Customer',
+                            {
+                                screen: 'En attente'
+                            }
+                        )
                         //update baggage infos
                         updateBaggageInfos(missionId, resp.docs[0].id, luggageVolume, baggageType)
                     })
@@ -265,7 +271,7 @@ const updateBaggageInfos = async (theMissinCollectionId, missionDocId, vol, typ)
     await firestore()
       .collection('Baggage')
       .doc('Mission')
-      .collection(theMissinCollectionId)
+      .collection(theMissinCollectionId) 
       .doc(missionDocId)
       .update({
         baggage_volume: vol,

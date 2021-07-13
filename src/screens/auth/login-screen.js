@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { phoneNumberChanged, handleSendCode } from '../../actions';
@@ -7,14 +8,36 @@ import { phoneNumberChanged, handleSendCode } from '../../actions';
 
 const LoginScreen = (props) => {
 
+    const checkActivatedPhoneNumber = (phoneNum) => {
+        firestore()
+        .collection('Users')
+        .where('userPhoneNumber', '==', phoneNum)
+        .get()
+        .then((result) => { 
+            if(result.docs.length>0){
+                if(result.docs[0]._data.activated==false){
+                    console.log('not activated')
+                    props.navigation.navigate('Awaiting')
+                } else {
+                    //Envoie du code
+                    props.handleSendCode(phoneNum)
+                }
+            } else {
+                //Envoie du code
+                props.handleSendCode(phoneNum)
+            }
+        })
+        .catch((error) => console.log('error while getting user by phone number', error))
+    }
+
     const onPhoneNumberChange = (phone) => {
         props.phoneNumberChanged(phone)
     }
 
     const doLogin = () => {
-        
-        if(props.phone != ''){
-            props.handleSendCode(props.phone)
+        if(props.phone != ''){  
+            checkActivatedPhoneNumber(props.phone)
+            // props.handleSendCode(props.phone)
             console.log('do loggg: ', props.phone)
         } else {
             console.log('phone est vide')

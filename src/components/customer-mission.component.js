@@ -11,12 +11,15 @@ const CustomerMissionComponent = (props) => {
     const [missionIdDoc, setMissionIdDoc] = useState()
 
     useEffect(() => {
-        if(props.missions) {
+        let isUnmount = false
+        if(props.missions && !isUnmount) {
             console.log('contenu venant de pending : ', props.missions.id)
             setMissionItem(props.missions._data)
             getBaggageInfos(props.missions.id)
         }
-        
+        return() => {
+            isUnmount = true; 
+        }
     },[])
 
     const getBaggageInfos = async (missionIdCollection) => {

@@ -88,6 +88,11 @@ const App = (props) => {
                   options={{headerShown: false}}
                 />
                 <Stack.Screen 
+                  name="Awaiting"
+                  component={AwaitingScreen}
+                  options={{ headerShown:false }}
+                />
+                <Stack.Screen 
                   name="CarrierSignup" 
                   component={CarrierSignupScreen}
                   options={{ headerShown:false }}
@@ -103,11 +108,6 @@ const App = (props) => {
                 <Stack.Screen 
                   name="AddInfos"
                   component={AddInfosScreen}
-                  options={{ headerShown:false }}
-                />
-                <Stack.Screen 
-                  name="Awaiting"
-                  component={AwaitingScreen}
                   options={{ headerShown:false }}
                 />
                 <Stack.Screen 

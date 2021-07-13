@@ -263,14 +263,14 @@ const OfferReceivedItemComponent = (props) => {
                             titleStyle={{ fontFamily:'Nunito-Black'}}
                             containerStyle={styles.button_container_style}
                             buttonStyle={{ backgroundColor:'#42a3aa' }}
-                            disabled={!isConfirm && props.disabled}
+                            disabled={isConfirm && props.disabled}
                             // disabledTitleStyle={{title:"prisss"}}
                         />
                     }
                     {/* For carrier */}
                     {   infosMyOffer && infosMyOffer._data.validated == false &&
                         <CustomModalComponent 
-                            pressableTitle="Modifier" 
+                            pressableTitle="Modifier"  
                             modalText="Entrez vos modifications"
                             // missionId={route.params.id}
                             offerInfos = {infosMyOffer}
@@ -344,9 +344,10 @@ const OfferReceivedItemComponent = (props) => {
         </View>
     )
 }
-
+ 
 const styles = StyleSheet.create({
     container_offer_item:{
+        flex:1,
         flexDirection:'row', 
         padding:15,
         // borderWidth:1,
@@ -360,13 +361,13 @@ const styles = StyleSheet.create({
     },
     image_Image_style:{
         width:'100%', 
-        height:100, 
+        height:'100%', 
         borderRadius:60,
         alignItems:'center',
         justifyContent:'center'
     },
     image_avatar_style:{
-        width:'100%', 
+        // width:'100%', 
         height:96, 
         backgroundColor:'gray', 
         borderRadius:60,
@@ -375,7 +376,7 @@ const styles = StyleSheet.create({
     },
     view_for_main_content:{
         flexDirection:'column', 
-        width:'100%', 
+        width:'75%', 
         paddingLeft:10,
     },
     title_and_hour_view:{

@@ -18,7 +18,7 @@ const RejectedMissionScreen = (props) => {
             firestore()
                 .collection('Mission')
                 .where("activated", "==", false)
-                .where("rejected", "==", true)
+                .where("rejected", "==", true) 
                 .where("user_id", "==", user_id) 
                 .where("started_at","==", "") 
                 .where("ended_at","==", "")

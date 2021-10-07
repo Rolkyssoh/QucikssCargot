@@ -3,3 +3,4 @@
 3 - adb reverse tcp:3000 tcp:3000 : identifier le divice
 4 - adb kill-server : remettre tout à zero
 5- get the SHA keys: cd android && ./gradlew signingReport
+6 - ./gradlew assembleDebug : create a Debug apk
